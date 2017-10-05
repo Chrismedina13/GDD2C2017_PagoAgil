@@ -1,0 +1,3 @@
+\\VBOXSVR\PagoAgil2C2017\src\PagoAgilFrba\bin\Debug\PagoAgilFrba.exe.config
+C:\Users\chris\Desktop\Gestion de datos\Tp 2c GDD\Aplicacion Desktop\PagoAgilFrba\bin\Debug\PagoAgilFrba.exe.config
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\bin\Debug\PagoAgilFrba.exe.config
