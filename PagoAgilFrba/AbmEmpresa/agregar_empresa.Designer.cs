@@ -48,6 +48,9 @@
             this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Rubro:";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+
+
             // 
             // label2
             // 
@@ -105,6 +108,8 @@
             this.btnVolver.TabIndex = 7;
             this.btnVolver.Text = "VOLVER";
             this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+
             // 
             // bton_agregarEmpresa
             // 
@@ -124,6 +129,8 @@
             this.comboRubro.Name = "comboRubro";
             this.comboRubro.Size = new System.Drawing.Size(159, 21);
             this.comboRubro.TabIndex = 17;
+            this.comboRubro.SelectedIndexChanged += new System.EventHandler(this.cmbRubro_SelectedIndexChanged);
+
             // 
             // agregar_empresa
             // 
@@ -143,6 +150,7 @@
             this.MaximizeBox = false;
             this.Name = "agregar_empresa";
             this.Text = "AGREGAR EMPRESA ";
+            this.Load += new System.EventHandler(this.agregar_empresa_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
