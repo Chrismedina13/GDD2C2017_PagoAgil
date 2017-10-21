@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace PagoAgilFrba.AbmEmpresa
 {
-    public partial class Form1 : Form
+    public partial class agregar_empresa : Form
     {
-        public Form1()
+        public agregar_empresa()
         {
             InitializeComponent();
+        }
+
+        private void agregarEmpresa_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
