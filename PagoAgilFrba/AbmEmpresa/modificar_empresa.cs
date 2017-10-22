@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PagoAgilFrba.AbmEmpresa
 {
-    public partial class eliminar_empresa : Form
+    public partial class modificar_empresa : Form
     {
-        public eliminar_empresa()
+        public modificar_empresa()
         {
             InitializeComponent();
 
@@ -24,7 +24,7 @@ namespace PagoAgilFrba.AbmEmpresa
             }
         }
 
-        private void eliminar_empresa_Load(object sender, EventArgs e)
+        private void modificar_empresa_Load(object sender, EventArgs e)
         {
             //Database.cargarGriddEmpresa(dataGridView1,"","","","");
             //dataGridView1.SelectionChanged += new EventHandler(dataGridView1_SelectionChanged);
@@ -46,7 +46,7 @@ namespace PagoAgilFrba.AbmEmpresa
             this.Close();
         }
 
-        private void btnEliminar_Click(object sender, EventArgs e)
+        private void btnModificar_Click(object sender, EventArgs e)
         {
             String rubro = cmbRubro.Text;
             String nombre = txtNombre.Text;
@@ -63,21 +63,27 @@ namespace PagoAgilFrba.AbmEmpresa
                 MessageBox.Show("Faltan completar campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            else if (true)//!Database.cuitHabilitado(cuit))
-            {
-                MessageBox.Show("La empresa ingresada ya esta dado de baja. Para darlo de alta ingrese en Modificar automivil.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            else
-            {
-                var respuesta = MessageBox.Show("¿Estas seguro?","Confirme borrado",MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            else{
+                var respuesta = MessageBox.Show("¿Estas seguro?","Confirme modificado",MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (respuesta == DialogResult.Yes)
                 {
+                    String Rubro = cmbRubro.Text;
+                    String Nombre = txtNombre.Text;
+                    String Cuit = txtCuit.Text;
                     
-                    
-                    //Database.deleteAutomovil(rubro, nombre, cuit);
-                    this.limpiarCuadrosDeTexto();
-                    //Database.cargarGriddEmpresa(dataGridView1,"","","");
+                    String Direccio;
+                    Direccio = "hola";
+
+                    //Direccio = Database.getDireccionEmpresa(Rubro,Nombre,Cuit);
+                    if (Direccio != null)
+                    {
+                      //  modificarElegido form = new modificarElegido(Rubro,Nombre,Cuit,Direccio);
+                        //form.Show();
+                        limpiarCuadrosDeTexto();
+                        //Database.cargarGriddAutomovil(dataGridView1, "", "", "");
+               
+                    }
+                    else MessageBox.Show("Los datos ingresados no corresponden a ningun registro","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }
                 else return;
             }

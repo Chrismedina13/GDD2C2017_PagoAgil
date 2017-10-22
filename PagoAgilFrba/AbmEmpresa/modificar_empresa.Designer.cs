@@ -1,6 +1,6 @@
 ﻿namespace PagoAgilFrba.AbmEmpresa
 {
-    partial class eliminar_empresa
+    partial class modificar_empresa
     {
         /// <summary>
         /// Required designer variable.
@@ -34,7 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnEliminar = new System.Windows.Forms.Button();
+            this.btnModificar = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
             this.cmbRubro = new System.Windows.Forms.ComboBox();
@@ -97,15 +97,15 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Nombre :";
             // 
-            // btnEliminar
+            // btnModificar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(331, 34);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(101, 51);
-            this.btnEliminar.TabIndex = 9;
-            this.btnEliminar.Text = "DAR DE BAJA";
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            this.btnModificar.Location = new System.Drawing.Point(331, 34);
+            this.btnModificar.Name = "btnEliminar";
+            this.btnModificar.Size = new System.Drawing.Size(101, 51);
+            this.btnModificar.TabIndex = 9;
+            this.btnModificar.Text = "MODIFICAR EMPRESA";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // dataGridView1
             // 
@@ -148,7 +148,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(157, 13);
             this.label6.TabIndex = 13;
-            this.label6.Text = "Ingrese datos para filtrar la tabla";
+            this.label6.Text = "Ingrese datos para modificar la tabla";
             // 
             // label8
             // 
@@ -169,16 +169,16 @@
             this.Controls.Add(this.cmbRubro);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.btnEliminar);
+            this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.txtCuit);
             this.Controls.Add(this.btnVolver);
-            this.Name = "eliminar_empresa";
-            this.Text = "ELIMINAR Empresa";
-            this.Load += new System.EventHandler(this.eliminar_empresa_Load);
+            this.Name = "modificar_empresa";
+            this.Text = "MODIFICAR_EMPRESA";
+            this.Load += new System.EventHandler(this.modificar_empresa_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -193,7 +193,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cmbRubro;
