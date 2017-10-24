@@ -116,11 +116,17 @@
     <Compile Include="AbmRol\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmSucursal\Form1.cs">
+    <Compile Include="AbmSucursal\Abm_sucursal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmSucursal\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmSucursal\Abm_sucursal.Designer.cs">
+      <DependentUpon>Abm_sucursal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmSucursal\agregar_sucursal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmSucursal\agregar_sucursal.Designer.cs">
+      <DependentUpon>agregar_sucursal.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
