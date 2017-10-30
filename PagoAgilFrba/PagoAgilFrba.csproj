@@ -110,12 +110,26 @@
     <Compile Include="AbmFactura\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\Form1.cs">
+    <Compile Include="AbmRol\ABM_Rol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmRol\ABM_Rol.Designer.cs">
+      <DependentUpon>ABM_Rol.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmRol\Alta_Rol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\Alta_Rol.Designer.cs">
+      <DependentUpon>Alta_Rol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\Funcionalidad.cs" />
+    <Compile Include="AbmRol\ModificarRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\ModificarRol.Designer.cs">
+      <DependentUpon>ModificarRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\Rol.cs" />
     <Compile Include="AbmSucursal\Abm_sucursal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +160,8 @@
     <Compile Include="AbmSucursal\modificar_sucursalElegida.Designer.cs">
       <DependentUpon>modificar_sucursalElegida.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmUsuario\UsuarioDAL.cs" />
+    <Compile Include="BDComun.cs" />
     <Compile Include="GD2C2017DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -156,6 +172,12 @@
     </Compile>
     <Compile Include="ListadoEstadistico\estadisticas.Designer.cs">
       <DependentUpon>estadisticas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -172,6 +194,24 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Support\Trimesre.cs" />
+    <Compile Include="VentanaCobrador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VentanaCobrador.Designer.cs">
+      <DependentUpon>VentanaCobrador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VentanaPorRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VentanaPorRol.Designer.cs">
+      <DependentUpon>VentanaPorRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VentanaPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VentanaPrincipal.Designer.cs">
+      <DependentUpon>VentanaPrincipal.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AbmCliente\agregar_cliente.resx">
       <DependentUpon>agregar_cliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -196,6 +236,9 @@
     <EmbeddedResource Include="ListadoEstadistico\estadisticas.resx">
       <DependentUpon>estadisticas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -205,6 +248,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="VentanaCobrador.resx">
+      <DependentUpon>VentanaCobrador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VentanaPorRol.resx">
+      <DependentUpon>VentanaPorRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VentanaPrincipal.resx">
+      <DependentUpon>VentanaPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="GD2C2017DataSet.xsc">
       <DependentUpon>GD2C2017DataSet.xsd</DependentUpon>
     </None>

@@ -16,7 +16,7 @@ namespace PagoAgilFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Form1()); aca tendria que ir el inicio de sesion 
+            Application.Run(new Login());// aca tendria que ir el inicio de sesion 
         }
     }
 }

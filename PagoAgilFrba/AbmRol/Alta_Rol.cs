@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PagoAgilFrba.AbmRol
 {
-    public partial class Form1 : Form
+    public partial class Alta_Rol : Form
     {
-        public Form1()
+        public Alta_Rol()
         {
             InitializeComponent();
         }
