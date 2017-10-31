@@ -146,22 +146,16 @@
     <Compile Include="AbmSucursal\modificar_sucursalElegida.Designer.cs">
       <DependentUpon>modificar_sucursalElegida.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="GD2C2017DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GD2C2017DataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ListadoEstadistico\Form1.cs">
+    <Compile Include="ListadoEstadistico\estadisticas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListadoEstadistico\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ListadoEstadistico\estadisticas.Designer.cs">
+      <DependentUpon>estadisticas.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -177,6 +171,7 @@
     <Compile Include="Rendicion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Support\Trimesre.cs" />
     <EmbeddedResource Include="AbmCliente\agregar_cliente.resx">
       <DependentUpon>agregar_cliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -188,6 +183,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmEmpresa\modificarElegido.resx">
       <DependentUpon>modificarElegido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmSucursal\eliminar_sucursal.resx">
+      <DependentUpon>eliminar_sucursal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmSucursal\modificar_sucursal.resx">
+      <DependentUpon>modificar_sucursal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmSucursal\modificar_sucursalElegida.resx">
+      <DependentUpon>modificar_sucursalElegida.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListadoEstadistico\estadisticas.resx">
+      <DependentUpon>estadisticas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
