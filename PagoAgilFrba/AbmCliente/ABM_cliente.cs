@@ -14,14 +14,10 @@ namespace PagoAgilFrba.AbmCliente
 
           
     {
-
-      /*  private Inicio_Sesion.Seleccion_de_ABMs seleccion_de_ABMs;
-
-        public abm_cliente(Inicio_Sesion.Seleccion_de_ABMs seleccion_de_ABMs)
+        public abm_cliente()
         {
             InitializeComponent();
-            this.seleccion_de_ABMs = seleccion_de_ABMs;  //Cuando inicia sesion un usuario selecciona este ABM ejecuta esto 
-        } */
+        } 
 
 
         private void button1_Click(object sender, EventArgs e)

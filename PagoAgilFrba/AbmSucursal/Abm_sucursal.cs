@@ -13,13 +13,11 @@ namespace PagoAgilFrba.AbmSucursal
     public partial class Abm_sucursal : Form
     {
 
-        /*  private Inicio_Sesion.Seleccion_de_ABMs seleccion_de_ABMs;
-
-          public abm_sucursal(Inicio_Sesion.Seleccion_de_ABMs seleccion_de_ABMs)
+          public Abm_sucursal()
           {
               InitializeComponent();
-              this.seleccion_de_ABMs = seleccion_de_ABMs;  //Cuando inicia sesion un usuario selecciona este ABM ejecuta esto 
-          } */
+              
+          } 
 
 
         private void button1_Click(object sender, EventArgs e)
