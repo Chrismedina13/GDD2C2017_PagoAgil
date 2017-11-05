@@ -8,6 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PagoAgilFrba.AbmCliente;
+using PagoAgilFrba.AbmEmpresa;
+using PagoAgilFrba.AbmSucursal;
+using PagoAgilFrba.ListadoEstadistico;
+
 
 namespace PagoAgilFrba
 {
@@ -20,26 +25,7 @@ namespace PagoAgilFrba
         }
         public VentanaPrincipal(String nombre)
         {
-            this.user = nombre;
             InitializeComponent();
-            this.CargarComboFuncionalidades();
-        }
-
-        private void CargarComboFuncionalidades()
-        {
-
-            label1.Text = label1.Text + user;
-            //Vaciar comboBox
-            comboBox1.DataSource = null;
-            Funcionalidad f = new Funcionalidad();
-            //Indicar qué propiedad se verá en la lista
-            this.comboBox1.DisplayMember = "funcionalidad_descripcion";
-            //Indicar qué valor tendrá cada ítem
-            this.comboBox1.ValueMember = "ID";
-            //Asignar la propiedad DataSource
-            this.comboBox1.DataSource = f.getAllFuncionalidades();
-
-
         }
 
         private void VentanaPrincipal_Load(object sender, EventArgs e)
@@ -47,14 +33,44 @@ namespace PagoAgilFrba
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        private void VentanaPrincipal_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            abm_cliente form3 = new abm_cliente();
+            form3.Show();
+        }
+        private void button11_Click(object sender, EventArgs e)
+        {
+            abm_empresa form11 = new abm_empresa();
+            form11.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Abm_sucursal form4 = new Abm_sucursal();
+            form4.Show();
+        }
+
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            estadistica form10 = new estadistica();
+            form10.Show();
+        }
+
     }
 }

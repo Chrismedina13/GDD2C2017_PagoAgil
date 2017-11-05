@@ -12,13 +12,13 @@ namespace PagoAgilFrba.AbmEmpresa
 {
     public partial class abm_empresa : Form
     {
-        /*private Seleccion_de_ABMs seleccion_de_ABMs;
+        
 
-        public abm_empresa(Seleccion_de_ABMs seleccion_de_ABMs)
+        public abm_empresa()
         {
             InitializeComponent();
-            this.seleccion_de_ABMs = seleccion_de_ABMs;
-        }*/
+        
+        }
 
 
         private void Form1_Load(object sender, EventArgs e)
