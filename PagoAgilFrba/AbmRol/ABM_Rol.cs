@@ -16,5 +16,10 @@ namespace PagoAgilFrba.AbmRol
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Alta_Rol alta = new Alta_Rol();
+        }
     }
 }

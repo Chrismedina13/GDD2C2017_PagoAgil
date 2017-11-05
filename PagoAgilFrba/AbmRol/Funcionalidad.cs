@@ -35,5 +35,12 @@ namespace PagoAgilFrba.AbmRol
             }
             return func;
         }
+        
+        
+
+
+
+
+
     }
 }

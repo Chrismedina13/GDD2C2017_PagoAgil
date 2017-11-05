@@ -130,6 +130,7 @@
       <DependentUpon>ModificarRol.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmRol\Rol.cs" />
+    <Compile Include="AbmRol\RolDal.cs" />
     <Compile Include="AbmSucursal\Abm_sucursal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,6 +224,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmEmpresa\modificarElegido.resx">
       <DependentUpon>modificarElegido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\ABM_Rol.resx">
+      <DependentUpon>ABM_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\Alta_Rol.resx">
+      <DependentUpon>Alta_Rol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmSucursal\eliminar_sucursal.resx">
       <DependentUpon>eliminar_sucursal.cs</DependentUpon>
