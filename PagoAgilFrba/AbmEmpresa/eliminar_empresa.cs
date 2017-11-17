@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PagoAgilFrba.Support;
 
 namespace PagoAgilFrba.AbmEmpresa
 {
@@ -17,7 +18,7 @@ namespace PagoAgilFrba.AbmEmpresa
             InitializeComponent();
 
             List<String> rubros = new List<String>();
-            //rubros = Database.getRubros();
+            rubros = Database.getRubros();
             foreach (string rubro in rubros)
             {
                 cmbRubro.Items.Add(rubro);
@@ -26,8 +27,8 @@ namespace PagoAgilFrba.AbmEmpresa
 
         private void eliminar_empresa_Load(object sender, EventArgs e)
         {
-            //Database.cargarGriddEmpresa(dataGridView1,"","","","");
-            //dataGridView1.SelectionChanged += new EventHandler(dataGridView1_SelectionChanged);
+            Database.cargarGriddEmpresa(dataGridView1,"","","");
+            dataGridView1.SelectionChanged += new EventHandler(dataGridView1_SelectionChanged);
         }
 
         void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -63,7 +64,7 @@ namespace PagoAgilFrba.AbmEmpresa
                 MessageBox.Show("Faltan completar campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            else if (true)//!Database.cuitHabilitado(cuit))
+            else if (!Database.cuitHabilitado(cuit))
             {
                 MessageBox.Show("La empresa ingresada ya esta dado de baja. Para darlo de alta ingrese en Modificar automivil.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -75,9 +76,9 @@ namespace PagoAgilFrba.AbmEmpresa
                 {
                     
                     
-                    //Database.deleteAutomovil(rubro, nombre, cuit);
+                    Database.deleteEmpresa(rubro, nombre, cuit);
                     this.limpiarCuadrosDeTexto();
-                    //Database.cargarGriddEmpresa(dataGridView1,"","","");
+                    Database.cargarGriddEmpresa(dataGridView1,"","","");
                 }
                 else return;
             }
@@ -94,12 +95,12 @@ namespace PagoAgilFrba.AbmEmpresa
         private void txtCuit_KeyUp(object sender, KeyEventArgs e)
         {
 
-            //Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
+            Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
         }
 
         private void txtNombre_KeyUp(object sender, KeyEventArgs e)
         {
-            //Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
+            Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
         }
 
         private void cmbRubro_KeyUp(object sender, KeyEventArgs e)
@@ -108,13 +109,13 @@ namespace PagoAgilFrba.AbmEmpresa
 
         private void cmbRubro_MouseClick(object sender, MouseEventArgs e)
         {
-            //Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
+            Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
 
         }
 
         private void cmbRubro_DropDownClosed(object sender, EventArgs e)
         {
-            //Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
+            Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
         }
     }
 }

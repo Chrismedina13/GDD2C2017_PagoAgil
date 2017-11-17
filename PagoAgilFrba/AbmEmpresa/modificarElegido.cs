@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PagoAgilFrba.Support;
 
 namespace PagoAgilFrba.AbmEmpresa
 {
@@ -20,12 +21,12 @@ namespace PagoAgilFrba.AbmEmpresa
             lblNombre.Text = nombre;
             lblDireccion.Text = direccion;
             lblCuit.Text = cuit;
-         //   lblHabilitado.Text = Database.habilitadaEmpresa();
+            //lblHabilitado.Text = Database.habilitadaEmpresa();
 
 
-            List<String> Marcas = new List<String>();
-           // Marcas = Database.getMarcasAutomovil();
-            foreach (string elem in Marcas)
+            List<String> Rubros = new List<String>();
+            Rubros = Database.getRubros();
+            foreach (string elem in Rubros)
             {
                 cmbRubro.Items.Add(elem);
             }
@@ -71,7 +72,7 @@ namespace PagoAgilFrba.AbmEmpresa
 
 
 
-            //Database.modificarEmpresa(Rubro, nombre, direccion, Cuit, RubroNuevo, nombreNuevo, direccionNueva, cuitNuevo, habilitadoNuevo);
+            Database.modificarEmpresa(Rubro, nombre, direccion, Cuit, RubroNuevo, nombreNuevo, direccionNueva, cuitNuevo, habilitadoNuevo);
 
 
             this.Close();

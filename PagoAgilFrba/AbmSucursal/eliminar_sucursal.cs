@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PagoAgilFrba.Support;
 
 namespace PagoAgilFrba.AbmSucursal
 {
@@ -15,7 +16,7 @@ namespace PagoAgilFrba.AbmSucursal
         public eliminar_sucursal()
         {
             InitializeComponent();
-            //Database.cargarGriddSucursal(dataGridViewEliminarSucursal, "", "", "");
+            Database.cargarGriddSucursal(dataGridViewEliminarSucursal, "", "", "");
         }
 
         private void boton_cancelar_Click(object sender, EventArgs e)
@@ -53,9 +54,9 @@ namespace PagoAgilFrba.AbmSucursal
           var respuesta = MessageBox.Show("¿Estas seguro?","Confirme borrado",MessageBoxButtons.YesNo, MessageBoxIcon.Question);
           if (respuesta == DialogResult.Yes)
              {
-               //Database.deleteSucursal(nombre,direccion, codigoPostal);
+               Database.deleteSucursal(nombre,direccion, codigoPostal);
                this.limpiarCuadrosDeTexto();
-               //Database.cargarGriddSucursal(dataGridViewEliminarSucursal,"","","");
+               Database.cargarGriddSucursal(dataGridViewEliminarSucursal,"","","");
              }
                 else return;
             }

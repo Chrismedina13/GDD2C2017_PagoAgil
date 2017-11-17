@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PagoAgilFrba.Support;
 
 namespace PagoAgilFrba.AbmCliente
 {
@@ -74,9 +75,9 @@ namespace PagoAgilFrba.AbmCliente
                 String telefono = textTelefono.Text;
                 String direccion = textDireccion.Text;
                 String codigoPostal = textCodigoPostal.Text;
-                
+                int localidad = 3;
                 String fechanacimiento = dateTimePickerFechaNac.Text;
-               // Database.AddCliente(nombre, apellido, dni, mail, telefono, direccion, fechanacimiento);
+                Database.AddCliente(nombre, apellido, dni, mail, telefono, direccion,codigoPostal,localidad,fechanacimiento);
                 this.limpiarCuadrosDeTexto();
             }
 

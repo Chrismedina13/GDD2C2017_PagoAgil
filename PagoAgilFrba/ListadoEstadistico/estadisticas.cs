@@ -14,13 +14,12 @@ namespace PagoAgilFrba.ListadoEstadistico
 
     public partial class estadistica : Form
     {
-        //private acciones accionesAdministrador;
+       
         List<Trimestre> trimestres;
 
-        public estadistica()//(acciones accionesAdministrador)
+        public estadistica()
         {
             InitializeComponent();
-            //this.accionesAdministrador = accionesAdministrador;
             trimestres = new List<Trimestre>();
             trimestres.Add(new Trimestre(1, 1, 31, 3, "1° Trimestre (Enero - Marzo)"));
             trimestres.Add(new Trimestre(1, 4, 30, 6, "2° Trimestre (Abril - Junio)"));
@@ -51,7 +50,7 @@ namespace PagoAgilFrba.ListadoEstadistico
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Close();
-            //accionesAdministrador.Show();
+        
         }
 
         private void btnConsultar_Click(object sender, EventArgs e)
@@ -63,16 +62,16 @@ namespace PagoAgilFrba.ListadoEstadistico
                 switch (cmbTipo.Text)
                 {
                     case "Porcentaje de facturas cobradas por empresa":
-                      //  Database.cargarGriddPorcentajeFacturasCobradasPorEmpresa(dataGridView1, cmbTrimestre.SelectedItem as Trimestre, añoNUD.Value);
+                       // Database.cargarGriddPorcentajeFacturasCobradasPorEmpresa(dataGridView1, cmbTrimestre.SelectedItem as Trimestre, añoNUD.Value);
                         break;
                     case "Empresas con mayor monto rendido":
-                        //Database.cargarGriddEmpresasConMayorMontoRendido(dataGridView1, cmbTrimestre.SelectedItem as Trimestre, añoNUD.Value);
+                       // Database.cargarGriddEmpresasConMayorMontoRendido(dataGridView1, cmbTrimestre.SelectedItem as Trimestre, añoNUD.Value);
                         break;
                     case "Clientes con mas pagos":
-                        //Database.cargarGriddClienteConMasPagos(dataGridView1, cmbTrimestre.SelectedItem as Trimestre, añoNUD.Value);
+                        Database.cargarGriddClienteConMasPagos(dataGridView1, cmbTrimestre.SelectedItem as Trimestre, añoNUD.Value);
                         break;
                     case "Clientes con mayor porcentaje de facturas pagadas":
-                        //Database.cargarGriddClienteConMayorPorcentajeFacturasPagas(dataGridView1, cmbTrimestre.SelectedItem as Trimestre, añoNUD.Value);
+                        Database.cargarGriddClienteConMayorPorcentajeFacturasPagas(dataGridView1, cmbTrimestre.SelectedItem as Trimestre, añoNUD.Value);
                         break;
 
                     default:

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PagoAgilFrba.Support;
 
 namespace PagoAgilFrba.AbmCliente
 {
@@ -15,7 +16,7 @@ namespace PagoAgilFrba.AbmCliente
         public modificar_cliente()
         {
             InitializeComponent();
-          //  Database.cargarGriddCliente(dataGridViewModificarC, "", "", "");
+            Database.cargarGriddCliente(dataGridViewModificarC, "", "", "");
         }
 
         private void button1_Click(object sender, EventArgs e)

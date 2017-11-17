@@ -38,3 +38,9 @@ C:\GDD2C2017_PagoAgil\PagoAgilFrba\bin\Debug\PagoAgilFrba.pdb
 C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.pdb
 C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmRol.ABM_Rol.resources
 C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmRol.Alta_Rol.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmRol.ABM_Rol.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmRol.Alta_Rol.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.Login.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.VentanaCobrador.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.VentanaPorRol.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.VentanaPrincipal.resources

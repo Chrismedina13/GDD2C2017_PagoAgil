@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PagoAgilFrba.Support;
 
 namespace PagoAgilFrba.AbmEmpresa
 {
@@ -17,7 +18,7 @@ namespace PagoAgilFrba.AbmEmpresa
             InitializeComponent();
 
             List<String> rubros = new List<String>();
-            //rubros = Database.getRubros();
+            rubros = Database.getRubros();
             foreach (string rubro in rubros)
             {
                 cmbRubro.Items.Add(rubro);
@@ -26,8 +27,8 @@ namespace PagoAgilFrba.AbmEmpresa
 
         private void modificar_empresa_Load(object sender, EventArgs e)
         {
-            //Database.cargarGriddEmpresa(dataGridView1,"","","","");
-            //dataGridView1.SelectionChanged += new EventHandler(dataGridView1_SelectionChanged);
+            Database.cargarGriddEmpresa(dataGridView1,"","","");
+            dataGridView1.SelectionChanged += new EventHandler(dataGridView1_SelectionChanged);
         }
 
         void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -74,13 +75,13 @@ namespace PagoAgilFrba.AbmEmpresa
                     String Direccio;
                     Direccio = "hola";
 
-                    //Direccio = Database.getDireccionEmpresa(Rubro,Nombre,Cuit);
+                    Direccio = Database.getDireccionEmpresa(Rubro,Nombre,Cuit);
                     if (Direccio != null)
                     {
-                      //  modificarElegido form = new modificarElegido(Rubro,Nombre,Cuit,Direccio);
-                        //form.Show();
+                         modificarElegido form = new modificarElegido(Rubro,Nombre,Cuit,Direccio);
+                         form.Show();
                         limpiarCuadrosDeTexto();
-                        //Database.cargarGriddAutomovil(dataGridView1, "", "", "");
+                        Database.cargarGriddEmpresa(dataGridView1, "", "", "");
                
                     }
                     else MessageBox.Show("Los datos ingresados no corresponden a ningun registro","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
@@ -100,12 +101,12 @@ namespace PagoAgilFrba.AbmEmpresa
         private void txtCuit_KeyUp(object sender, KeyEventArgs e)
         {
 
-            //Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
+            Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
         }
 
         private void txtNombre_KeyUp(object sender, KeyEventArgs e)
         {
-            //Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
+            Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
         }
 
         private void cmbRubro_KeyUp(object sender, KeyEventArgs e)
@@ -114,13 +115,13 @@ namespace PagoAgilFrba.AbmEmpresa
 
         private void cmbRubro_MouseClick(object sender, MouseEventArgs e)
         {
-            //Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
+            Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
 
         }
 
         private void cmbRubro_DropDownClosed(object sender, EventArgs e)
         {
-            //Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
+            Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
         }
     }
 }

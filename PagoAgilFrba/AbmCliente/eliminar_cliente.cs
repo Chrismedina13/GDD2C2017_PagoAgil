@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PagoAgilFrba.Support;
 
 namespace PagoAgilFrba.AbmCliente
 {
@@ -15,7 +16,7 @@ namespace PagoAgilFrba.AbmCliente
         public eliminar_cliente()
         {
             InitializeComponent();
-          //  Database.cargarGriddCliente(dataGridViewEliminarC, "", "", "");
+            Database.cargarGriddCliente(dataGridViewEliminarC, "", "", "");
         }
 
         private void boton_cancelar_Click(object sender, EventArgs e)
@@ -59,9 +60,9 @@ namespace PagoAgilFrba.AbmCliente
                 var respuesta = MessageBox.Show("¿Estas seguro?", "Confirme borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (respuesta == DialogResult.Yes)
                 {
-                    //Database.deleteCliente(nombre, apellido, dni);
+                    Database.deleteCliente(nombre, apellido, dni);
                     this.limpiarCuadrosDeTexto();
-                   // Database.cargarGriddCliente(dataGridViewEliminarC, "", "", "");
+                    Database.cargarGriddCliente(dataGridViewEliminarC, "", "", "");
                 }
                 else return;
             }

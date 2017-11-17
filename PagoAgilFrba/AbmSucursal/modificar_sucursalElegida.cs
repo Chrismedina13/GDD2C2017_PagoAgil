@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PagoAgilFrba.Support;
 
 namespace PagoAgilFrba.AbmSucursal
 {
@@ -36,12 +37,12 @@ namespace PagoAgilFrba.AbmSucursal
                 return;
             }
 
-            String[] datosClienteElegido = new String[4];
-            //datosClienteElegido = Database.getDatosCliente(nombreViejo, codigoPostalViejo, direccionViejo);
-            textNombreN.Text = datosClienteElegido[0];
-            textCodigoPostal.Text = datosClienteElegido[1];
-            textDireccionN.Text = datosClienteElegido[2];
-            textHabilitado.Text = datosClienteElegido[3];
+            String[] datosSucursalElegido = new String[4];
+            datosSucursalElegido = Database.getDatosSucursal(nombreViejo, codigoPostalViejo, direccionViejo);
+            textNombreN.Text = datosSucursalElegido[0];
+            textCodigoPostal.Text = datosSucursalElegido[1];
+            textDireccionN.Text = datosSucursalElegido[2];
+            textHabilitado.Text = datosSucursalElegido[3];
 
 
         }
@@ -73,7 +74,7 @@ namespace PagoAgilFrba.AbmSucursal
                 MessageBox.Show("Verifique que los campos obligatorios hayan sido completados", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
-                //Database.modificarCliente(nombre, codigoPostal, direccion, nombreNuevo, CodigoPostalNuevo, direccionNuevo, habilitadoNuevo);
+                Database.modificarSucursal(nombre,direccion,cp, nombreNuevo, CodigoPostalNuevo, direccionNueva, habilitadoNuevo);
                 this.Close();
             }
 

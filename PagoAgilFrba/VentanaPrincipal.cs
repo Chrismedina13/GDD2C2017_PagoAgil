@@ -23,10 +23,6 @@ namespace PagoAgilFrba
         {
             InitializeComponent();
         }
-        public VentanaPrincipal(String nombre)
-        {
-            InitializeComponent();
-        }
 
         private void VentanaPrincipal_Load(object sender, EventArgs e)
         {

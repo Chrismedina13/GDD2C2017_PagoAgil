@@ -19,7 +19,7 @@ namespace PagoAgilFrba.AbmEmpresa
             InitializeComponent();
 
             List<String> Rubros = new List<String>();
-          /*  Rubros = Database.getRubrosEmpresa();
+          /* Rubros = Database.getRubrosEmpresa();
             foreach (string marca in Marcas)
             {
                 cmbMarca.Items.Add(marca);

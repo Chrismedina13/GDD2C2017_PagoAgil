@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PagoAgilFrba.Support;
 
 namespace PagoAgilFrba.AbmCliente
 {
@@ -41,7 +42,7 @@ namespace PagoAgilFrba.AbmCliente
             }
 
             String[] datosClienteElegido = new String[8];
-            //datosClienteElegido = Database.getDatosCliente(nombreViejo, apellidoViejo, dniViejo);
+            datosClienteElegido = Database.getDatosCliente(nombreViejo, apellidoViejo, dniViejo);
             textNombreN.Text = datosClienteElegido[0];
             textApellidoN.Text = datosClienteElegido[1];
             textDniN.Text = datosClienteElegido[2];
@@ -95,7 +96,7 @@ namespace PagoAgilFrba.AbmCliente
             }
             else
             {
-                //Database.modificarCliente(nombre, apellido, dni, nombreNuevo, apellidoNuevo, dniNuevo, telefonoNuevo, direccionNueva, mailNuevo, fechaNacimientoNueva, habilitadoNuevo);
+                Database.modificarCliente(nombre, apellido, dni, nombreNuevo, apellidoNuevo, dniNuevo, telefonoNuevo, direccionNueva, mailNuevo, fechaNacimientoNueva, habilitadoNuevo);
                 this.Close();
             }
 
