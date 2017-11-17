@@ -194,6 +194,7 @@
     <Compile Include="Rendicion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Support\Database.cs" />
     <Compile Include="Support\Trimesre.cs" />
     <Compile Include="VentanaCobrador.cs">
       <SubType>Form</SubType>

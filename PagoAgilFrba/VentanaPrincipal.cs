@@ -19,7 +19,7 @@ namespace PagoAgilFrba
     public partial class VentanaPrincipal : Form
     {
         public String user { get; set; }
-        public VentanaPrincipal()
+        public VentanaPrincipal(string nombre)
         {
             InitializeComponent();
         }
