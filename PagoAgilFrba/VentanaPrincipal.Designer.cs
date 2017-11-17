@@ -57,7 +57,6 @@
             this.button3.Text = "ABM Clientes";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-
             // 
             // button1
             // 
@@ -68,7 +67,6 @@
             this.button1.Text = "Volver";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-
             // 
             // button2
             // 
@@ -124,6 +122,7 @@
             this.button8.TabIndex = 10;
             this.button8.Text = "Registro Usuarios";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 
@@ -153,7 +152,6 @@
             this.button11.Text = "ABM Empresa";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
-
             // 
             // VentanaPrincipal
             // 

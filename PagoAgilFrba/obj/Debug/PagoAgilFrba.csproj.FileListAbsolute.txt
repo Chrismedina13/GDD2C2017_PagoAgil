@@ -44,3 +44,4 @@ C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.Login.reso
 C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.VentanaCobrador.resources
 C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.VentanaPorRol.resources
 C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.VentanaPrincipal.resources
+C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.Registro.resources

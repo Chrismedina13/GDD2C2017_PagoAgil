@@ -68,5 +68,11 @@ namespace PagoAgilFrba
             form10.Show();
         }
 
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Registro reg = new Registro();
+            reg.Show();
+        }
+
     }
 }
