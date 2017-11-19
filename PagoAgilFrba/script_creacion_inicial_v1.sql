@@ -334,7 +334,9 @@ begin
 	--select @id = scope_identity()[pero_compila].[Rol]
 end
 
-
+/*
+Obtiene todos los roles que se encuentran habilitados
+*/
 IF EXISTS (SELECT name FROM sysobjects WHERE name='pero_compila.sp_get_roles')
 	DROP PROCEDURE pero_compila.sp_get_roles
 GO
@@ -346,7 +348,9 @@ begin
 	select * from pero_compila.Rol where rol_estado=1
 end
 GO
-
+/*
+Realiza el update de los roles de acuerdo a un identificador(id)
+*/
 IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_update_rol')
 	DROP PROCEDURE pero_compila.sp_update_rol
 GO											
@@ -362,6 +366,23 @@ where rol_ID = @id
 
 end
 GO
+/*
+Realiza el alta de una funcionalidad
+*/
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_funcionalidades')
+	DROP PROCEDURE pero_compila.sp_alta_funcionalidades
+GO											
+go
+create procedure pero_compila.sp_alta_funcionalidades
+(@idRol int, @idFuncionalidad  int)
+as
+begin
+	insert into pero_compila.FuncionalidadXRol
+	(funcionalidadXRol_rol, funcionalidadXRol_funcionalidad)
+	values(@idRol, @idFuncionalidad)
+	--select @@IDENTITY
+end
+go
 --=============================================================================================================
 --TIPO		: Stored procedure
 --NOMBRE	: sp_alta_rol						------------TODO falta pasarle la lista de funcionalidades---------------
