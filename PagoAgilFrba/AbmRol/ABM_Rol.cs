@@ -19,7 +19,20 @@ namespace PagoAgilFrba.AbmRol
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Alta_Rol alta = new Alta_Rol();
+            Alta_Rol_Funcionalidad alta = new Alta_Rol_Funcionalidad();
+            alta.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            modificar_rol m = new modificar_rol();
+            m.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            eliminar_rol el = new eliminar_rol();
+            el.Show();
         }
     }
 }

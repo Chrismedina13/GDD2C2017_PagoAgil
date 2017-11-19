@@ -14,7 +14,15 @@ namespace PagoAgilFrba.AbmRol
         public Funcionalidad funcionalidad { get; set; }
         public int habilitado { get; set; }
         public String RolesPorUsuario { get; set; }
+        public Rol()
+        {
 
+        }
+        public Rol(int id, string nombre)
+        {
+            this.Id = id;
+            this.Nombre = nombre;
+        }
         public List<String> getAllRoles()
         {
             List<String> roles = new List<String>();
@@ -42,7 +50,7 @@ namespace PagoAgilFrba.AbmRol
 
                 using (SqlConnection Conexion = BDComun.ObtenerConexion())
                 {
-                    SqlCommand Comando = new SqlCommand(String.Format("select distinct R.rol_nombre FROM pero_compila.Usuario u  JOIN pero_compila.rolXUsuario uxr ON (u.usuario_ID = uxr.rolXUsuario_usuario) JOIN pero_compila.Rol R ON (R.ROL_ID=uxr.rolXUsuario_rol) WHERE u.usuario_username LIKE '{0}' ", nombreUser), Conexion);
+                    SqlCommand Comando = new SqlCommand(String.Format("select distinct R.rol_nombre FROM pero_compila.Usuario u  JOIN pero_compila.rolXUsuario uxr ON (u.usuario_ID = uxr.rolXUsuario_usuario) JOIN pero_compila.Rol R ON (R.ROL_ID=uxr.rolXUsuario_rol) WHERE u.usuario_username LIKE '{0}' and R.rol_estado=1 ", nombreUser), Conexion);
                     SqlDataReader reader = Comando.ExecuteReader();
 
                     while (reader.Read())

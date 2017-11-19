@@ -45,3 +45,7 @@ C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.VentanaCob
 C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.VentanaPorRol.resources
 C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.VentanaPrincipal.resources
 C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.Registro.resources
+C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmRol.Alta_Rol_Funcionalidad.resources
+C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmRol.modificar_rol.resources
+C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmRol.eliminar_rol.resources
+C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmCliente.eliminar_cliente.resources

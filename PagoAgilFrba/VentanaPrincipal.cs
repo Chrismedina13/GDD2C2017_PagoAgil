@@ -37,6 +37,8 @@ namespace PagoAgilFrba
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+            VentanaPorRol vr = new VentanaPorRol();
+            vr.Show();
         }
 
         private void VentanaPrincipal_Load_1(object sender, EventArgs e)
@@ -72,6 +74,12 @@ namespace PagoAgilFrba
         {
             Registro reg = new Registro();
             reg.Show();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            ABM_Rol objRol = new ABM_Rol();
+            objRol.Show();
         }
 
     }

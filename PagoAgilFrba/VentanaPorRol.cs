@@ -42,7 +42,9 @@ namespace PagoAgilFrba
         }
         private void VentanaPorRol_Load(object sender, EventArgs e)
         {
-
+            //CargarComboRol();
+            //button1.Hide();
+            //comboBox1.Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -69,6 +71,18 @@ namespace PagoAgilFrba
 
                 }
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Login log = new Login();
+            log.Show();
         }
     }
 }

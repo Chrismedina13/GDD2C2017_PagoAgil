@@ -124,11 +124,10 @@ localidad_pais nvarchar(255)
 
 create table [pero_compila].Sucursal(
 sucursal_Id int primary key identity,
-sucursal_CP int,
 sucursal_direccion nvarchar(255),
 sucursal_nombre nvarchar(255),
 sucursal_localidad int not null references [pero_compila].Localidad,
-contacto_codigo_postal int,
+sucursal_CP int,
 sucursal_estado bit default 1 
 )
 
@@ -313,6 +312,61 @@ END
    
 /*FIN LOGIN */
 
+/*ABM ROL*/
+--=============================================================================================================
+--TIPO		: Stored procedure
+--NOMBRE	: sp_alta_rol						------------TODO falta pasarle la lista de funcionalidades---------------
+--OBJETIVO  : dar de alta un rol                                 
+--=============================================================================================================
+IF EXISTS (SELECT name FROM sysobjects WHERE name='[pero_compila].[sp_alta_solo_rol]')
+	DROP PROCEDURE [pero_compila].[sp_alta_solo_rol]
+GO
+go
+create procedure [pero_compila].[sp_alta_solo_rol] 
+(@nombre varchar(255), @habilitado  bit)
+as
+begin
+	declare @id int
+	insert into pero_compila.Rol (rol_nombre, rol_estado)
+	values(@nombre, @habilitado)
+	
+	Select Max(rol_Id) from [pero_compila].[Rol]
+	--select @id = scope_identity()[pero_compila].[Rol]
+end
+
+
+IF EXISTS (SELECT name FROM sysobjects WHERE name='pero_compila.sp_get_roles')
+	DROP PROCEDURE pero_compila.sp_get_roles
+GO
+go
+create procedure pero_compila.sp_get_roles
+
+as
+begin
+	select * from pero_compila.Rol where rol_estado=1
+end
+GO
+
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_update_rol')
+	DROP PROCEDURE pero_compila.sp_update_rol
+GO											
+go
+create procedure pero_compila.sp_update_rol
+ (@id numeric(10,0), @nombre varchar(255), @habilitado bit)	
+as
+begin
+
+update pero_compila.Rol
+set rol_nombre = @nombre, rol_estado = @habilitado
+where rol_ID = @id
+
+end
+GO
+--=============================================================================================================
+--TIPO		: Stored procedure
+--NOMBRE	: sp_alta_rol						------------TODO falta pasarle la lista de funcionalidades---------------
+--OBJETIVO  : dar de alta un rol                                 
+--=============================================================================================================
 
 /*FIN DE STORED PROCEDURES*/
 
@@ -369,7 +423,8 @@ insert into pero_compila.RolXUsuario (rolXUsuario_usuario, rolXUsuario_rol) valu
 
 					/*Localidad*/
 
-/*insert into pero_compila.Localidad (localidad_provincia)*/
+/*insert into pero_compila.Localidad (localidad_nombre,localidad_provincia,localidad_pais)
+values ('Capital Federal','Buenos Aires','Argentina')*/
 
 
 

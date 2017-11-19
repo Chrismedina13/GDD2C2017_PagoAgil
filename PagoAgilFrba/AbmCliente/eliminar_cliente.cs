@@ -75,6 +75,8 @@ namespace PagoAgilFrba.AbmCliente
             textDni.Text = "";
 
         }
+
+        
     }
   
 }

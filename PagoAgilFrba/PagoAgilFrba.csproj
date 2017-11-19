@@ -122,12 +122,24 @@
     <Compile Include="AbmRol\Alta_Rol.Designer.cs">
       <DependentUpon>Alta_Rol.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\Funcionalidad.cs" />
-    <Compile Include="AbmRol\ModificarRol.cs">
+    <Compile Include="AbmRol\Alta_Rol_Funcionalidad.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\ModificarRol.Designer.cs">
-      <DependentUpon>ModificarRol.cs</DependentUpon>
+    <Compile Include="AbmRol\Alta_Rol_Funcionalidad.Designer.cs">
+      <DependentUpon>Alta_Rol_Funcionalidad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\eliminar_rol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\eliminar_rol.Designer.cs">
+      <DependentUpon>eliminar_rol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\Funcionalidad.cs" />
+    <Compile Include="AbmRol\modificar_rol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\modificar_rol.Designer.cs">
+      <DependentUpon>modificar_rol.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmRol\Rol.cs" />
     <Compile Include="AbmRol\RolDal.cs" />
@@ -223,6 +235,9 @@
     <EmbeddedResource Include="AbmCliente\agregar_cliente.resx">
       <DependentUpon>agregar_cliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbmCliente\eliminar_cliente.resx">
+      <DependentUpon>eliminar_cliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmEmpresa\agregar_empresa.resx">
       <DependentUpon>agregar_empresa.cs</DependentUpon>
     </EmbeddedResource>
@@ -237,6 +252,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\Alta_Rol.resx">
       <DependentUpon>Alta_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\Alta_Rol_Funcionalidad.resx">
+      <DependentUpon>Alta_Rol_Funcionalidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\eliminar_rol.resx">
+      <DependentUpon>eliminar_rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\modificar_rol.resx">
+      <DependentUpon>modificar_rol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmSucursal\eliminar_sucursal.resx">
       <DependentUpon>eliminar_sucursal.cs</DependentUpon>
