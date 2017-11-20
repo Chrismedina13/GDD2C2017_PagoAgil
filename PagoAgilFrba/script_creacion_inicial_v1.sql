@@ -152,8 +152,8 @@ rubro_descripcion nvarchar(250) not null,
 
 create table [pero_compila].Item (
 item_Id int primary key identity,
-item_descripcion nvarchar(250) not null,
-item_precio int
+item_descripcion nvarchar(250),
+item_precio numeric(18,2)
 )
 
 create table [pero_compila].Rendicion_Facturas (
@@ -169,17 +169,17 @@ rendicion_facturas_total int
 )
 
 create table [pero_compila].Cliente (
-cliente_Id int primary key identity,
 cliente_nombre nvarchar(255),
 cliente_apellido nvarchar(255),
 cliente_dni  numeric(18,0) ,
-cliente_email nvarchar(255) unique,
+cliente_email nvarchar(255),
 cliente_telefono nvarchar(255),
 cliente_direccion nvarchar(255),
 cliente_CP nvarchar(255),
 cliente_localidad int not null references [pero_compila].Localidad,
 cliente_fecha_nacimiento datetime,
 cliente_estado bit default 1
+PRIMARY KEY (cliente_dni,cliente_email)
 )
 
 
@@ -187,7 +187,7 @@ create table [pero_compila].Empresa (
 empresa_Id int primary key identity,
 empresa_nombre nvarchar(255),
 empresa_cuit nvarchar(50),
-empresa_direccion  numeric(18,0) not null,
+empresa_direccion  nvarchar(255) not null,
 empresa_rubro int not null references [pero_compila].Rubro,
 empresa_estado bit default 1
 )
@@ -195,12 +195,14 @@ empresa_estado bit default 1
 
 create table [pero_compila].Factura (
 factura_Id int primary key identity,
-factura_cliente int not null references [pero_compila].Cliente,
 factura_empresa int not null references [pero_compila].Empresa,
-factura_cod_factura nvarchar(255) unique,
+factura_cod_factura nvarchar(255),
+factura_cliente_dni numeric(18,0),
+factura_cliente_mail nvarchar(255),
 factura_fecha_alta datetime not null,
 factura_fecha_vencimiento datetime not null,
-factura_total decimal(18,2) not null default 0
+factura_total decimal(18,2) not null default 0,
+FOREIGN KEY (factura_cliente_dni, factura_cliente_mail) REFERENCES pero_compila.Cliente(cliente_dni,cliente_email)
 )
 
 
@@ -484,10 +486,11 @@ from gd_esquema.Maestra m
 /*falta la descripcion*/
 
 					/*Factura*/
-insert into pero_compila.Factura(factura_cliente,factura_empresa, factura_cod_factura,factura_fecha_alta, factura_fecha_vencimiento,factura_total)
-select distinct cliente_Id, empresa_Id, m.Nro_Factura, m.Factura_Fecha, m.Factura_Fecha_Vencimiento, m.Factura_Total
+insert into pero_compila.Factura(factura_cliente_dni,factura_cliente_mail,factura_empresa, factura_cod_factura,factura_fecha_alta, factura_fecha_vencimiento,factura_total)
+select distinct c.[cliente_dni],c.[cliente_email], empresa_Id, m.Nro_Factura, m.Factura_Fecha, m.Factura_Fecha_Vencimiento, m.Factura_Total
 from gd_esquema.Maestra m,pero_compila.Cliente c, pero_compila.Empresa e
 order by factura_fecha_vencimiento 
+
 
 
 					/*Rendicion_Facturas*/
@@ -496,7 +499,17 @@ insert into [pero_compila].Rendicion_Facturas  ( rendicion_facturas_fecha_Id,ren
 
 
 
+					/*Cliente*/
+INSERT INTO [pero_compila].[Cliente]([cliente_nombre],[cliente_apellido],
+[cliente_dni],[cliente_email]
+,[cliente_direccion],[cliente_CP],[cliente_localidad]
+,[cliente_fecha_nacimiento],[cliente_estado])
+select distinct m.[Cliente-Nombre],m.[Cliente-Apellido],m.[Cliente-Dni],
+m.[Cliente_Mail],m.[Cliente_Direccion],m.[Cliente_Codigo_Postal],l.localidad_id,m.[Cliente-Fecha_Nac],1
+from gd_esquema.Maestra m , pero_compila.Localidad l
+GO
 
-*/
+
+
 --INSERT INTO WARRIORS.Usuarios (usuario_username,usuario_password,usuario_intentosFallidos)
 --			VALUES ('admin','w23e',0)

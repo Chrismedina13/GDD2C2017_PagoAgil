@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PagoAgilFrba.AbmRol
 {
-    class RolDAL
+    public class RolDAL
     {
 
         public static bool CrearRol(String Nombre, int habilitado, String funcionalidad)
@@ -121,7 +121,6 @@ namespace PagoAgilFrba.AbmRol
         //}
         public static bool ModificarRol(int id, String nombre, int habilitado)
         {
-            int Valor_Retornado = 0;
             try
             {
 
@@ -136,16 +135,7 @@ namespace PagoAgilFrba.AbmRol
                 comando.Parameters.AddWithValue("@nombre", nombre);
                 comando.Parameters.AddWithValue("@habilitado", habilitado);
                 //comando.Parameters.AddWithValue("@rol_funcionalidades", Func);
-
-
-                if (comando.ExecuteNonQuery() > 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return comando.ExecuteNonQuery() > 0 ? true : false;
 
             }
             catch (Exception ex)
@@ -165,8 +155,7 @@ namespace PagoAgilFrba.AbmRol
                 //comenzamos a mandar cada uno de los parámetros, deben de enviarse en el
                 //tipo de datos que coincida en sql server por ejemplo c# es string en sql server es varchar()
                 comando.Parameters.AddWithValue("@Id", idRol);
-                if (comando.ExecuteNonQuery() > 0) { return true; }
-                else { return false; }
+                return comando.ExecuteNonQuery() > 0 ? true : false;
             }
             catch (Exception ex) { return false; }
         }

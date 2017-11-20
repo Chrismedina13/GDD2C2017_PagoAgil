@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PagoAgilFrba
 {
-    class BDComun
+    public class BDComun
     {
         public static SqlConnection ObtenerConexion()
         {

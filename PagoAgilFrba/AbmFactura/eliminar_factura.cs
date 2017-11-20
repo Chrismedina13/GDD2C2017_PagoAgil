@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PagoAgilFrba.AbmFactura
 {
-    public partial class Form1 : Form
+    public partial class eliminar_factura : Form
     {
-        public Form1()
+        public eliminar_factura()
         {
             InitializeComponent();
         }

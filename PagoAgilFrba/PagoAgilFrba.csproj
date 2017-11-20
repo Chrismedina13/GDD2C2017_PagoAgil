@@ -56,6 +56,8 @@
     <Compile Include="AbmCliente\agregar_cliente.Designer.cs">
       <DependentUpon>agregar_cliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmCliente\Cliente.cs" />
+    <Compile Include="AbmCliente\ClienteDal.cs" />
     <Compile Include="AbmCliente\eliminar_cliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +94,8 @@
     <Compile Include="AbmEmpresa\eliminar_empresa.Designer.cs">
       <DependentUpon>eliminar_empresa.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmEmpresa\Empresa.cs" />
+    <Compile Include="AbmEmpresa\EmpresaDal.cs" />
     <Compile Include="AbmEmpresa\modificarElegido.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,12 +108,50 @@
     <Compile Include="AbmEmpresa\modificar_empresa.Designer.cs">
       <DependentUpon>modificar_empresa.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmFactura\Form1.cs">
+    <Compile Include="AbmFactura\ABM_Factura.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmFactura\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmFactura\ABM_Factura.Designer.cs">
+      <DependentUpon>ABM_Factura.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmFactura\agregarFact.Designer.cs" />
+    <Compile Include="AbmFactura\agregarFact.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmFactura\Alta_Factura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmFactura\Alta_Factura.Designer.cs">
+      <DependentUpon>Alta_Factura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmFactura\eliminar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmFactura\eliminar.Designer.cs" />
+    <Compile Include="AbmFactura\eliminar_factura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmFactura\eliminar_factura.Designer.cs">
+      <DependentUpon>eliminar_factura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmFactura\Factura.cs" />
+    <Compile Include="AbmFactura\FacturaDal.cs" />
+    <Compile Include="AbmFactura\modificar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmFactura\modificar.Designer.cs" />
+    <Compile Include="AbmFactura\modificarDatos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmFactura\modificarDatos.Designer.cs" />
+    <Compile Include="AbmFactura\modificar_factura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmFactura\modificar_factura.Designer.cs">
+      <DependentUpon>modificar_factura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmoItem\Item.cs" />
+    <Compile Include="AbmoItem\ItemDal.cs" />
     <Compile Include="AbmRol\ABM_Rol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -246,6 +288,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmEmpresa\modificarElegido.resx">
       <DependentUpon>modificarElegido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmFactura\ABM_Factura.resx">
+      <DependentUpon>ABM_Factura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmFactura\Alta_Factura.resx">
+      <DependentUpon>Alta_Factura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmFactura\modificarDatos.resx">
+      <DependentUpon>modificarDatos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\ABM_Rol.resx">
       <DependentUpon>ABM_Rol.cs</DependentUpon>
