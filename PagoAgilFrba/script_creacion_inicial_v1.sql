@@ -424,6 +424,13 @@ insert into [pero_compila].FuncionalidadXRol (funcionalidadXRol_rol, funcionalid
 insert into pero_compila.Usuario (usuario_username, usuario_password) values
 ('admin',HASHBYTES('SHA2_256','w23e'))
 
+			/*Localidad*/
+
+/*insert into pero_compila.Localidad (localidad_nombre,localidad_provincia,localidad_pais)
+values ('Capital Federal','Buenos Aires','Argentina')*/
+
+
+
 					/*Clientes*/
 insert into pero_compila.Cliente (cliente_nombre, cliente_apellido,cliente_dni,cliente_email,cliente_direccion,cliente_CP,cliente_localidad,cliente_fecha_nacimiento)
 select distinct m.[Cliente-Nombre], m.[Cliente-Apellido],m.[Cliente-Dni],m.Cliente_Mail,m.Cliente_Direccion,m.Cliente_Codigo_postal,l.localidad_Id, m.[Cliente-Fecha_Nac]
@@ -440,16 +447,11 @@ insert into pero_compila.Usuario (usuario_username,usuario_password) values
 
 
 					/*UsuariosXRoles*/
-/*usuariosXClientes*/
+/*usuariosXRoles*/
 insert into pero_compila.RolXUsuario (rolXUsuario_usuario, rolXUsuario_rol) values
 	(1,1),(2,2),(3,1),(3,2);
 
-					/*Localidad*/
-
-/*insert into pero_compila.Localidad (localidad_nombre,localidad_provincia,localidad_pais)
-values ('Capital Federal','Buenos Aires','Argentina')*/
-
-
+		
 
 
 
@@ -487,7 +489,7 @@ from gd_esquema.Maestra m
 
 					/*Factura*/
 insert into pero_compila.Factura(factura_cliente_dni,factura_cliente_mail,factura_empresa, factura_cod_factura,factura_fecha_alta, factura_fecha_vencimiento,factura_total)
-select distinct c.[cliente_dni],c.[cliente_email], empresa_Id, m.Nro_Factura, m.Factura_Fecha, m.Factura_Fecha_Vencimiento, m.Factura_Total
+select distinct m.[Cliente-Dni],m.[Cliente_Mail], empresa_Id, m.Nro_Factura, m.Factura_Fecha, m.Factura_Fecha_Vencimiento, m.Factura_Total
 from gd_esquema.Maestra m,pero_compila.Cliente c, pero_compila.Empresa e
 order by factura_fecha_vencimiento 
 

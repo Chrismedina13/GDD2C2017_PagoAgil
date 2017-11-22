@@ -27,7 +27,7 @@ namespace PagoAgilFrba.AbmoItem
                     Item item = new Item();
                     item.item_Id = reader.GetInt32(0);
                     item.descripcion = reader.GetString(1);
-                    item.precio = reader.GetInt32(2);
+                    item.precio = reader.GetDecimal(2);
                     items.Add(item);
 
                 }

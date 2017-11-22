@@ -13,44 +13,55 @@ namespace PagoAgilFrba
 {
     public partial class VentanaPorSucursal : Form
     {
+         public String nombreUser { get; set; }
         public VentanaPorSucursal()
         {
             InitializeComponent();
         }
-         public String nombreUser { get; set; }
-
-        public VentanaPorSucursal(String idUser)
+          public VentanaPorSucursal(String idUser)
         {
             this.nombreUser = idUser;
             InitializeComponent();
             CargarComboSucursal();
 
         }
-        private void CargarComboSucursal()
-        {
-            //Vaciar comboBox
-            comboBox1.DataSource = null;
-            Sucursal suc = new Sucursal();
-            //Indicar qué propiedad se verá en la lista
-            this.comboBox1.DisplayMember = "UsuarioPorSucursal";
-            //Indicar qué valor tendrá cada ítem
-            this.comboBox1.ValueMember = "UsuarioPorSucursal";
-            //Asignar la propiedad DataSource
-            this.comboBox1.DataSource = suc.getSucursalPorUsuario(this.nombreUser);
-
-
-        }
-        private void VentanaPorSucursal_Load(object sender, EventArgs e)
-        {
-
-        }
-
+          private void CargarComboSucursal()
+          {
+              //Vaciar comboBox
+              comboBox1.DataSource = null;
+              Sucursal suc = new Sucursal();
+              //Indicar qué propiedad se verá en la lista
+              this.comboBox1.DisplayMember = "UsuarioPorSucursal";
+              //Indicar qué valor tendrá cada ítem
+              this.comboBox1.ValueMember = "UsuarioPorSucursal";
+              //Asignar la propiedad DataSource
+              this.comboBox1.DataSource = suc.getSucursalPorUsuario(this.nombreUser);
+          }
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Login log = new Login();
+            log.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+             VentanaPrincipal nuevaVentanta = new VentanaPrincipal(nombreUser);
+             nuevaVentanta.ShowDialog();
+            this.Hide();
+        }
+
+        private void VentanaPorSucursal_Load(object sender, EventArgs e)
         {
 
         }

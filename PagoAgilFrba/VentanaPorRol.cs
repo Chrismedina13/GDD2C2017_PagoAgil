@@ -51,8 +51,11 @@ namespace PagoAgilFrba
         {
             if (this.comboBox1.Text.ToString() == "Administrativo")
             {
-                VentanaPrincipal nuevaVentanta = new VentanaPrincipal(nombreUser);
-                nuevaVentanta.ShowDialog();
+            //    VentanaPrincipal nuevaVentanta = new VentanaPrincipal(nombreUser);
+            //    nuevaVentanta.ShowDialog();
+            //    this.Hide();
+                VentanaPorSucursal vsuc = new VentanaPorSucursal(nombreUser);
+                vsuc.ShowDialog();
                 this.Hide();
             }
             else

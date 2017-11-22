@@ -170,7 +170,7 @@ namespace PagoAgilFrba.Support
             List<string> Rubros = new List<string>();
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
 
-            SqlCommand getRubros = new SqlCommand(" SELECT rubro_descripcion FROM [GD1C2017].[pero_compila].[Rubro] ");
+            SqlCommand getRubros = new SqlCommand(" SELECT rubro_descripcion FROM [GD2C2017].[pero_compila].[Rubro] ");
             getRubros.Connection = connection;
             connection.Open();
             SqlDataReader reader = getRubros.ExecuteReader();

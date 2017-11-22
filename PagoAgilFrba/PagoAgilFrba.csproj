@@ -199,6 +199,7 @@
     <Compile Include="AbmSucursal\modificar_sucursalElegida.Designer.cs">
       <DependentUpon>modificar_sucursalElegida.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmSucursal\Sucursal.cs" />
     <Compile Include="AbmUsuario\UsuarioDAL.cs" />
     <Compile Include="BDComun.cs" />
     <Compile Include="GD2C2017DataSet.Designer.cs">
@@ -251,6 +252,12 @@
     </Compile>
     <Compile Include="VentanaPorRol.Designer.cs">
       <DependentUpon>VentanaPorRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VentanaPorSucursal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VentanaPorSucursal.Designer.cs">
+      <DependentUpon>VentanaPorSucursal.cs</DependentUpon>
     </Compile>
     <Compile Include="VentanaPrincipal.cs">
       <SubType>Form</SubType>
@@ -326,6 +333,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VentanaPorRol.resx">
       <DependentUpon>VentanaPorRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VentanaPorSucursal.resx">
+      <DependentUpon>VentanaPorSucursal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VentanaPrincipal.resx">
       <DependentUpon>VentanaPrincipal.cs</DependentUpon>

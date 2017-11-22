@@ -22,7 +22,7 @@ namespace PagoAgilFrba.AbmSucursal
 
                 using (SqlConnection Conexion = BDComun.ObtenerConexion())
                 {
-                    SqlCommand Comando = new SqlCommand(String.Format("select distinct S.sucursal_nombre FROM pero_compila.Usuario u JOIN pero_compila.UsuarioXSucursal uxs ON (u.usuario_ID = uxs.usuarioXSucursal_usuario) JOIN pero_compila.Sucursal S ON (S.sucursal_Id=uxs.usuarioXSucursal_sucursal) WHERE u.usuario_username LIKE '{0}' and S.sucursal_estado=1", nombreUser), Conexion);
+                    SqlCommand Comando = new SqlCommand(String.Format("select distinct S.sucursal_nombre FROM pero_compila.Usuario u JOIN pero_compila.UsuarioXSucursal uxs ON (u.usuario_ID = uxs.usuarioXSucursal_usuario) JOIN pero_compila.Sucursal S ON (S.sucursal_Id=uxs.usuarioXSucursal_sucursal) WHERE u.usuario_username LIKE '{0}' and S.sucursal_estado=1 and sucursal_nombre not like 'null'", nombreUser), Conexion);
                     SqlDataReader reader = Comando.ExecuteReader();
 
                     while (reader.Read())
@@ -37,4 +37,5 @@ namespace PagoAgilFrba.AbmSucursal
             }
         }
     }
+
 }
