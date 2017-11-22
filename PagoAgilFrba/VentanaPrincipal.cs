@@ -12,7 +12,7 @@ using PagoAgilFrba.AbmCliente;
 using PagoAgilFrba.AbmEmpresa;
 using PagoAgilFrba.AbmSucursal;
 using PagoAgilFrba.ListadoEstadistico;
-
+using PagoAgilFrba.AbmFactura;
 
 namespace PagoAgilFrba
 {
@@ -80,6 +80,12 @@ namespace PagoAgilFrba
         {
             ABM_Rol objRol = new ABM_Rol();
             objRol.Show();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+             ABM_Factura abmf = new ABM_Factura();
+             abmf.Show();
         }
 
     }

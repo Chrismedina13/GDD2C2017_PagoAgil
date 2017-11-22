@@ -186,7 +186,7 @@ PRIMARY KEY (cliente_dni,cliente_email)
 create table [pero_compila].Empresa (
 empresa_Id int primary key identity,
 empresa_nombre nvarchar(255),
-empresa_cuit nvarchar(50),
+empresa_cuit nvarchar(50) unique,
 empresa_direccion  nvarchar(255) not null,
 empresa_rubro int not null references [pero_compila].Rubro,
 empresa_estado bit default 1

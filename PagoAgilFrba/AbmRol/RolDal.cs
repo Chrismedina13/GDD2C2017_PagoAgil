@@ -162,28 +162,33 @@ namespace PagoAgilFrba.AbmRol
         public static List<Rol> BuscarRol()
         {
             List<Rol> roles = new List<Rol>();
-
-            using (SqlConnection Conexion = BDComun.ObtenerConexion())
+            try
             {
-
-                SqlCommand comando = new SqlCommand("pero_compila.sp_get_roles", Conexion);
-                comando.CommandType = CommandType.StoredProcedure;
-                //se limpian los parámetros
-                //comando.Parameters.Clear();
-
-                //executamos la consulta SqlDataReader reader = Comando.ExecuteReader();
-                SqlDataReader reader = comando.ExecuteReader();
-                while (reader.Read())
+                using (SqlConnection Conexion = BDComun.ObtenerConexion())
                 {
-                    Rol rol = new Rol();
-                    rol.Id = reader.GetInt32(0);
-                    rol.Nombre = reader.GetString(1);
-                    //rol.habilitado = reader.GetInt32(2);
-                    //rol.lstFuncionalidad = reader.GetString(2);
-                    roles.Add(rol);
+                    SqlCommand comando = new SqlCommand("pero_compila.sp_get_roles", Conexion);
+                    comando.CommandType = CommandType.StoredProcedure;
+                    //se limpian los parámetros
+                    //comando.Parameters.Clear();
+                    //executamos la consulta SqlDataReader reader = Comando.ExecuteReader();
+                    SqlDataReader reader = comando.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Rol rol = new Rol();
+                        rol.Id = reader.GetInt32(0);
+                        rol.Nombre = reader.GetString(1);
+                        rol.funcionalidad = null;
+                        rol.habilitado = 1;
+                        rol.RolesPorUsuario = "";
 
+                        roles.Add(rol);
+                    }
+                    
                 }
-                Conexion.Close();
+            }
+            catch (Exception)
+            {
+                return null;
             }
             return roles;
         }

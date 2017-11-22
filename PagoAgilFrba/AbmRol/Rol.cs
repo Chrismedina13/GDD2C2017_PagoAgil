@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PagoAgilFrba.AbmRol
 {
-    class Rol
+    public class Rol
     {
         public int Id { get; set; }
         public String Nombre { get; set; }

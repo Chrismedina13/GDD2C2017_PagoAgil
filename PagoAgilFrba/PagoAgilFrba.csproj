@@ -114,20 +114,12 @@
     <Compile Include="AbmFactura\ABM_Factura.Designer.cs">
       <DependentUpon>ABM_Factura.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmFactura\agregarFact.Designer.cs" />
-    <Compile Include="AbmFactura\agregarFact.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="AbmFactura\Alta_Factura.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AbmFactura\Alta_Factura.Designer.cs">
       <DependentUpon>Alta_Factura.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmFactura\eliminar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AbmFactura\eliminar.Designer.cs" />
     <Compile Include="AbmFactura\eliminar_factura.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,22 +128,14 @@
     </Compile>
     <Compile Include="AbmFactura\Factura.cs" />
     <Compile Include="AbmFactura\FacturaDal.cs" />
-    <Compile Include="AbmFactura\modificar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AbmFactura\modificar.Designer.cs" />
-    <Compile Include="AbmFactura\modificarDatos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AbmFactura\modificarDatos.Designer.cs" />
     <Compile Include="AbmFactura\modificar_factura.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AbmFactura\modificar_factura.Designer.cs">
       <DependentUpon>modificar_factura.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmoItem\Item.cs" />
-    <Compile Include="AbmoItem\ItemDal.cs" />
+    <Compile Include="AbmItem\Item.cs" />
+    <Compile Include="AbmItem\ItemDal.cs" />
     <Compile Include="AbmRol\ABM_Rol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -294,9 +278,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmFactura\Alta_Factura.resx">
       <DependentUpon>Alta_Factura.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AbmFactura\modificarDatos.resx">
-      <DependentUpon>modificarDatos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\ABM_Rol.resx">
       <DependentUpon>ABM_Rol.cs</DependentUpon>

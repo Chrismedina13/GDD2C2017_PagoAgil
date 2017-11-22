@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace PagoAgilFrba.AbmoItem
 {
     public class ItemDal
     {
-        public static List<Item> BuscarEmpresas()
+        public static List<Item> BuscarItems()
         {
             List<Item> items = new List<Item>();
 
@@ -23,20 +24,25 @@ namespace PagoAgilFrba.AbmoItem
                 SqlDataReader reader = comando.ExecuteReader();
                 while (reader.Read())
                 {
-                    Empresa empresa = new Empresa();
-                    empresa.empresaId = reader.GetInt32(0);
-                    empresa.nombre = reader.GetString(1);
-                    empresa.cuit = reader.GetString(2);
-                    empresa.direccion = reader.GetString(3);
-                    empresa.rubro = reader.GetInt32(4);
-                    empresa.estado = reader.GetBoolean(5);
-
-                    items.Add(empresa);
+                    Item item = new Item();
+                    item.item_Id = reader.GetInt32(0);
+                    item.descripcion = reader.GetString(1);
+                    item.precio = reader.GetInt32(2);
+                    items.Add(item);
 
                 }
                 Conexion.Close();
             }
             return items;
+        }
+        public static AutoCompleteStringCollection LoadAutoComplete()
+        {
+            AutoCompleteStringCollection stringCol = new AutoCompleteStringCollection();
+            foreach (Item i in ItemDal.BuscarItems())
+            {
+                stringCol.Add(i.descripcion);
+            }
+            return stringCol;
         }
     }
 }
