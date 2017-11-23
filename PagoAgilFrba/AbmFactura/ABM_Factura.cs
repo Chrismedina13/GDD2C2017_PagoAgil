@@ -19,8 +19,10 @@ namespace PagoAgilFrba.AbmFactura
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Alta_Factura af = new Alta_Factura();
-            af.Show();
+            //Alta_Factura af = new Alta_Factura();
+            //af.Show();
+            ALTAFACTURA afposta = new ALTAFACTURA();
+            afposta.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)

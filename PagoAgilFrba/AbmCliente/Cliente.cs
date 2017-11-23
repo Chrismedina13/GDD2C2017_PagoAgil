@@ -8,7 +8,7 @@ namespace PagoAgilFrba.AbmCliente
 {
     public class Cliente
     {
-        public int dni { get; set; }
+        public decimal dni { get; set; }
         public string nombre { get; set; }
         public string apellido { get; set; }
         public string mail { get; set; }

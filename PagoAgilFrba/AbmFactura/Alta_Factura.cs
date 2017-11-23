@@ -109,6 +109,21 @@ namespace PagoAgilFrba.AbmFactura
             return rta;
         }
 
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Alta_Factura_Load(object sender, EventArgs e)
+        {
+
+        }
+
        
        
     }

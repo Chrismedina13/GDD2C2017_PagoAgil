@@ -127,7 +127,7 @@ sucursal_Id int primary key identity,
 sucursal_direccion nvarchar(255),
 sucursal_nombre nvarchar(255),
 sucursal_localidad int not null references [pero_compila].Localidad,
-sucursal_CP int,
+sucursal_CP int unique,
 sucursal_estado bit default 1 
 )
 

@@ -67,6 +67,11 @@ namespace PagoAgilFrba.AbmRol
          {
              this.Close();
          }
+
+         private void modificar_rol_Load(object sender, EventArgs e)
+         {
+
+         }
        
     }
    

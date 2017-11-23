@@ -28,14 +28,14 @@ namespace PagoAgilFrba.AbmCliente
                 {
                     Cliente cliente = new Cliente();
                     
-                    cliente.nombre = reader.GetString(1);
-                    cliente.apellido = reader.GetString(2);
-                    cliente.dni = reader.GetInt32(3);
-                    cliente.mail = reader.GetString(4);
-                    cliente.telefono = reader.GetString(5);
-                    cliente.direccion = reader.GetString(6);
-                    cliente.CP = reader.GetString(7);
-                    cliente.estado = reader.GetBoolean(8);
+                    cliente.nombre = reader.GetString(0);
+                    cliente.apellido = reader.GetString(1);
+                    cliente.dni = reader.GetDecimal(2);
+                    cliente.mail = reader.GetString(3);
+                    //cliente.telefono = reader.GetString(4);
+                    cliente.direccion = reader.GetString(5);
+                    cliente.CP = reader.GetString(6);
+                    cliente.estado = reader.GetBoolean(9);
 
                     clientes.Add(cliente);
 
