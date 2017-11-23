@@ -272,18 +272,19 @@ GO
 
 GO
 --falta que se agreguen las sucursales
-create procedure [pero_compila].[sp_alta_item] (@descripcion nvarchar(255), @precio numeric(18,2),@cantidad int,@idFactura int)
-as
-begin
-	insert into pero_compila.Item (item_descripcion, item_precio)
-	values(@descripcion, @precio)
-	
-	DECLARE @mylastident AS int
-	SET @mylastident = @@IDENTITY
+create PROCEDURE [pero_compila].[registrarUsuario](@user varchar(100),@pass varchar(100),@rol int)
+AS
+BEGIN
 
-	insert into pero_compila.ItemXFactura(itemXFactura_item,itemXFactura_cantidad,itemXFactura_factura)
-	values(@mylastident,@cantidad,@idFactura)
-end
+	if(@user IN (SELECT usuario_username from pero_compila.Usuario))
+			THROW 51000, 'Elija otro nombre de Usuario', 1;
+	else
+		INSERT INTO pero_compila.Usuario (usuario_username,usuario_password,usuario_intentos) 
+				VALUES (@user,HASHBYTES('SHA2_256', @pass),0)
+		INSERT INTO pero_compila.RolXUsuario(rolXUsuario_rol,rolXUsuario_usuario)
+				VALUES(@rol,@@IDENTITY)
+END
+
 
 
 GO
@@ -415,6 +416,9 @@ go
 /*
 Realiza el alta de un item
 */
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_item')
+	DROP PROCEDURE pero_compila.sp_alta_funcionalidades
+GO
 create procedure [pero_compila].[sp_alta_item] (@descripcion nvarchar(255), @precio numeric(18,2),@cantidad int,@idFactura int)
 as
 begin
