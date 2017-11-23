@@ -36,6 +36,32 @@ namespace PagoAgilFrba.AbmSucursal
                 return sucursales;
             }
         }
+
+
+
+
+
+
+        public List<Sucursal> getListSucursales()
+        {
+            List<Sucursal> sucs = new List<Sucursal>();
+
+            using (SqlConnection Conexion = BDComun.ObtenerConexion())
+            {
+                SqlCommand Comando = new SqlCommand(String.Format("SELECT DISTINCT sucursal_nombre from pero_compila.Sucursal where sucursal_nombre not like 'null'"), Conexion);
+                SqlDataReader reader = Comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Sucursal s = new Sucursal();
+                    s.Nombre = reader.GetString(0);
+                    
+                    sucs.Add(s);
+                }
+                Conexion.Close();
+            }
+            return sucs;
+        }
     }
 
 }

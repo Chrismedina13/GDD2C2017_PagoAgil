@@ -44,5 +44,30 @@ namespace PagoAgilFrba.AbmoItem
             }
             return stringCol;
         }
+
+        public static bool registrar(
+         String descripcion,
+         decimal precio,
+         int cantidad,
+         int idFactura)
+        {
+            try
+            {
+                SqlCommand command = new SqlCommand("[PERO_COMPILA].sp_alta_item", BDComun.ObtenerConexion());
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@descripcion",descripcion);
+                command.Parameters.AddWithValue("@precio", precio);
+                command.Parameters.AddWithValue("@cantidad", cantidad);
+                command.Parameters.AddWithValue("@idFactura", idFactura);
+
+
+                return command.ExecuteNonQuery() > 0 ? true : false;
+            }
+            catch (Exception e) { return false; }
+        }
+
+
+
     }
 }

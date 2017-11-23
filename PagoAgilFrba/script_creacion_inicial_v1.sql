@@ -229,7 +229,8 @@ facturasXPago_factura int not null references [pero_compila].Factura
 create table [pero_compila].ItemXFactura(
 itemXFactura_Id int primary key identity,
 itemXFactura_item int not null references [pero_compila].Item,
-itemXFactura_factura int not null references [pero_compila].Factura
+itemXFactura_factura int not null references [pero_compila].Factura,
+itemXFactura_cantidad int
 )
 
 create table [pero_compila].Devolucion(
@@ -270,16 +271,22 @@ IF EXISTS (SELECT name FROM sysobjects WHERE name='registrarUsuario' AND type='p
 GO	
 
 GO
-CREATE PROCEDURE [pero_compila].registrarUsuario(@user varchar(100),@pass varchar(100))
-AS
-BEGIN
-	if(@user IN (SELECT usuario_username from pero_compila.Usuario))
-			THROW 51000, 'Elija otro nombre de Usuario', 1;
-	else
-		INSERT INTO pero_compila.Usuario (usuario_username,usuario_password,usuario_intentos) 
-				VALUES (@user,HASHBYTES('SHA2_256', @pass),0)
-END
+--falta que se agreguen las sucursales
+create procedure [pero_compila].[sp_alta_item] (@descripcion nvarchar(255), @precio numeric(18,2),@cantidad int,@idFactura int)
+as
+begin
+	insert into pero_compila.Item (item_descripcion, item_precio)
+	values(@descripcion, @precio)
+	
+	DECLARE @mylastident AS int
+	SET @mylastident = @@IDENTITY
 
+	insert into pero_compila.ItemXFactura(itemXFactura_item,itemXFactura_cantidad,itemXFactura_factura)
+	values(@mylastident,@cantidad,@idFactura)
+end
+
+
+GO
 /*FIN REGISTRAR USUARIO*/
 /*LOGIN */
 --**********
@@ -404,6 +411,23 @@ begin
 	--select @@IDENTITY
 end
 go
+
+/*
+Realiza el alta de un item
+*/
+create procedure [pero_compila].[sp_alta_item] (@descripcion nvarchar(255), @precio numeric(18,2),@cantidad int,@idFactura int)
+as
+begin
+	insert into pero_compila.Item (item_descripcion, item_precio)
+	values(@descripcion, @precio)
+	insert into pero_compila.ItemXFactura(itemXFactura_item,itemXFactura_cantidad,itemXFactura_factura)
+	values(@@IDENTITY,@cantidad,@idFactura)
+end
+
+
+
+
+
 --=============================================================================================================
 --TIPO		: Stored procedure
 --NOMBRE	: sp_alta_rol						------------TODO falta pasarle la lista de funcionalidades---------------

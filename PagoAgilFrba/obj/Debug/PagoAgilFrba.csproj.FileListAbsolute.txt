@@ -53,3 +53,5 @@ C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmFactura.Alta_Factur
 C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.csprojResolveAssemblyReference.cache
 C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.VentanaPorSucursal.resources
 C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmFactura.ALTAFACTURA.resources
+C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmFactura.listar_factura.resources
+C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmFactura.modificar_factura.resources

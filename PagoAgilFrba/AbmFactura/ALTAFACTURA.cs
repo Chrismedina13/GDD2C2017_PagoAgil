@@ -143,7 +143,9 @@ namespace PagoAgilFrba.AbmFactura
                     {
                         string valor = dataGridView1.Rows[fila].Cells[col].Value.ToString();
                         dataGridView1.Rows[fila].Cells["Total"].Value = Convert.ToInt32(dataGridView1.Rows[fila].Cells["Precio"].Value) * Convert.ToInt32(dataGridView1.Rows[fila].Cells["Cantidad"].Value);
-                        MessageBox.Show(valor);
+                        //falta ver como obtener el id de la factura porque todavia esa fact no se creo..
+                        //ItemDal.registrar(dataGridView1.Rows[fila].Cells["Nombre"].Value.ToString(), Convert.ToDecimal(dataGridView1.Rows[fila].Cells["Precio"].Value), Convert.ToInt32(dataGridView1.Rows[fila].Cells["Cantidad"].Value), );                  
+                        //MessageBox.Show(valor);
                     }
                     totalSumaItems += Convert.ToInt32(dataGridView1.Rows[fila].Cells["Total"].Value);
                 }

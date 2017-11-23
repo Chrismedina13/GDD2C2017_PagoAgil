@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagoAgilFrba.AbmRol;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,12 +11,12 @@ namespace PagoAgilFrba.AbmUsuario
 {
     class UsuarioDAL
     {
-        public static int CrearCuenta(String nomUsuario, String contrasenia)
+        public static int CrearCuenta(String nomUsuario, String contrasenia,String rol)
         {
             int resultado = 0;
             try
             {
-
+                Rol r = new Rol();
                 SqlConnection Conexion = BDComun.ObtenerConexion();
                 SqlCommand comando = new SqlCommand("pero_compila.registrarUsuario", Conexion);
                 comando.CommandType = CommandType.StoredProcedure;
@@ -24,22 +25,25 @@ namespace PagoAgilFrba.AbmUsuario
                 //comenzamos a mandar cada uno de los parámetros, deben de enviarse en el
                 //tipo de datos que coincida en sql server por ejemplo c# es string en sql server es varchar()
                 comando.Parameters.AddWithValue("@user", nomUsuario);
-                comando.Parameters.AddWithValue("@pass", contrasenia);              //declaramos el parámetro de retorno
+                comando.Parameters.AddWithValue("@pass", contrasenia);
+                comando.Parameters.AddWithValue("@rol", r.getidRolPorNombre(rol));
+                   //declaramos el parámetro de retorno
                 //executamos la consulta
                 resultado = comando.ExecuteNonQuery();
                 // traemos el valor de retorno
 
                 //dependiendo del valor de retorno se asigna la variable success
-                //si el procedimiento retorna un 1 la operación se realizó con éxito
+                //si el procedimiento retorna un 2 en este caso afecta dos filas
+                //la operación se realizó con éxito
                 //de no ser así se mantiene en false y pr lo tanto falló la operación
                 Conexion.Close();
-                if (resultado == 1)
+                if (resultado == 2)
                     return 1;
                 else
                     return 0;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return -1;
                 //al ocurrir un error mostramos un mensaje
