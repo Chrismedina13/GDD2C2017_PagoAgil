@@ -74,9 +74,11 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Rendicion_Facturas'))
     DROP TABLE pero_compila.Rendicion_Facturas
 
-/**IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Devolucion'))
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Devolucion'))
     DROP TABLE pero_compila.Devolucion
-**/
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.DevolucionesXFactura'))
+    DROP TABLE pero_compila.DevolucionesXFactura
 
 
 /** FIN VALIDACION DE TABLAS **/
@@ -228,6 +230,23 @@ create table [pero_compila].ItemXFactura(
 itemXFactura_Id int primary key identity,
 itemXFactura_item int not null references [pero_compila].Item,
 itemXFactura_factura int not null references [pero_compila].Factura
+)
+
+create table [pero_compila].Devolucion(
+devolucion_Id int primary key identity,
+devolucion_usuario int not null references [pero_compila].Usuario,
+devolucion_cliente_dni numeric(18,0),
+devolucion_cliente_email nvarchar(255),
+devolucion_motivo nvarchar(250) not null,
+devolucion_fecha datetime not null,
+FOREIGN KEY (devolucion_cliente_dni, devolucion_cliente_email) REFERENCES pero_compila.Cliente(cliente_dni,cliente_email),
+)
+
+create table [pero_compila].DevolucionesXFactura(
+
+devolucionesXFactura_Id int primary key identity,
+devolucionesXFactura_devolucion int not null references [pero_compila].Devolucion,
+devolucionesXFactura_factura int not null references [pero_compila].Factura,
 )
 
 /** FIN CREACION TABLAS **/
