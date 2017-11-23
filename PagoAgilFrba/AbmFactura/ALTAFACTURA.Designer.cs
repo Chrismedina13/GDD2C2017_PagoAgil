@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -48,17 +47,9 @@
             this.totalItems = new System.Windows.Forms.Label();
             this.guardar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 42);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(39, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Cliente";
             // 
             // label2
             // 
@@ -72,7 +63,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(282, 42);
+            this.label3.Location = new System.Drawing.Point(308, 34);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(95, 13);
             this.label3.TabIndex = 2;
@@ -108,9 +99,9 @@
             // comboBoxCliente
             // 
             this.comboBoxCliente.FormattingEnabled = true;
-            this.comboBoxCliente.Location = new System.Drawing.Point(67, 42);
+            this.comboBoxCliente.Location = new System.Drawing.Point(67, 34);
             this.comboBoxCliente.Name = "comboBoxCliente";
-            this.comboBoxCliente.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxCliente.Size = new System.Drawing.Size(209, 21);
             this.comboBoxCliente.TabIndex = 7;
             this.comboBoxCliente.SelectedIndexChanged += new System.EventHandler(this.comboBoxCliente_SelectedIndexChanged);
             // 
@@ -124,7 +115,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(394, 43);
+            this.textBox1.Location = new System.Drawing.Point(409, 35);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(92, 20);
             this.textBox1.TabIndex = 9;
@@ -193,9 +184,9 @@
             this.totalItems.AutoSize = true;
             this.totalItems.Location = new System.Drawing.Point(434, 393);
             this.totalItems.Name = "totalItems";
-            this.totalItems.Size = new System.Drawing.Size(52, 13);
+            this.totalItems.Size = new System.Drawing.Size(13, 13);
             this.totalItems.TabIndex = 15;
-            this.totalItems.Text = "totalItems";
+            this.totalItems.Text = "  ";
             this.totalItems.Click += new System.EventHandler(this.label8_Click);
             // 
             // guardar
@@ -217,12 +208,22 @@
             this.button1.Text = "Cancelar";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(22, 34);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(39, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Cliente";
+            // 
             // ALTAFACTURA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(556, 457);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.guardar);
             this.Controls.Add(this.totalItems);
             this.Controls.Add(this.label7);
@@ -237,7 +238,6 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Name = "ALTAFACTURA";
             this.Text = "ALTAFACTURA";
             this.Load += new System.EventHandler(this.ALTAFACTURA_Load);
@@ -249,7 +249,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -264,10 +263,11 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label totalItems;
         private System.Windows.Forms.Button guardar;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Precio;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn Total;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
     }
 }

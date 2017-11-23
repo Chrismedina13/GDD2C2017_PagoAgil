@@ -44,5 +44,26 @@ namespace PagoAgilFrba.AbmCliente
             }
             return clientes;
         }
+
+
+
+        public Cliente BuscarClientePorNombreYApellido(string nombre)
+        {
+            Cliente cliente = new Cliente();
+           
+            using (SqlConnection Conexion = BDComun.ObtenerConexion())
+            {
+                SqlCommand Comando = new SqlCommand(String.Format("select cliente_dni,cliente_email from pero_compila.Cliente where cliente_nombre like '{0}' " , nombre), Conexion);
+                SqlDataReader reader = Comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    cliente.dni = reader.GetDecimal(0);
+                    cliente.mail= reader.GetString(1);
+                }
+                Conexion.Close();
+            }
+            return cliente;
+        }
     }
 }

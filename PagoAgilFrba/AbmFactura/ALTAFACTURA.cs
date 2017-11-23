@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -89,58 +90,85 @@ namespace PagoAgilFrba.AbmFactura
         {
 
         }
-
+        public bool IsNumber(string numero)
+        {
+            return Regex.IsMatch(numero, @"^\d+$");
+        } 
         private void guardar_Click(object sender, EventArgs e)
         {
-            //validar fecha de hoy con la de vto
-            //validar que solo ingrese nros en el nro de factura
-            if (textBox1.Text.Contains("abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"))
-            {
-                MessageBox.Show("Error El nro de Factura debe ser numérico.");
-            }
 
-            // MessageBox.Show( Convert.ToString(dataGridView1[0, dataGridView1.CurrentRow.Index].Value));
-            // MessageBox.Show(Convert.ToString(dataGridView1[1, dataGridView1.CurrentRow.Index].Value));
-            // MessageBox.Show(Convert.ToString(dataGridView1[2, dataGridView1.CurrentRow.Index].Value));
-            ////' Modify the value in the first cell of the second row.
-            // dataGridView1.Rows[1].Cells[3].Value = Convert.ToInt32(dataGridView1[2, dataGridView1.CurrentRow.Index].Value) * Convert.ToInt32(dataGridView1[1, dataGridView1.CurrentRow.Index].Value);
-
-            // MessageBox.Show(Convert.ToString(dataGridView1.Rows[1].Cells[3].Value));
+            DateTime Hoy = DateTime.Today;
             List<Item> items = new List<Item>();
-            //for (int q = 0; q < dataGridView1.Rows.Count-1; q++)
-            //{
-            //   // DataGridViewRow row = dataGridView1.Rows();
-            //    row.Cells["Total"].Value = Convert.ToInt32(row.Cells["Precio"].Value) * Convert.ToInt32(row.Cells["Cantidad"].Value);
-            //    //items.Add(item);
-            //    totalSumaItems += Convert.ToInt32(row.Cells["Total"].Value);
-            //}
+            Factura factura = new Factura();
+            ClienteDal clientedal = new ClienteDal();
+            Cliente cliente = new Cliente();
+            EmpresaDal empresadal = new EmpresaDal();
+           //funcion para buscar el id dni-mail del cliente dado el nombre
+            //validar que solo ingrese nros en el nro de factura
 
-            for (int fila = 0; fila < dataGridView1.Rows.Count - 1; fila++)
+            try
             {
-                for (int col = 0; col < dataGridView1.Rows[fila].Cells.Count; col++)
+                if (!this.IsNumber(textBox1.Text))
                 {
-                    string valor = dataGridView1.Rows[fila].Cells[col].Value.ToString();
-                    dataGridView1.Rows[fila].Cells["Total"].Value = Convert.ToInt32(dataGridView1.Rows[fila].Cells["Precio"].Value) * Convert.ToInt32(dataGridView1.Rows[fila].Cells["Cantidad"].Value);
-                    MessageBox.Show(valor);
+                    MessageBox.Show("Error: El nro de Factura debe ser numérico.");
                 }
-                totalSumaItems += Convert.ToInt32(dataGridView1.Rows[fila].Cells["Total"].Value);
+                else
+                {
+                    cliente = clientedal.BuscarClientePorNombreYApellido(comboBoxCliente.Text);
+                    factura.cli_dni = cliente.dni;
+                    factura.cli_mail = cliente.mail;
+                    factura.codFactura = Convert.ToInt32(textBox1.Text);
+                    factura.empresa_id = empresadal.buscarIdPorNombre(comboBoxEmpresa.Text);
+                }
+                if (dateTimePicker1.Value.ToString("dd/MM/yyyy") != Hoy.ToString("dd/MM/yyyy"))
+                {
+                    MessageBox.Show("Error: la fecha de alta debe coincidir con la actual.");
+                }
+                else
+                {
+                    factura.fechaAlta = dateTimePicker1.Value;
+                }
+                //validar fecha de hoy con la de vto
+                if (DateTime.Compare(dateTimePicker2.Value, DateTime.Today) < 0)
+                {
+                    MessageBox.Show("Error: la fecha de vencimiento debe ser posterior a la actual.");
+                }
+                else
+                {
+                    factura.fechaVenc = dateTimePicker2.Value;
+                }
+                for (int fila = 0; fila < dataGridView1.Rows.Count - 1; fila++)
+                {
+                    for (int col = 0; col < dataGridView1.Rows[fila].Cells.Count; col++)
+                    {
+                        string valor = dataGridView1.Rows[fila].Cells[col].Value.ToString();
+                        dataGridView1.Rows[fila].Cells["Total"].Value = Convert.ToInt32(dataGridView1.Rows[fila].Cells["Precio"].Value) * Convert.ToInt32(dataGridView1.Rows[fila].Cells["Cantidad"].Value);
+                        MessageBox.Show(valor);
+                    }
+                    totalSumaItems += Convert.ToInt32(dataGridView1.Rows[fila].Cells["Total"].Value);
+                }
+
+                totalItems.Text = totalSumaItems.ToString();
+                factura.total = Convert.ToDecimal(totalItems.Text);
+
+
+
+                if (FacturaDal.registrar(factura.cli_dni,factura.cli_mail,factura.empresa_id,factura.codFactura,factura.fechaAlta,factura.fechaVenc,factura.total))
+                {
+                    MessageBox.Show("Factura registrada Correctamente!");
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo registrar la factura :(");
+                }
+
+
             }
-            //foreach (DataGridViewRow row in dataGridView1.Rows)
-            //{
-            //    if (Convert.ToString(row.Cells["Nombre"].Value) == "")
-            //   {
-            //       //dataGridView1.Rows.Remove(row);
-            //       //dataGridView1.Rows.RemoveAt(2);
-            //   }
-            //    Item item =new Item();
-            //  //  item.descripcion=row.Cells["Nombre"].Value.ToString();
-            //   // item.precio=Convert.ToInt32(row.Cells["Precio"].Value.ToString());
-            //    MessageBox.Show(row.Cells["Nombre"].Value.ToString());
-            //    MessageBox.Show(row.Cells["Precio"].Value.ToString());
-            //    MessageBox.Show(row.Cells["Cantidad"].Value.ToString());
-                
-            //}
-            totalItems.Text = totalSumaItems.ToString();
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

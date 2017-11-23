@@ -9,7 +9,13 @@ namespace PagoAgilFrba.AbmFactura
 {
     class Factura
     {
-        
+        public Decimal cli_dni { get; set; }
+        public String cli_mail { get; set; }
+        public int empresa_id { get; set; }
+        public int codFactura { get; set; }
+        public DateTime fechaAlta { get; set; }
+        public DateTime fechaVenc { get; set; }
+        public Decimal total { get; set; }
 
         //public List<String> getFacturas()
         //{

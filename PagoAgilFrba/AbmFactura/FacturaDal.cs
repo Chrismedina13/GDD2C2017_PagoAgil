@@ -8,9 +8,10 @@ namespace PagoAgilFrba.AbmFactura
     public class FacturaDal
     {
         public static bool registrar(
-            int factura_cliente, 
+            Decimal factura_cliente_dni,
+            string factura_cliente_mail,
             int factura_empresa,
-            string factura_numero,  
+            int factura_numero,  
             DateTime factura_fecha_inicio,
             DateTime factura_fecha_fin,
             decimal factura_total)
@@ -20,9 +21,10 @@ namespace PagoAgilFrba.AbmFactura
                 SqlCommand command = new SqlCommand("[PERO_COMPILA].sp_alta_factura", BDComun.ObtenerConexion());
             command.CommandType = CommandType.StoredProcedure;
 
-            command.Parameters.AddWithValue("@clienteID", factura_cliente);
+            command.Parameters.AddWithValue("@cliente_dni", factura_cliente_dni);
+            command.Parameters.AddWithValue("@cliente_mail", factura_cliente_mail);
             command.Parameters.AddWithValue("@empresaID", factura_empresa);
-            command.Parameters.AddWithValue("@codFactura", factura_numero);
+            command.Parameters.AddWithValue("@cod_factura", factura_numero);
             command.Parameters.AddWithValue("@total", factura_total);
             command.Parameters.AddWithValue("@fecha_alta", factura_fecha_inicio);
             command.Parameters.AddWithValue("@fecha_vencimiento", factura_fecha_fin);

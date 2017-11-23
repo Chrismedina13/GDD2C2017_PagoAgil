@@ -41,5 +41,22 @@ namespace PagoAgilFrba.AbmEmpresa
             }
             return empresas;
         }
+
+        public int buscarIdPorNombre(string nombre)
+        {
+            int id=0;
+            using (SqlConnection Conexion = BDComun.ObtenerConexion())
+            {
+                SqlCommand Comando = new SqlCommand(String.Format("select empresa_id from pero_compila.Empresa where empresa_nombre like '{0}' ", nombre), Conexion);
+                SqlDataReader reader = Comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    id = reader.GetInt32(0);
+                }
+                Conexion.Close();
+            }
+            return id;
+        }
     }
 }
