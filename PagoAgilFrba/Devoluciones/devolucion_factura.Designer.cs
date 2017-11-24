@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.volver = new System.Windows.Forms.Button();
-            this.confirmar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.facturasDgv = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
@@ -37,37 +35,20 @@
             this.label3 = new System.Windows.Forms.Label();
             this.totalTb = new System.Windows.Forms.TextBox();
             this.tituloLb = new System.Windows.Forms.Label();
-            this.cerrarSesionHl = new System.Windows.Forms.LinkLabel();
-            this.exitBtn = new System.Windows.Forms.LinkLabel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.facturasDgv)).BeginInit();
             this.SuspendLayout();
-            // 
-            // volver
-            // 
-            this.volver.BackColor = System.Drawing.SystemColors.Control;
-            this.volver.Location = new System.Drawing.Point(377, 81);
-            this.volver.Name = "volver";
-            this.volver.Size = new System.Drawing.Size(86, 47);
-            this.volver.TabIndex = 1;
-            this.volver.Text = "VOLVER";
-            this.volver.UseVisualStyleBackColor = false;
-            // 
-            // confirmar
-            // 
-            this.confirmar.Location = new System.Drawing.Point(0, 0);
-            this.confirmar.Name = "confirmar";
-            this.confirmar.Size = new System.Drawing.Size(75, 23);
-            this.confirmar.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.label1.Location = new System.Drawing.Point(12, 22);
+            this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(8, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(265, 20);
+            this.label1.Size = new System.Drawing.Size(200, 18);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Seleccione las facturas a devolver";
+            this.label1.Text = "SELECCIONE FACTURAS";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // facturasDgv
@@ -75,32 +56,34 @@
             this.facturasDgv.AllowUserToAddRows = false;
             this.facturasDgv.AllowUserToDeleteRows = false;
             this.facturasDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.facturasDgv.Location = new System.Drawing.Point(16, 75);
+            this.facturasDgv.Location = new System.Drawing.Point(12, 63);
             this.facturasDgv.Name = "facturasDgv";
             this.facturasDgv.Size = new System.Drawing.Size(473, 245);
             this.facturasDgv.TabIndex = 1;
             this.facturasDgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.facturasDgv_CellContentClick);
+            this.facturasDgv.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.facturasDgv_CellValueChanged);
+            this.facturasDgv.CurrentCellDirtyStateChanged += new System.EventHandler(this.facturasDgv_CurrentCellDirtyStateChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 362);
+            this.label2.Location = new System.Drawing.Point(12, 357);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 13);
+            this.label2.Size = new System.Drawing.Size(143, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Motivo:";
+            this.label2.Text = "MOTIVO DE DEVOLUCION:";
             // 
             // motivoTb
             // 
-            this.motivoTb.Location = new System.Drawing.Point(12, 393);
+            this.motivoTb.Location = new System.Drawing.Point(15, 385);
             this.motivoTb.Name = "motivoTb";
-            this.motivoTb.Size = new System.Drawing.Size(477, 20);
+            this.motivoTb.Size = new System.Drawing.Size(474, 20);
             this.motivoTb.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(298, 346);
+            this.label3.Location = new System.Drawing.Point(256, 331);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 4;
@@ -108,7 +91,7 @@
             // 
             // totalTb
             // 
-            this.totalTb.Location = new System.Drawing.Point(352, 343);
+            this.totalTb.Location = new System.Drawing.Point(296, 328);
             this.totalTb.Name = "totalTb";
             this.totalTb.ReadOnly = true;
             this.totalTb.Size = new System.Drawing.Size(120, 20);
@@ -125,35 +108,34 @@
             this.tituloLb.Size = new System.Drawing.Size(197, 18);
             this.tituloLb.TabIndex = 10;
             this.tituloLb.Text = "Devolución de Facturas";
+            //  
             // 
-            // cerrarSesionHl
+            // button1
             // 
-            this.cerrarSesionHl.AutoSize = true;
-            this.cerrarSesionHl.Location = new System.Drawing.Point(426, 41);
-            this.cerrarSesionHl.Name = "cerrarSesionHl";
-            this.cerrarSesionHl.Size = new System.Drawing.Size(67, 13);
-            this.cerrarSesionHl.TabIndex = 8;
-            this.cerrarSesionHl.TabStop = true;
-            this.cerrarSesionHl.Text = "cerrar sesión";
+            this.button1.Location = new System.Drawing.Point(78, 427);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(86, 47);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "VOLVER";
+            this.button1.UseVisualStyleBackColor = true;
             // 
-            // exitBtn
+            // button2
             // 
-            this.exitBtn.AutoSize = true;
-            this.exitBtn.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitBtn.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.exitBtn.LinkColor = System.Drawing.Color.LightGray;
-            this.exitBtn.Location = new System.Drawing.Point(467, 9);
-            this.exitBtn.Name = "exitBtn";
-            this.exitBtn.Size = new System.Drawing.Size(16, 13);
-            this.exitBtn.TabIndex = 7;
-            this.exitBtn.TabStop = true;
-            this.exitBtn.Text = "X";
+            this.button2.Location = new System.Drawing.Point(286, 427);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(86, 47);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "CONFIRMAR";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // devolucion_factura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(501, 486);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.totalTb);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.motivoTb);
@@ -170,6 +152,7 @@
 
         }
 
+
         #endregion
 
         private System.Windows.Forms.Label label1;
@@ -179,9 +162,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox totalTb;
         private System.Windows.Forms.Label tituloLb;
-        private System.Windows.Forms.LinkLabel cerrarSesionHl;
-        private System.Windows.Forms.LinkLabel exitBtn;
-        private System.Windows.Forms.Button volver;
-        private System.Windows.Forms.Button confirmar;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
