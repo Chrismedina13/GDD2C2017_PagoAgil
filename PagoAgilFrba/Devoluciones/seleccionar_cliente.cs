@@ -69,7 +69,7 @@ namespace PagoAgilFrba.Devoluciones
                 var respuesta = MessageBox.Show("¿Estas seguro?", "Confirme borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (respuesta == DialogResult.Yes)
                 {
-                    devolucion_factura form ; //= new devolucion_factura(nombre, apellido, dni);
+                    devolucion_factura form = new devolucion_factura(nombre, apellido, dni);
                     form.Show();
                 }
             }
