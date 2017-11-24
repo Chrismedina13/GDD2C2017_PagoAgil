@@ -33,6 +33,33 @@ namespace PagoAgilFrba.AbmFactura
             }
             catch (Exception e){return false;} 
         }
+
+        public static bool registrarPago(
+            Decimal factura_cliente_dni,
+            string factura_cliente_mail,
+            int factura_empresa,
+            int factura_numero,
+            DateTime factura_fecha_inicio,
+            DateTime factura_fecha_fin,
+            decimal factura_total)
+        {
+            try
+            {
+                SqlCommand command = new SqlCommand("[PERO_COMPILA].sp_alta_factura", BDComun.ObtenerConexion());
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@cliente_dni", factura_cliente_dni);
+                command.Parameters.AddWithValue("@cliente_mail", factura_cliente_mail);
+                command.Parameters.AddWithValue("@empresaID", factura_empresa);
+                command.Parameters.AddWithValue("@cod_factura", factura_numero);
+                command.Parameters.AddWithValue("@total", factura_total);
+                command.Parameters.AddWithValue("@fecha_alta", factura_fecha_inicio);
+                command.Parameters.AddWithValue("@fecha_vencimiento", factura_fecha_fin);
+
+                return command.ExecuteNonQuery() > 0 ? true : false;
+            }
+            catch (Exception e) { return false; }
+        }
         public static bool Modificar(int id, String nombre, int habilitado)
         {
             try

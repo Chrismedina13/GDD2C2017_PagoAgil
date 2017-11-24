@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagoAgilFrba.AbmFactura;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,6 +28,12 @@ namespace PagoAgilFrba
         private void VentanaCobrador_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Alta_Factura af = new Alta_Factura();
+            af.Show();
         }
     }
 }

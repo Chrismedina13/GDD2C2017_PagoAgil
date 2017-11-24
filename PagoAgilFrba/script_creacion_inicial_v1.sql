@@ -165,8 +165,8 @@ rendicion_facturas_facturas nvarchar(255),
 rendicion_facturas_importe numeric(18,2),
 rendicion_facturas_empresa nvarchar(255),
 rendicion_facturas_porcentaje int,
-rendicion_facturas_total int
-
+rendicion_facturas_total int,
+rendicion_facturas_nro numeric(18,2)
 
 )
 
@@ -204,6 +204,7 @@ factura_cliente_mail nvarchar(255),
 factura_fecha_alta datetime not null,
 factura_fecha_vencimiento datetime not null,
 factura_total decimal(18,2) not null default 0,
+pagoFactura_enviadoAPago bit default 0,
 FOREIGN KEY (factura_cliente_dni, factura_cliente_mail) REFERENCES pero_compila.Cliente(cliente_dni,cliente_email)
 )
 
@@ -212,11 +213,14 @@ create table [pero_compila].PagoFactura (
 pagoFactura_Id int primary key identity,
 pagoFactura_factura int not null references [pero_compila].Factura,
 pagoFactura_sucursal int not null references [pero_compila].Sucursal,
-pagoFactura_cliente int not null references [pero_compila].Cliente,
+pagoFactura_cliente_dni numeric(18,0) not null,
+pagoFactura_cliente_mail nvarchar(255) not null,
 pagoFactura_medioPago int not null references [pero_compila].MedioPago,
 pagoFactura_fecha_cobro datetime not null,
 pagoFactura_importe decimal(18,2) not null default 0,
-pagoFactura_estado bit default 1
+pagoFactura_estado bit default 1,
+pagoFactura_nro numeric(18,2),
+FOREIGN KEY (pagoFactura_cliente_dni, pagoFactura_cliente_mail) REFERENCES pero_compila.Cliente(cliente_dni,cliente_email)
 )
 
 
@@ -558,7 +562,10 @@ m.[Cliente_Mail],m.[Cliente_Direccion],m.[Cliente_Codigo_Postal],l.localidad_id,
 from gd_esquema.Maestra m , pero_compila.Localidad l
 GO
 
+				/*Medio de Pago*/
+insert into pero_compila.MedioPago
+select distinct FormaPagoDescripcion from gd_esquema.Maestra where FormaPagoDescripcion not like 'null'
 
 
---INSERT INTO WARRIORS.Usuarios (usuario_username,usuario_password,usuario_intentosFallidos)
---			VALUES ('admin','w23e',0)
+				/*Pago_Factura*/
+INSERT INTO 

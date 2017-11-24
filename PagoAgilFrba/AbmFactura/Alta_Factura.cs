@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using PagoAgilFrba.AbmEmpresa;
 using PagoAgilFrba.AbmCliente;
 using PagoAgilFrba.AbmoItem;
+using PagoAgilFrba.AbmUsuario;
+using System.Text.RegularExpressions;
 
 namespace PagoAgilFrba.AbmFactura
 {
@@ -24,10 +26,13 @@ namespace PagoAgilFrba.AbmFactura
             //
             // cargo la lista de items para el autocomplete
             //
-
+            Usuario u = new Usuario();
             comboBox4.AutoCompleteCustomSource = ItemDal.LoadAutoComplete();
             comboBox4.AutoCompleteMode = AutoCompleteMode.Suggest;
             comboBox4.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            MessageBox.Show("Falta buscar el usuario actual!!!!");
+            labelSucursal.Text = u.getSucursal("admin");
+            labelFechaAct.Text = DateTime.Today.ToString("dd/MM/yyyy");
         }
         private void CargarComboClientes()
         {
@@ -71,22 +76,17 @@ namespace PagoAgilFrba.AbmFactura
 
 
         }
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            if (verificarCampos())
-            {
-                //FacturaDal.registrar(
-                //    Int32.Parse(comboBox1.ValueMember), 
-                //    Int32.Parse(comboBox2.ValueMember), 
-                //    textBox2.Text, 
-                //    //dateTimePicker1.Value, 
-                //    DateTime.Now,
-                //    dateTimePicker2.Value
-                //    );
-            }
-        }
+
         private bool verificarCampos()
         {
+            if ( (Convert.ToInt32(comboBox4.SelectedIndex.ToString()))<0)
+            {
+                MessageBox.Show("Error: El nro de Factura debe ser numérico o mayor a CERO.");
+            }
+            if (DateTime.Compare(dateTimePicker1.Value, DateTime.Today) < 0)
+            {
+                MessageBox.Show("Error: la fecha de vencimiento debe ser posterior a la actual.");
+            }
             string msjFalla = "";
             //if (textBox3.Text == "" || tieneLetras(textBox1.Text)) { msjFalla = msjFalla + "Ingresar ID Cliente"; }
             //if (textBox3.Text == "" || tieneLetras(textBox2.Text)) { msjFalla = msjFalla + "Ingresar ID Empresa"; }
@@ -127,6 +127,22 @@ namespace PagoAgilFrba.AbmFactura
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void Guardar_Click(object sender, EventArgs e)
+        {
+            if (verificarCampos())
+            {
+                //DAR DE ALTA EN LA ENTIDAD FACTURAPAGO Y FACTURAXPAGO
+                //FacturaDal.registrar(
+                //    Int32.Parse(comboBox1.ValueMember), 
+                //    Int32.Parse(comboBox2.ValueMember), 
+                //    textBox2.Text, 
+                //    //dateTimePicker1.Value, 
+                //    DateTime.Now,
+                //    dateTimePicker2.Value
+                //    );
+            }
         }
 
        

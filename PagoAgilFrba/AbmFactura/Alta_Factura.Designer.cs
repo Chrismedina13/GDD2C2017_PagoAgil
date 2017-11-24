@@ -40,6 +40,9 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.comboBoxEmpresa = new System.Windows.Forms.ComboBox();
             this.comboBoxCliente = new System.Windows.Forms.ComboBox();
+            this.labelSucursal = new System.Windows.Forms.Label();
+            this.labelFechaAct = new System.Windows.Forms.Label();
+            this.Guardar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // comboBox4
@@ -146,9 +149,40 @@
             this.comboBoxCliente.Size = new System.Drawing.Size(138, 21);
             this.comboBoxCliente.TabIndex = 11;
             // 
+            // labelSucursal
+            // 
+            this.labelSucursal.AutoSize = true;
+            this.labelSucursal.Location = new System.Drawing.Point(113, 209);
+            this.labelSucursal.Name = "labelSucursal";
+            this.labelSucursal.Size = new System.Drawing.Size(10, 13);
+            this.labelSucursal.TabIndex = 12;
+            this.labelSucursal.Text = " ";
+            // 
+            // labelFechaAct
+            // 
+            this.labelFechaAct.AutoSize = true;
+            this.labelFechaAct.Location = new System.Drawing.Point(136, 73);
+            this.labelFechaAct.Name = "labelFechaAct";
+            this.labelFechaAct.Size = new System.Drawing.Size(10, 13);
+            this.labelFechaAct.TabIndex = 13;
+            this.labelFechaAct.Text = " ";
+            // 
+            // Guardar
+            // 
+            this.Guardar.Location = new System.Drawing.Point(339, 293);
+            this.Guardar.Name = "Guardar";
+            this.Guardar.Size = new System.Drawing.Size(108, 28);
+            this.Guardar.TabIndex = 14;
+            this.Guardar.Text = "Guardar";
+            this.Guardar.UseVisualStyleBackColor = true;
+            this.Guardar.Click += new System.EventHandler(this.Guardar_Click);
+            // 
             // Alta_Factura
             // 
             this.ClientSize = new System.Drawing.Size(498, 344);
+            this.Controls.Add(this.Guardar);
+            this.Controls.Add(this.labelFechaAct);
+            this.Controls.Add(this.labelSucursal);
             this.Controls.Add(this.comboBoxCliente);
             this.Controls.Add(this.comboBoxEmpresa);
             this.Controls.Add(this.dateTimePicker1);
@@ -196,5 +230,8 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.ComboBox comboBoxEmpresa;
         private System.Windows.Forms.ComboBox comboBoxCliente;
+        private System.Windows.Forms.Label labelSucursal;
+        private System.Windows.Forms.Label labelFechaAct;
+        private System.Windows.Forms.Button Guardar;
     }
 }

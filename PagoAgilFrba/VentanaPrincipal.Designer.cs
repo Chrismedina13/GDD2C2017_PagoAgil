@@ -32,7 +32,6 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
@@ -68,15 +67,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(187, 224);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(111, 38);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Registro Pago Factura";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(12, 159);
@@ -89,7 +79,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(187, 159);
+            this.button5.Location = new System.Drawing.Point(187, 183);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(111, 38);
             this.button5.TabIndex = 7;
@@ -108,7 +98,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(187, 85);
+            this.button7.Location = new System.Drawing.Point(187, 107);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(111, 38);
             this.button7.TabIndex = 9;
@@ -128,11 +118,11 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(187, 287);
+            this.button9.Location = new System.Drawing.Point(187, 264);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(111, 38);
             this.button9.TabIndex = 11;
-            this.button9.Text = "Redencion Facturas Cobradas";
+            this.button9.Text = "Rendicion Facturas Cobradas";
             this.button9.UseVisualStyleBackColor = true;
             // 
             // button10
@@ -147,7 +137,7 @@
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(187, 12);
+            this.button11.Location = new System.Drawing.Point(187, 29);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(111, 38);
             this.button11.TabIndex = 13;
@@ -168,7 +158,6 @@
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button3);
             this.Name = "VentanaPrincipal";
@@ -184,7 +173,7 @@
 
 
         #endregion
-        private System.Windows.Forms.Button button2;
+
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
