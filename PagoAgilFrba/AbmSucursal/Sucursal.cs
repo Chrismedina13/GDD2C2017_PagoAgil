@@ -62,6 +62,29 @@ namespace PagoAgilFrba.AbmSucursal
             }
             return sucs;
         }
+
+
+   public int buscarIdSucu(string sucursalObt)
+        {
+            int id = 0;
+            using (SqlConnection Conexion = BDComun.ObtenerConexion())
+            {
+          
+                Sucursal sucu = new Sucursal();
+                SqlCommand Comando = new SqlCommand(String.Format("select sucursal_Id from pero_compila.Sucursal where  sucursal_nombre= '{0}'", sucursalObt), Conexion);
+                SqlDataReader reader = Comando.ExecuteReader();
+                while (reader.Read())
+                {
+                   id = reader.GetInt32(0);
+                   
+                }
+
+                Conexion.Close();
+            }
+            return id ;
+        
+        
+        }
     }
 
 }

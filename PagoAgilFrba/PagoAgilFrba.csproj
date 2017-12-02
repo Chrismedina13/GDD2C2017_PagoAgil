@@ -133,12 +133,24 @@
       <DependentUpon>eliminar_factura.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmFactura\Factura.cs" />
+    <Compile Include="AbmFactura\FacturaAPagar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmFactura\FacturaAPagar.Designer.cs">
+      <DependentUpon>FacturaAPagar.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmFactura\FacturaDal.cs" />
     <Compile Include="AbmFactura\listar_factura.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AbmFactura\listar_factura.Designer.cs">
       <DependentUpon>listar_factura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmFactura\listar_modif_elim.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmFactura\listar_modif_elim.Designer.cs">
+      <DependentUpon>listar_modif_elim.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmFactura\modificar_factura.cs">
       <SubType>Form</SubType>
@@ -246,20 +258,61 @@
     <Compile Include="AbmUsuario\Registro.Designer.cs">
       <DependentUpon>Registro.cs</DependentUpon>
     </Compile>
+    <Compile Include="RegistroPago\lstfacturasAPagar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistroPago\lstfacturasAPagar.Designer.cs">
+      <DependentUpon>lstfacturasAPagar.cs</DependentUpon>
+    </Compile>
     <Compile Include="RegistroPago\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RegistroPago\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Rendicion\Form1.cs">
+    <Compile Include="RegistroPago\MedioDePago.cs" />
+    <Compile Include="RegistroPago\MedioDePagoDAL.cs" />
+    <Compile Include="RegistroPago\PagoConCheque.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Rendicion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="RegistroPago\PagoConCheque.Designer.cs">
+      <DependentUpon>PagoConCheque.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistroPago\PagoConDebito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistroPago\PagoConDebito.Designer.cs">
+      <DependentUpon>PagoConDebito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistroPago\PagoConTarjetaCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistroPago\PagoConTarjetaCredito.Designer.cs">
+      <DependentUpon>PagoConTarjetaCredito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistroPago\PagoFactura.cs" />
+    <Compile Include="RegistroPago\PagoFacturaDAL.cs" />
+    <Compile Include="RegistroPago\PagoFacturaReporte.cs" />
+    <Compile Include="Rendicion\Rendicion.cs" />
+    <Compile Include="Rendicion\RendicionDal.cs" />
+    <Compile Include="Rendicion\RendirFacturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Rendicion\RendirFacturas.Designer.cs">
+      <DependentUpon>RendirFacturas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Rendicion\FiltrarRendicion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Rendicion\FiltrarRendicion.Designer.cs">
+      <DependentUpon>FiltrarRendicion.cs</DependentUpon>
     </Compile>
     <Compile Include="Support\Database.cs" />
     <Compile Include="Support\Trimesre.cs" />
+    <Compile Include="TiposDePago\Cheque.cs" />
+    <Compile Include="TiposDePago\Efectivo.cs" />
+    <Compile Include="TiposDePago\TarjetaCredito.cs" />
+    <Compile Include="TiposDePago\TarjetaDebito.cs" />
     <Compile Include="VentanaCobrador.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -308,8 +361,14 @@
     <EmbeddedResource Include="AbmFactura\Alta_Factura.resx">
       <DependentUpon>Alta_Factura.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbmFactura\FacturaAPagar.resx">
+      <DependentUpon>FacturaAPagar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmFactura\listar_factura.resx">
       <DependentUpon>listar_factura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmFactura\listar_modif_elim.resx">
+      <DependentUpon>listar_modif_elim.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmFactura\modificar_factura.resx">
       <DependentUpon>modificar_factura.cs</DependentUpon>
@@ -358,6 +417,24 @@
     </Compile>
     <EmbeddedResource Include="AbmUsuario\Registro.resx">
       <DependentUpon>Registro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistroPago\lstfacturasAPagar.resx">
+      <DependentUpon>lstfacturasAPagar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistroPago\PagoConCheque.resx">
+      <DependentUpon>PagoConCheque.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistroPago\PagoConDebito.resx">
+      <DependentUpon>PagoConDebito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistroPago\PagoConTarjetaCredito.resx">
+      <DependentUpon>PagoConTarjetaCredito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rendicion\RendirFacturas.resx">
+      <DependentUpon>RendirFacturas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rendicion\FiltrarRendicion.resx">
+      <DependentUpon>FiltrarRendicion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VentanaCobrador.resx">
       <DependentUpon>VentanaCobrador.cs</DependentUpon>

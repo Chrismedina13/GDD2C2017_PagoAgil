@@ -124,6 +124,7 @@
             this.button9.TabIndex = 11;
             this.button9.Text = "Rendicion Facturas Cobradas";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button10
             // 

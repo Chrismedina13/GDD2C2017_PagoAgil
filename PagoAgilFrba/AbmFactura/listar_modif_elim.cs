@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PagoAgilFrba.Rendicion
+namespace PagoAgilFrba.AbmFactura
 {
-    public partial class Form1 : Form
+    public partial class listar_modif_elim : Form
     {
-        public Form1()
+        public listar_modif_elim()
         {
             InitializeComponent();
         }

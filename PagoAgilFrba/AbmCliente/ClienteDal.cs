@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PagoAgilFrba.AbmCliente
 {
@@ -44,7 +45,15 @@ namespace PagoAgilFrba.AbmCliente
             }
             return clientes;
         }
-
+        public static AutoCompleteStringCollection LoadAutoComplete()
+        {
+            AutoCompleteStringCollection stringCol = new AutoCompleteStringCollection();
+            foreach (Cliente i in ClienteDal.BuscarClientes())
+            {
+                stringCol.Add(i.dni.ToString());
+            }
+            return stringCol;
+        }
 
 
         public Cliente BuscarClientePorNombreYApellido(string nombre)

@@ -20,8 +20,8 @@ namespace PagoAgilFrba.AbmFactura
         public Alta_Factura()
         {
             InitializeComponent();
-            //CargarComboClientes();
-            //CargarComboEmpresas();
+            CargarComboClientes();
+            CargarComboEmpresas();
             CargarComboItems();
             //
             // cargo la lista de items para el autocomplete
@@ -33,18 +33,23 @@ namespace PagoAgilFrba.AbmFactura
             MessageBox.Show("Falta buscar el usuario actual!!!!");
             labelSucursal.Text = u.getSucursal("admin");
             labelFechaAct.Text = DateTime.Today.ToString("dd/MM/yyyy");
+            //CargarComboClientes();
+            comboBoxCliente.AutoCompleteCustomSource = ClienteDal.LoadAutoComplete();
+            comboBoxCliente.AutoCompleteMode = AutoCompleteMode.Suggest;
+            comboBoxCliente.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
         }
         private void CargarComboClientes()
         {
             //Vaciar comboBox
-            comboBox1.DataSource = null;
+            comboBoxCliente.DataSource = null;
 
             //Indicar qué propiedad se verá en la lista
-            this.comboBox1.DisplayMember = "nombre";
+            this.comboBoxCliente.DisplayMember = "dni";
             //Indicar qué valor tendrá cada ítem
-            this.comboBox1.ValueMember = "dni";
+            this.comboBoxCliente.ValueMember = "dni";
             //Asignar la propiedad DataSource
-            this.comboBox1.DataSource = ClienteDal.BuscarClientes();
+            this.comboBoxCliente.DataSource = ClienteDal.BuscarClientes();
 
 
         }
@@ -65,14 +70,14 @@ namespace PagoAgilFrba.AbmFactura
         private void CargarComboEmpresas()
         {
             //Vaciar comboBox
-            comboBox1.DataSource = null;
+            comboBoxEmpresa.DataSource = null;
            
             //Indicar qué propiedad se verá en la lista
-            this.comboBox2.DisplayMember = "nombre";
+            this.comboBoxEmpresa.DisplayMember = "nombre";
             //Indicar qué valor tendrá cada ítem
-            this.comboBox2.ValueMember = "empresaId";
+            this.comboBoxEmpresa.ValueMember = "empresaId";
             //Asignar la propiedad DataSource
-            this.comboBox2.DataSource = EmpresaDal.BuscarEmpresas();
+            this.comboBoxEmpresa.DataSource = EmpresaDal.BuscarEmpresas();
 
 
         }
@@ -145,7 +150,38 @@ namespace PagoAgilFrba.AbmFactura
             }
         }
 
-       
-       
+        private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Factura f = new Factura();
+            List<Factura> facturasElegidas = new List<Factura>();
+            facturasElegidas = f.getFacturasPorDatosDeFactura(textBoxNroFact.Text, dateTimePicker1.Value, Convert.ToDecimal(comboBox4.SelectedValue.ToString()), Convert.ToDecimal(comboBoxCliente.SelectedValue.ToString()));
+            if (facturasElegidas.Count() > 0)
+            {
+                listar_factura lstFact = new listar_factura(facturasElegidas, labelSucursal.Text, Convert.ToDecimal(comboBoxCliente.SelectedValue.ToString()));
+                lstFact.ShowDialog();
+               
+            }
+           }
+
+        private void comboBoxEmpresa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxCliente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+         
     }
 }

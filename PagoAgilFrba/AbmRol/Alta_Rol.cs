@@ -69,5 +69,10 @@ namespace PagoAgilFrba.AbmRol
                 throw;
             }
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

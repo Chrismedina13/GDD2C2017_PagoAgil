@@ -60,6 +60,28 @@ namespace PagoAgilFrba.AbmFactura
             }
             catch (Exception e) { return false; }
         }
+
+
+
+        public  bool pasarAPagada(
+            Decimal factura_cliente_dni,
+            string factura_cliente_mail,
+            int factura_numero
+           )
+        {
+            try
+            {
+                SqlCommand command = new SqlCommand("[PERO_COMPILA].sp_pasar_a_pagada", BDComun.ObtenerConexion());
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@cliente_dni", factura_cliente_dni);
+                command.Parameters.AddWithValue("@cliente_mail", factura_cliente_mail);
+                command.Parameters.AddWithValue("@cod_factura", factura_numero);
+                return command.ExecuteNonQuery() > 0 ? true : false;
+               
+            }
+            catch (Exception e) { return false; }
+        }
         public static bool Modificar(int id, String nombre, int habilitado)
         {
             try
@@ -96,6 +118,32 @@ namespace PagoAgilFrba.AbmFactura
             }
             catch (Exception ex) { return false; }
         }
+
+
+
+
+
+
+
+        public int buscarIdFactura(int codFact)
+        {
+            int id = 0;
+            using (SqlConnection Conexion = BDComun.ObtenerConexion())
+            {
+          
+                Factura factu = new Factura();
+                SqlCommand Comando = new SqlCommand(String.Format("select factura_id from pero_compila.Factura where  factura_cod_factura = '{0}'", codFact), Conexion);
+                SqlDataReader reader = Comando.ExecuteReader();
+                while (reader.Read())
+                {
+                   id = reader.GetInt32(0);
+                   
+                }
+
+                Conexion.Close();
+            }
+            return id ;
         
+        }
     }
 }

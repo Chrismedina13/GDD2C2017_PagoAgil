@@ -1,19 +1,25 @@
 --Me conecto a la base de datos a usar
 USE [GD2C2017]
 GO
-
-/** CREACION DE SCHEMA **/
-
+----------------------------------------------------------------------------------------------
+								/** CREACION DE SCHEMA **/
+----------------------------------------------------------------------------------------------
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'pero_compila')
 BEGIN
     EXEC ('CREATE SCHEMA pero_compila AUTHORIZATION gd')
 END
 GO
 
-/** FIN CREACION DE SCHEMA**/
+
+----------------------------------------------------------------------------------------------
+								/** FIN CREACION DE SCHEMA**/
+----------------------------------------------------------------------------------------------
 
 
-/** VALIDACION DE TABLAS **/
+
+----------------------------------------------------------------------------------------------
+								/** VALIDACION DE TABLAS **/
+----------------------------------------------------------------------------------------------
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.FuncionalidadXRol'))
     DROP TABLE pero_compila.FuncionalidadXRol
 
@@ -80,10 +86,14 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.DevolucionesXFactura'))
     DROP TABLE pero_compila.DevolucionesXFactura
 
+----------------------------------------------------------------------------------------------
+							/** FIN VALIDACION DE TABLAS **/
+----------------------------------------------------------------------------------------------
 
-/** FIN VALIDACION DE TABLAS **/
 
-/** CREACION TABLAS **/
+----------------------------------------------------------------------------------------------
+								/** CREACION TABLAS **/
+----------------------------------------------------------------------------------------------
 
 create table [pero_compila].Funcionalidad(
 funcionalidad_Id int primary key identity,
@@ -143,6 +153,14 @@ usuarioXSucursal_usuario int not null references [pero_compila].Usuario
 create table [pero_compila].MedioPago (
 medioPago_Id int primary key identity,
 medioPago_descripcion nvarchar(250) not null,
+medioPago_nroCheque int,
+medioPago_nroTarjCredito int,
+medioPago_nroTarjDebito int,
+medioPago_fechaVtoTarjeta datetime,
+medioPago_codVerificacionTarjeta int,
+medioPago_dniTitular numeric(18,0),
+medioPago_monto numeric(18,2),
+medioPago_entidadAPagar nvarchar(255)
 )
 
 
@@ -158,16 +176,27 @@ item_descripcion nvarchar(250),
 item_precio numeric(18,2)
 )
 
+--El importe es lo que recibe el "RAPIPAGO"
+--El Total es lo que recibe la Empresa.....
 create table [pero_compila].Rendicion_Facturas (
-rendicion_facturas_fecha_Id int primary key identity,
+rendicion_facturas_Id int primary key identity,
+rendicion_facturas_fecha datetime ,
 rendicion_facturas_cantidad int ,
 rendicion_facturas_facturas nvarchar(255),
-rendicion_facturas_importe numeric(18,2),
 rendicion_facturas_empresa nvarchar(255),
-rendicion_facturas_porcentaje int,
-rendicion_facturas_total int,
-rendicion_facturas_nro numeric(18,2)
+rendicion_facturas_porcentaje numeric(18,2),
+rendicion_facturas_total numeric(18,2),
+rendicion_facturas_nro numeric(18,0),
+rendicion_facturas_importeRecaudado numeric	(18,2)
 
+)
+
+
+create table [pero_compila].ItemRendicion(
+itemRendicion_Id int primary key identity,
+itemRendicion_nro numeric(18,0) ,
+itemRendicion_importe numeric(18,2),
+itemRendicion_rendicionFactura int not null references [pero_compila].Rendicion_Facturas,
 )
 
 create table [pero_compila].Cliente (
@@ -204,7 +233,7 @@ factura_cliente_mail nvarchar(255),
 factura_fecha_alta datetime not null,
 factura_fecha_vencimiento datetime not null,
 factura_total decimal(18,2) not null default 0,
-pagoFactura_enviadoAPago bit default 0,
+factura_enviadoAPago bit default 0,
 FOREIGN KEY (factura_cliente_dni, factura_cliente_mail) REFERENCES pero_compila.Cliente(cliente_dni,cliente_email)
 )
 
@@ -223,6 +252,12 @@ pagoFactura_nro numeric(18,2),
 FOREIGN KEY (pagoFactura_cliente_dni, pagoFactura_cliente_mail) REFERENCES pero_compila.Cliente(cliente_dni,cliente_email)
 )
 
+
+create table [pero_compila].ItemPago(
+itemPago_Id int primary key identity,
+itemPago_nro int ,
+itemPago_pagoFactura int not null references [pero_compila].PagoFactura,
+)
 
 create table [pero_compila].FacturasXPago (
 facturasXPago_Id int primary key identity,
@@ -254,20 +289,20 @@ devolucionesXFactura_devolucion int not null references [pero_compila].Devolucio
 devolucionesXFactura_factura int not null references [pero_compila].Factura,
 )
 
-/** FIN CREACION TABLAS **/
+/** *********************FIN CREACION TABLAS ***********************/
 
 		
 
+-------------------------------------------------------------------------------------------
+								/*STORED PROCEDURES*/
+-------------------------------------------------------------------------------------------
 
 	
-/*STORED PROCEDURES*/
 
 
-										/*REGISTRAR USUARIO*/
---**********
---NOMBRE	: registrarUsuario [STORED PROCEDURE]
---OBJETIVO  : dar de alta a un usuario (habilitados o no)                         
---**********
+
+			/**********************REGISTRAR USUARIO*********************/
+
 
 
 IF EXISTS (SELECT name FROM sysobjects WHERE name='registrarUsuario' AND type='p')
@@ -292,13 +327,10 @@ END
 
 
 GO
-/*FIN REGISTRAR USUARIO*/
-/*LOGIN */
---**********
---NOMBRE	: login [STORED PROCEDURE]
---OBJETIVO  : iniciar sesion              
---**********
+								/*FIN REGISTRAR USUARIO*/
 
+
+/**********************LOGIN********************* */
 IF EXISTS (SELECT name FROM sysobjects WHERE name='login' AND type='p')
 	DROP PROCEDURE [pero_compila].login
 GO
@@ -343,14 +375,12 @@ BEGIN
 END
 
    
-/*FIN LOGIN */
+/**********************FIN LOGIN **********************/
 
-/*ABM ROL*/
---=============================================================================================================
---TIPO		: Stored procedure
---NOMBRE	: sp_alta_rol						------------TODO falta pasarle la lista de funcionalidades---------------
---OBJETIVO  : dar de alta un rol                                 
---=============================================================================================================
+
+
+/**********************ABM ROL**********************/
+
 IF EXISTS (SELECT name FROM sysobjects WHERE name='[pero_compila].[sp_alta_solo_rol]')
 	DROP PROCEDURE [pero_compila].[sp_alta_solo_rol]
 GO
@@ -367,8 +397,10 @@ begin
 	--select @id = scope_identity()[pero_compila].[Rol]
 end
 
+
+
 /*
-Obtiene todos los roles que se encuentran habilitados
+*********************Obtiene todos los roles que se encuentran habilitados*********************
 */
 IF EXISTS (SELECT name FROM sysobjects WHERE name='pero_compila.sp_get_roles')
 	DROP PROCEDURE pero_compila.sp_get_roles
@@ -382,7 +414,7 @@ begin
 end
 GO
 /*
-Realiza el update de los roles de acuerdo a un identificador(id)
+*********************Realiza el update de los roles de acuerdo a un identificador(id)*********************
 */
 IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_update_rol')
 	DROP PROCEDURE pero_compila.sp_update_rol
@@ -399,8 +431,11 @@ where rol_ID = @id
 
 end
 GO
+
+
+
 /*
-Realiza el alta de una funcionalidad
+*********************Realiza el alta de una funcionalidad*********************
 */
 IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_funcionalidades')
 	DROP PROCEDURE pero_compila.sp_alta_funcionalidades
@@ -418,7 +453,7 @@ end
 go
 
 /*
-Realiza el alta de un item
+*********************Realiza el alta de un item*********************
 */
 IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_item')
 	DROP PROCEDURE pero_compila.sp_alta_funcionalidades
@@ -433,21 +468,125 @@ begin
 end
 
 
+/*
+*********************PASA UNA FACTURA A ESTADO PAGA*********************
+*/
+go
+create procedure [PERO_COMPILA].sp_pasar_a_pagada(@cliente_dni numeric(18,0),
+@cliente_mail nvarchar(255),@cod_factura nvarchar(255))
+AS 
+BEGIN
+UPDATE pero_compila.Factura
+              SET factura_enviadoAPago =1
+              WHERE factura_cliente_dni = @cliente_dni and factura_cliente_mail =@cliente_mail
+					and factura_cod_factura=@cod_factura
+
+END
+
+ /*
+*********************DA DE ALTA EN UN PAGO_FACTURA*********************
+*/
+go
+create procedure [PERO_COMPILA].sp_alta_Pago_Factura(@facturaId int,
+        @sucursalId int,
+        @cliente_dni int,
+        @cliente_mail nvarchar(255),
+        @medioPagoId int,
+        @fechaCobro datetime,
+        @importe numeric(18,2))
+AS 
+BEGIN
+insert into pero_compila.PagoFactura(pagoFactura_factura,pagoFactura_sucursal,pagoFactura_cliente_dni,pagoFactura_cliente_mail,pagoFactura_medioPago,pagoFactura_fecha_cobro,pagoFactura_importe,pagoFactura_estado)
+values (@facturaId ,@sucursalId ,
+        @cliente_dni ,
+        @cliente_mail ,
+        @medioPagoId ,
+        @fechaCobro ,
+        @importe ,0)
+
+
+END
+
+/*
+*********************dar de alta en un cheque*********************
+*/
+go
+create procedure [PERO_COMPILA].sp_alta_cheque(@nroCheque INT, @dniTitular NUMERIC(18,0),
+@destino NVARCHAR(255),@monto NUMERIC(18,2))
+AS 
+BEGIN
+INSERT INTO pero_compila.MedioPago(medioPago_nroCheque,medioPago_dniTitular,medioPago_entidadAPagar,medioPago_monto,medioPago_descripcion)
+values(@nroCheque , @dniTitular ,
+@destino ,@monto,'Cheque' )
+end
+
+
+/*
+*********************dar de alta en una tarj de credito *********************
+*/	
+
+GO
+create procedure [pero_compila].[sp_alta_tarjCredito](@nroTarjCredit int,@fechaVtoTarjeta datetime,@codVerificacionTarjeta int, @dniTitular numeric(18,0),@monto numeric(18,2) )
+as
+begin
+insert into pero_compila.MedioPago(medioPago_nroTarjCredit,medioPago_fechaVtoTarjeta,medioPago_codVerificacionTarjeta,medioPago_dniTitular,medioPago_monto,medioPago_descripcion)
+values(@nroTarjCredit,@fechaVtoTarjeta ,@codVerificacionTarjeta, @dniTitular ,@monto,'Tarjeta de Crédito' )
+end
 
 
 
---=============================================================================================================
---TIPO		: Stored procedure
---NOMBRE	: sp_alta_rol						------------TODO falta pasarle la lista de funcionalidades---------------
---OBJETIVO  : dar de alta un rol                                 
---=============================================================================================================
+/*
+********************** dar de alta en una tarj de debito*********************
+*/	
 
-/*FIN DE STORED PROCEDURES*/
+GO
+create procedure [pero_compila].[sp_alta_tarjDebito](@nroTarjDebito int,@fechaVtoTarjeta datetime,@codVerificacionTarjeta int, @dniTitular numeric(18,0),@monto numeric(18,2) )
+as
+begin
+insert into pero_compila.MedioPago(medioPago_nroTarjCredit,medioPago_fechaVtoTarjeta,medioPago_codVerificacionTarjeta,medioPago_dniTitular,medioPago_monto,medioPago_descripcion)
+values(@nroTarjDebito,@fechaVtoTarjeta ,@codVerificacionTarjeta, @dniTitular ,@monto,'Tarjeta de Débito' )
+end
 
-/* CARGA DE DATOS */
+/*
+********************** dar de alta una rendicion en una fecha*********************
+*/	
+create procedure [PERO_COMPILA].sp_alta_rendicion(@rendicion_fecha datetime,
+             @cantidad int,
+             @empresa nvarchar(255),
+             @porcentaje numeric(18,2),
+             @total numeric(18,2),
+			 @importeRecaudado numeric(18,2))
+AS
+BEGIN
+insert into pero_compila.Rendicion_Facturas(
+rendicion_facturas_fecha,
+rendicion_facturas_cantidad,
+rendicion_facturas_empresa,
+rendicion_facturas_porcentaje,
+rendicion_facturas_total,
+rendicion_facturas_importeRecaudado)
+values (@rendicion_fecha,@cantidad,@empresa,
+             @porcentaje,@total,@importeRecaudado)
+
+END
 
 
 
+
+-----------------------------------------------------------------------------------------------------
+									/*FIN DE STORED PROCEDURES*/
+-----------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------
+										/* CARGA DE DATOS */
+-----------------------------------------------------------------------------------------------------
+
+--Existen dos tipos de roles Administradores y Cobradores
 					/*Rol*/
 insert into [pero_compila].Rol (rol_nombre) values
 ('Administrativo'), 
@@ -467,34 +606,29 @@ insert into pero_compila.Funcionalidad (funcionalidad_descripcion) values
 ('Listado estadistico');
 
 					/*RolXFuncionalidad*/
+
+
 insert into [pero_compila].FuncionalidadXRol (funcionalidadXRol_rol, funcionalidadXRol_funcionalidad) values
 (1,1), (1,2), (1,3), (1,4),(1,5),(1,6),(1,7),(2,7),(2,8),(1,10),(2,9),(2,10);
 
 					/*Usuarios*/
+
+
 /*Usuario pedido*/
 insert into pero_compila.Usuario (usuario_username, usuario_password) values
 ('admin',HASHBYTES('SHA2_256','w23e'))
 
-			/*Localidad*/
-
-/*insert into pero_compila.Localidad (localidad_nombre,localidad_provincia,localidad_pais)
-values ('Capital Federal','Buenos Aires','Argentina')*/
-
-
-
-					/*Clientes*/
-insert into pero_compila.Cliente (cliente_nombre, cliente_apellido,cliente_dni,cliente_email,cliente_direccion,cliente_CP,cliente_localidad,cliente_fecha_nacimiento)
-select distinct m.[Cliente-Nombre], m.[Cliente-Apellido],m.[Cliente-Dni],m.Cliente_Mail,m.Cliente_Direccion,m.Cliente_Codigo_postal,l.localidad_Id, m.[Cliente-Fecha_Nac]
-from gd_esquema.Maestra m, pero_compila.Localidad l 
---order by cast( m.[Cliente-Dni] as varchar(255))
-
-
-/*usuarios*/ 
+/*usuarios creados por el grupo*/ 
 insert into pero_compila.Usuario (usuario_username, usuario_password) values 
 	('cobrador',HASHBYTES('SHA2_256','cobrador'))
 insert into pero_compila.Usuario (usuario_username,usuario_password) values
 	('admingral',HASHBYTES('SHA2_256','admingral'))
 
+
+					/*Localidad*/
+
+insert into pero_compila.Localidad (localidad_nombre,localidad_provincia,localidad_pais)
+values ('Capital Federal','Buenos Aires','Argentina')
 
 
 					/*UsuariosXRoles*/
@@ -502,11 +636,7 @@ insert into pero_compila.Usuario (usuario_username,usuario_password) values
 insert into pero_compila.RolXUsuario (rolXUsuario_usuario, rolXUsuario_rol) values
 	(1,1),(2,2),(3,1),(3,2);
 
-		
 
-
-
-	
                     /*Sucursal*/
 insert into pero_compila.Sucursal(sucursal_CP,sucursal_direccion,sucursal_nombre,sucursal_localidad)
 select distinct Sucursal_Codigo_Postal,Sucursal_Dirección,Sucursal_Nombre,localidad_Id
@@ -544,11 +674,36 @@ select distinct m.[Cliente-Dni],m.[Cliente_Mail], empresa_Id, m.Nro_Factura, m.F
 from gd_esquema.Maestra m,pero_compila.Cliente c, pero_compila.Empresa e
 order by factura_fecha_vencimiento 
 
+						/*Item X Factura*/
+
+insert into pero_compila.ItemXFactura(itemXFactura_factura,itemXFactura_cantidad,itemXFactura_item)
+SELECT DISTINCT f.factura_Id,m.ItemFactura_Cantidad,i.item_Id
+FROM pero_compila.Factura f
+JOIN GD2C2017.gd_esquema.Maestra m
+		ON f.factura_cod_factura = m.Nro_Factura
+JOIN pero_compila.Item i ON (i.item_precio=m.ItemFactura_Monto)
+WHERE f.factura_Id IS NOT NULL
+
 
 
 					/*Rendicion_Facturas*/
-/* 
-insert into [pero_compila].Rendicion_Facturas  ( rendicion_facturas_fecha_Id,rendicion_facturas_cantidad,rendicion_facturas_facturas, rendicion_facturas_importe, rendicion_facturas_empresa, rendicion_facturas_porcentaje,rendicion_facturas_total)
+SET IDENTITY_INSERT pero_compila.Rendicion_Facturas ON
+GO
+
+INSERT INTO pero_compila.Rendicion_Facturas(rendicion_facturas_Id ,
+rendicion_facturas_fecha,
+rendicion_facturas_empresa,rendicion_facturas_porcentaje,
+rendicion_facturas_total,rendicion_facturas_nro )
+SELECT DISTINCT m.Rendicion_Nro,
+				m.Rendicion_Fecha,
+				e.empresa_id,
+				ROUND((m.ItemRendicion_Importe/m.Factura_Total*100), 2),
+				m.ItemRendicion_Importe,
+				m.Rendicion_Nro
+FROM GD2C2017.gd_esquema.Maestra m, pero_compila.Empresa e
+WHERE m.Rendicion_Nro IS NOT NULL
+SET IDENTITY_INSERT pero_compila.Rendicion_Facturas OFF
+GO
 
 
 
@@ -563,9 +718,25 @@ from gd_esquema.Maestra m , pero_compila.Localidad l
 GO
 
 				/*Medio de Pago*/
-insert into pero_compila.MedioPago
+insert into pero_compila.MedioPago (medioPago_descripcion)
 select distinct FormaPagoDescripcion from gd_esquema.Maestra where FormaPagoDescripcion not like 'null'
 
 
 				/*Pago_Factura*/
-INSERT INTO 
+insert into pero_compila.PagoFactura (pagoFactura_factura,pagoFactura_sucursal,pagoFactura_cliente_dni,
+pagoFactura_cliente_mail,pagoFactura_medioPago,pagoFactura_fecha_cobro,pagoFactura_importe,pagoFactura_estado,
+pagoFactura_nro)
+SELECT DISTINCT	f.factura_Id,s.Sucursal_Id, m.[Cliente-Dni],m.Cliente_Mail,fp.medioPago_Id,m.Pago_Fecha, m.Total,1,m.Nro_Factura
+FROM GD2C2017.gd_esquema.Maestra m 
+JOIN pero_compila.Factura f 
+		ON m.Nro_Factura = f.factura_cod_factura
+JOIN pero_compila.Sucursal s 
+		ON s.sucursal_CP = m.Sucursal_Codigo_Postal
+JOIN pero_compila.MedioPago fp 
+		ON m.FormaPagoDescripcion = fp.medioPago_descripcion
+WHERE Pago_nro IS NOT NULL
+
+
+-----------------------------------------------------------------------------------------------------
+										/*FIN CARGA DE DATOS */
+-----------------------------------------------------------------------------------------------------
