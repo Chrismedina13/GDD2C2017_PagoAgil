@@ -38,6 +38,8 @@
             this.textNombre = new System.Windows.Forms.TextBox();
             this.dataGridViewSeleccionarCliente = new System.Windows.Forms.DataGridView();
             this.label6 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSeleccionarCliente)).BeginInit();
             this.SuspendLayout();
             // 
@@ -115,9 +117,9 @@
             // dataGridViewSeleccionarCliente
             // 
             this.dataGridViewSeleccionarCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewSeleccionarCliente.Location = new System.Drawing.Point(58, 157);
+            this.dataGridViewSeleccionarCliente.Location = new System.Drawing.Point(58, 182);
             this.dataGridViewSeleccionarCliente.Name = "dataGridViewSeleccionarCliente";
-            this.dataGridViewSeleccionarCliente.Size = new System.Drawing.Size(439, 150);
+            this.dataGridViewSeleccionarCliente.Size = new System.Drawing.Size(439, 125);
             this.dataGridViewSeleccionarCliente.TabIndex = 14;
             // 
             // label6
@@ -129,11 +131,30 @@
             this.label6.TabIndex = 15;
             this.label6.Text = "Ingrese datos para filtrar la tabla";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(167, 151);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(147, 20);
+            this.textBox1.TabIndex = 16;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(72, 153);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(45, 13);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "EMAIL :";
+            // 
             // seleccionar_cliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(566, 319);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.dataGridViewSeleccionarCliente);
             this.Controls.Add(this.textDni);
@@ -165,6 +186,8 @@
         private System.Windows.Forms.TextBox textNombre;
         private System.Windows.Forms.DataGridView dataGridViewSeleccionarCliente;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label4;
 
 
     }
