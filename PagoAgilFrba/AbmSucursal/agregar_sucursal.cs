@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using PagoAgilFrba.Support;
 namespace PagoAgilFrba.AbmSucursal
 {
     public partial class agregar_sucursal : Form
@@ -38,17 +38,17 @@ namespace PagoAgilFrba.AbmSucursal
                 return;
 
             }
-            else if (true) //Database.coExiste(cuit))
+            else if (Database.CPExistente(CodigoPostal))
             {
-                MessageBox.Show("El cuil ingresada ya esta en uso.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El Codigo Postal ingresada ya esta en uso.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
             {
 
-                //Database.addSucursal(Nombre,Direccion,CodigoPostal);
+                Database.AddSucursal(Nombre, direccion, CodigoPostal);
+                
                 this.limpiarCuadrosDeTexto();
-                MessageBox.Show("Empresa ingresads correctamente", "Estado", MessageBoxButtons.OK);
             }
 
         }

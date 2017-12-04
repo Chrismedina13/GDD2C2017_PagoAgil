@@ -44,7 +44,7 @@ namespace PagoAgilFrba.AbmSucursal
 
         }
 
-        public void button2_Click(object sender, EventArgs e)
+        public void btnModificarSucursal_Click(object sender, EventArgs e)
         {
             String nombre = textNombre.Text;
             String codigoPostal = textCodigoPostal.Text;
@@ -71,6 +71,11 @@ namespace PagoAgilFrba.AbmSucursal
         private void modificar_sucursal_Load(object sender, EventArgs e)
         {
         
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
         }
             
     }

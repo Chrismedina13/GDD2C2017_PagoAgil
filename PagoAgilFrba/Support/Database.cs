@@ -343,7 +343,7 @@ namespace PagoAgilFrba.Support
             connection.Open();
             try
             {
-                String query = "SELECT [sucursal_nombre],[sucursal_direccion],[sucursal_CP] FROM [GD2C2017].[pero_compila].[Sucursal] where [sucursal_nombre] like '" + nombre + "%' and [sucursal_direccion] like '" + direccion + "%' and [sucursal_CP] like '" + codigoPostal + "%'";
+                String query = "SELECT [sucursal_nombre],[sucursal_direccion],[sucursal_CP] FROM [GD2C2017].[pero_compila].[Sucursal] where sucursal_estado = 1 and[sucursal_nombre] like '" + nombre + "%' and [sucursal_direccion] like '" + direccion + "%' and [sucursal_CP] like '" + codigoPostal + "%'";
                 SqlDataAdapter da = new SqlDataAdapter(query, connection);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -359,7 +359,7 @@ namespace PagoAgilFrba.Support
         internal static void deleteSucursal(String nombre, String direccion, String codigoPostal)
         {
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand deleteSucursalCommand = new SqlCommand("UPDATE [GD1C2017].[pero_compila].[Sucursal] SET sucursal_estado = 0 where sucursal_nombre = @nombre and sucursal_CP = @codigoPostal and sucursal_direccion = @direccion ");
+            SqlCommand deleteSucursalCommand = new SqlCommand("Delete [GD2C2017].[pero_compila].[Sucursal] where sucursal_estado = 1 and sucursal_nombre = @nombre and sucursal_CP = @codigoPostal and sucursal_direccion = @direccion ");
             deleteSucursalCommand.Parameters.AddWithValue("direccion", direccion);
             deleteSucursalCommand.Parameters.AddWithValue("nombre", nombre);
             deleteSucursalCommand.Parameters.AddWithValue("codigoPostal", codigoPostal);
@@ -400,12 +400,31 @@ namespace PagoAgilFrba.Support
 
         }
 
+        internal static void AddSucursal(string nombre, string direccion, string cp)
+        {
+
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
+            SqlCommand addsucursal = new SqlCommand("insert into [GD2C2017].[pero_compila].[Sucursal] (sucursal_direccion,sucursal_nombre,sucursal_CP,sucursal_localidad) values (@nombre,@direccion,@cp,1)");
+            addsucursal.Parameters.AddWithValue("nombre", nombre);
+            addsucursal.Parameters.AddWithValue("direccion", direccion);
+            addsucursal.Parameters.AddWithValue("cp", cp);
+
+            addsucursal.Connection = connection;
+            connection.Open();
+            int registrosModificados = addsucursal.ExecuteNonQuery();
+            connection.Close();
+            if (registrosModificados > 0) MessageBox.Show("Sucursal ingresada correctamente", "Estado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else MessageBox.Show("Error al cargar registro", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+        }
+
 
 
         internal static void modificarSucursal(String nombre, String direccion, String cp, String nombreNuevo, string cpNuevo, String DireccionNuevo, String habilitadoNuevo)
         {
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand updateSucursalCommand = new SqlCommand("UPDATE [GD1C2017].[pero_compila].[Sucursal] set sucursal_nombre = @nombreNuevo, sucursal_CP = @cpNuevo, sucursal_direccion = @DireccionNuevo,sucursal_estado = @habilitadoNuevo WHERE sucursal_nombre = @nombre and sucursal_direccion = @direccion and sucursal_CP = @cp ");
+            SqlCommand updateSucursalCommand = new SqlCommand("UPDATE [GD2C2017].[pero_compila].[Sucursal] set sucursal_nombre = @nombreNuevo, sucursal_CP = @cpNuevo, sucursal_direccion = @DireccionNuevo,sucursal_estado = @habilitadoNuevo WHERE sucursal_nombre = @nombre and sucursal_direccion = @direccion and sucursal_CP = @cp ");
 
             updateSucursalCommand.Parameters.AddWithValue("nombre", nombre);
             updateSucursalCommand.Parameters.AddWithValue("direccion", direccion);
@@ -425,6 +444,26 @@ namespace PagoAgilFrba.Support
             }
             else MessageBox.Show("El registro que quiso modificar no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+        }
+
+        internal static bool CPExistente(string codigoPostal)
+        {
+            String sucursalId = null;
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
+            SqlCommand CPexistente = new SqlCommand("SELECT sucursal_Id FROM [GD2C2017].[pero_compila].[Sucursal] WHERE sucursal_CP = @codigoPostal");
+            CPexistente.Parameters.AddWithValue("codigoPostal", codigoPostal);
+            CPexistente.Connection = connection;
+            connection.Open();
+            SqlDataReader reader = CPexistente.ExecuteReader();
+            reader.Read();
+
+            while (reader.Read())
+            {
+                sucursalId = reader["empresa_Id"].ToString();
+            }
+            
+            connection.Close();
+            return sucursalId != null;
         }
 
         /*ESTADISTICAS */
@@ -517,7 +556,6 @@ namespace PagoAgilFrba.Support
             else MessageBox.Show("El registro que quiso modificar no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         }
-
 
     }
     }
