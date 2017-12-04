@@ -322,6 +322,7 @@ BEGIN
 				VALUES (@user,HASHBYTES('SHA2_256', @pass),0)
 		INSERT INTO pero_compila.RolXUsuario(rolXUsuario_rol,rolXUsuario_usuario)
 				VALUES(@rol,@@IDENTITY)
+		Select Max(usuario_ID) from [pero_compila].[Usuario]	
 END
 
 
@@ -432,8 +433,85 @@ where rol_ID = @id
 end
 GO
 
+/*
+********************* alta los roles de acuerdo a un identificador(id)*********************
+*/
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [pero_compila].[sp_alta_rol] (@nombre varchar(255), @habilitado  bit,@funcionalidad varchar(255))
+as
+begin
+	insert into pero_compila.Rol (rol_nombre, rol_estado)
+	values(@nombre, @habilitado)
+	insert into pero_compila.Funcionalidad (funcionalidad_descripcion)
+	values (@funcionalidad)
+end
+
+/*
+*********************Obtiene todos los clientes que se encuentran habilitados*********************
+*/
+GO
+create procedure [pero_compila].[sp_get_clientes]
+
+as
+begin
+	select * from pero_compila.Cliente where cliente_estado=1
+end
+/*
+*********************Obtiene todas las empresas que se encuentran habilitados*********************
+*/
+
+GO
+
+create procedure [pero_compila].[sp_get_empresas]
+
+as
+begin
+	select * from pero_compila.Empresa where empresa_estado=1
+end
+/*
+*********************Obtiene todos los items *********************
+*/
+GO
+create procedure [pero_compila].[sp_get_items]
+
+as
+begin
+	select distinct item_Id,item_descripcion,item_precio from pero_compila.Item
+end
+
+/*
+*********************Obtiene todas las facturas*********************
+*/
+
+GO
+create procedure [pero_compila].sp_get_facturas
+
+as
+begin
+	select * from pero_compila.Factura where factura_enviadoAPago=0
+end
 
 
+
+/*
+*********************Alta del usuario con sucursales*********************
+*/
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_usuarioXSucursal')
+	DROP PROCEDURE pero_compila.sp_alta_usuarioXSucursal
+GO											
+go
+create procedure pero_compila.sp_alta_usuarioXSucursal
+(@idUsuario int, @idSucursal  int)
+as
+begin
+	insert into pero_compila.UsuarioXSucursal
+	(usuarioXSucursal_usuario, usuarioXSucursal_sucursal)
+	values(@idUsuario, @idSucursal)
+	--select @@IDENTITY
+end
+go
 /*
 *********************Realiza el alta de una funcionalidad*********************
 */
@@ -468,6 +546,23 @@ begin
 end
 
 
+/*
+*************************ALTA DE FACTURA *******************************
+*/
+GO
+ALTER procedure [pero_compila].[sp_alta_factura] 
+(@cliente_dni numeric(18,0),@cliente_mail nvarchar(255),
+@empresaId int,
+@cod_factura nvarchar(255),
+@fecha_alta datetime,@fecha_vencimiento datetime,
+@total decimal(18,2))
+as
+begin
+	insert into pero_compila.Factura ([factura_cliente_dni],[factura_cliente_mail],[factura_empresa],[factura_cod_factura],
+	[factura_fecha_alta],[factura_fecha_vencimiento],[factura_total])
+	values(@cliente_dni,@cliente_mail,@empresaId,@cod_factura,
+	@fecha_alta,@fecha_vencimiento,@total)
+end
 /*
 *********************PASA UNA FACTURA A ESTADO PAGA*********************
 */

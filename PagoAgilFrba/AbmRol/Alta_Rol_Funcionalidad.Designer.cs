@@ -119,6 +119,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "Alta_Rol_Funcionalidad";
             this.Text = "Alta_Rol_Funcionalidad";
+            this.Load += new System.EventHandler(this.Alta_Rol_Funcionalidad_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

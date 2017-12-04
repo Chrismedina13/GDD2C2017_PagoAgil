@@ -27,8 +27,8 @@ namespace PagoAgilFrba.AbmFactura
 
         private void button2_Click(object sender, EventArgs e)
         {
-            modificar_factura mf = new modificar_factura();
-            mf.Show();
+            listar_modif_elim modelim = new listar_modif_elim();
+            modelim.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)

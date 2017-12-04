@@ -17,56 +17,30 @@ namespace PagoAgilFrba.AbmFactura
 {
     public partial class Alta_Factura : Form
     {
+        
         public Alta_Factura()
         {
             InitializeComponent();
-            CargarComboClientes();
+          //  CargarComboClientes();
             CargarComboEmpresas();
-            CargarComboItems();
+            //CargarComboItems();
             //
             // cargo la lista de items para el autocomplete
             //
             Usuario u = new Usuario();
-            comboBox4.AutoCompleteCustomSource = ItemDal.LoadAutoComplete();
-            comboBox4.AutoCompleteMode = AutoCompleteMode.Suggest;
-            comboBox4.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            //textImporte.AutoCompleteCustomSource = ItemDal.LoadAutoComplete();
+            //textImporte.AutoCompleteMode = AutoCompleteMode.Suggest;
+            //textImporte.AutoCompleteSource = AutoCompleteSource.CustomSource;
             MessageBox.Show("Falta buscar el usuario actual!!!!");
             labelSucursal.Text = u.getSucursal("admin");
             labelFechaAct.Text = DateTime.Today.ToString("dd/MM/yyyy");
             //CargarComboClientes();
-            comboBoxCliente.AutoCompleteCustomSource = ClienteDal.LoadAutoComplete();
-            comboBoxCliente.AutoCompleteMode = AutoCompleteMode.Suggest;
-            comboBoxCliente.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            textCliente.AutoCompleteCustomSource = ClienteDal.LoadAutoComplete();
+            textCliente.AutoCompleteMode = AutoCompleteMode.Suggest;
+            textCliente.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
         }
-        private void CargarComboClientes()
-        {
-            //Vaciar comboBox
-            comboBoxCliente.DataSource = null;
 
-            //Indicar qué propiedad se verá en la lista
-            this.comboBoxCliente.DisplayMember = "dni";
-            //Indicar qué valor tendrá cada ítem
-            this.comboBoxCliente.ValueMember = "dni";
-            //Asignar la propiedad DataSource
-            this.comboBoxCliente.DataSource = ClienteDal.BuscarClientes();
-
-
-        }
-        private void CargarComboItems()
-        {
-            //Vaciar comboBox
-            comboBox4.DataSource = null;
-
-            //Indicar qué propiedad se verá en la lista
-            this.comboBox4.DisplayMember = "descripcion";
-            //Indicar qué valor tendrá cada ítem
-            this.comboBox4.ValueMember = "item_Id";
-            //Asignar la propiedad DataSource
-            this.comboBox4.DataSource = ItemDal.BuscarItems();
-
-
-        }
         private void CargarComboEmpresas()
         {
             //Vaciar comboBox
@@ -84,10 +58,10 @@ namespace PagoAgilFrba.AbmFactura
 
         private bool verificarCampos()
         {
-            if ( (Convert.ToInt32(comboBox4.SelectedIndex.ToString()))<0)
-            {
-                MessageBox.Show("Error: El nro de Factura debe ser numérico o mayor a CERO.");
-            }
+            //if ((Convert.ToInt32(textImporte.SelectedText)) < 0)
+            //{
+            //    MessageBox.Show("Error: El nro de Factura debe ser numérico o mayor a CERO.");
+            //}
             if (DateTime.Compare(dateTimePicker1.Value, DateTime.Today) < 0)
             {
                 MessageBox.Show("Error: la fecha de vencimiento debe ser posterior a la actual.");
@@ -131,6 +105,12 @@ namespace PagoAgilFrba.AbmFactura
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int idImporte = Convert.ToInt32(textCliente.AutoCompleteSource.ToString());
+           
+            //if (idImporte > 0)
+            //{
+            //    textBox1.Text = Descripcion;
+            //}
 
         }
 
@@ -159,10 +139,11 @@ namespace PagoAgilFrba.AbmFactura
         {
             Factura f = new Factura();
             List<Factura> facturasElegidas = new List<Factura>();
-            facturasElegidas = f.getFacturasPorDatosDeFactura(textBoxNroFact.Text, dateTimePicker1.Value, Convert.ToDecimal(comboBox4.SelectedValue.ToString()), Convert.ToDecimal(comboBoxCliente.SelectedValue.ToString()));
+
+            facturasElegidas = f.getFacturasPorDatosDeFactura(textBoxNroFact.Text, dateTimePicker1.Value,Convert.ToDecimal(textCliente.Text.ToString()));
             if (facturasElegidas.Count() > 0)
             {
-                listar_factura lstFact = new listar_factura(facturasElegidas, labelSucursal.Text, Convert.ToDecimal(comboBoxCliente.SelectedValue.ToString()));
+                listar_factura lstFact = new listar_factura(facturasElegidas, labelSucursal.Text, Convert.ToDecimal(textCliente.Text.ToString()));
                 lstFact.ShowDialog();
                
             }
@@ -175,7 +156,12 @@ namespace PagoAgilFrba.AbmFactura
 
         private void comboBoxCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            int IdProducto = Convert.ToInt32(textCliente.SelectedText);
+            string Descripcion = Convert.ToString(textCliente.Text);
+            //if (IdProducto > 0)
+            //{
+            //    textBox1.Text = Descripcion;
+            //}
         }
 
         private void groupBox2_Enter(object sender, EventArgs e)

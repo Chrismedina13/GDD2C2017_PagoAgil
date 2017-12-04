@@ -16,5 +16,10 @@ namespace PagoAgilFrba.AbmFactura
         {
             InitializeComponent();
         }
+
+        private void modificar_factura_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

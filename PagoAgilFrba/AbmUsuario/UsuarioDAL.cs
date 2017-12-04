@@ -29,18 +29,19 @@ namespace PagoAgilFrba.AbmUsuario
                 comando.Parameters.AddWithValue("@rol", r.getidRolPorNombre(rol));
                    //declaramos el parámetro de retorno
                 //executamos la consulta
-                resultado = comando.ExecuteNonQuery();
-                // traemos el valor de retorno
-
-                //dependiendo del valor de retorno se asigna la variable success
-                //si el procedimiento retorna un 2 en este caso afecta dos filas
-                //la operación se realizó con éxito
-                //de no ser así se mantiene en false y pr lo tanto falló la operación
-                Conexion.Close();
-                if (resultado == 2)
-                    return 1;
+                int id = Convert.ToInt32(comando.ExecuteScalar());
+                if (id > 0)
+                {
+                    //comando.CommandText = "Select Max(rol_Id) from [pero_compila].[Rol]";
+                    //id= Convert.ToInt32(comando.ExecuteScalar());
+                    //Conexion.Close();
+                    return id;
+                }
                 else
-                    return 0;
+                {
+                    Conexion.Close();
+                    return id;
+                }
 
             }
             catch (Exception ex)

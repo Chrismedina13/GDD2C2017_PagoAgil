@@ -97,6 +97,11 @@ namespace PagoAgilFrba.AbmRol
         {
 
         }
+
+        private void Alta_Rol_Funcionalidad_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -37,6 +38,40 @@ namespace PagoAgilFrba.AbmSucursal
             }
         }
 
+        public static int insert(int idUsuario, int idSucursal)
+        {
+            SqlConnection Conexion = BDComun.ObtenerConexion();
+            try
+            {
+
+
+                SqlCommand comando = new SqlCommand("pero_compila.sp_alta_usuarioXSucursal", Conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                //se limpian los parámetros
+                comando.Parameters.Clear();
+                //comenzamos a mandar cada uno de los parámetros, deben de enviarse en el
+                //tipo de datos que coincida en sql server por ejemplo c# es string en sql server es varchar()
+                comando.Parameters.AddWithValue("@idUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@idSucursal", idSucursal);
+                if (comando.ExecuteNonQuery() > 0)
+                {
+                    Conexion.Close();
+                    return 1;
+                }
+                else
+                {
+                    Conexion.Close();
+                    return 0;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Conexion.Close();
+                return 0;
+            }
+        }
+
 
 
 
@@ -48,13 +83,14 @@ namespace PagoAgilFrba.AbmSucursal
 
             using (SqlConnection Conexion = BDComun.ObtenerConexion())
             {
-                SqlCommand Comando = new SqlCommand(String.Format("SELECT DISTINCT sucursal_nombre from pero_compila.Sucursal where sucursal_nombre not like 'null'"), Conexion);
+                SqlCommand Comando = new SqlCommand(String.Format("SELECT DISTINCT sucursal_Id,sucursal_nombre from pero_compila.Sucursal where sucursal_nombre not like 'null'"), Conexion);
                 SqlDataReader reader = Comando.ExecuteReader();
 
                 while (reader.Read())
                 {
                     Sucursal s = new Sucursal();
-                    s.Nombre = reader.GetString(0);
+                    s.Id = reader.GetInt32(0);
+                    s.Nombre = reader.GetString(1);
                     
                     sucs.Add(s);
                 }

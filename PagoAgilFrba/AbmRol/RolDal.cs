@@ -51,8 +51,6 @@ namespace PagoAgilFrba.AbmRol
             SqlConnection Conexion = BDComun.ObtenerConexion();
             try
             {
-
-
                 SqlCommand comando = new SqlCommand("pero_compila.sp_alta_solo_rol", Conexion);
                 comando.CommandType = CommandType.StoredProcedure;
                 //se limpian los parámetros
