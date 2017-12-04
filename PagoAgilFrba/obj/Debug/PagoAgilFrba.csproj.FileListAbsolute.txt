@@ -64,6 +64,31 @@ C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.RegistroPago.lstfactur
 C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.Rendicion.cantArendir.resources
 C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.Rendicion.RendirFactura.resources
 C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.csprojResolveAssemblyReference.cache
+<<<<<<< HEAD
 C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.Devoluciones.devolucion_factura.resources
 C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.Devoluciones.seleccionar_cliente.resources
 C:\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmFactura.eliminar_factura.resources
+=======
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmCliente.eliminar_cliente.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmFactura.ABM_Factura.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmFactura.ALTAFACTURA.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmFactura.Alta_Factura.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmFactura.FacturaAPagar.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmFactura.listar_factura.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmFactura.listar_modif_elim.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmFactura.modificar_factura.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmFactura.RendicionFacturas.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmRol.Alta_Rol_Funcionalidad.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmRol.eliminar_rol.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmRol.modificar_rol.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.Devoluciones.devolucion_factura.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.Devoluciones.seleccionar_cliente.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.Registro.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.RegistroPago.lstfacturasAPagar.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.RegistroPago.PagoConCheque.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.RegistroPago.PagoConDebito.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.RegistroPago.PagoConTarjetaCredito.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.Rendicion.cantArendir.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.Rendicion.RendirFactura.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.VentanaPorSucursal.resources
+>>>>>>> 62e8467172567a2dcedbf39202749c8eb8d039f5
