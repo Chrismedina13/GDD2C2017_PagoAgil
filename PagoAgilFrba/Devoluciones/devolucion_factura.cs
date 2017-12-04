@@ -62,6 +62,7 @@ namespace PagoAgilFrba.Devoluciones
                 foreach(int factura in IdsFacturasSeleccionadas){
 
                     Database.updatePagoFactura(factura);
+                 
                     Database.updateFacturaDevuelta(factura);
                     //falta ingresar a la tabla de devueltos
                 
