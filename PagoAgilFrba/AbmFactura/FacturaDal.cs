@@ -145,5 +145,54 @@ namespace PagoAgilFrba.AbmFactura
             return id ;
         
         }
+
+
+
+
+
+        public static bool EliminarFactura(Factura f)
+        {
+            try
+            {
+                SqlConnection Conexion = BDComun.ObtenerConexion();
+                SqlCommand comando = new SqlCommand("pero_compila.sp_eliminar_factura", Conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                //se limpian los parámetros
+                comando.Parameters.Clear();
+                //comenzamos a mandar cada uno de los parámetros, deben de enviarse en el
+                //tipo de datos que coincida en sql server por ejemplo c# es string en sql server es varchar()
+                comando.Parameters.AddWithValue("@codFactura", f.codFactura);
+                comando.Parameters.AddWithValue("@cli_dni", f.cli_dni);
+                comando.Parameters.AddWithValue("@facturaID", f.facturaId);
+                return comando.ExecuteNonQuery() > 0 ? true : false;
+            }
+            catch (Exception ex) { return false; }
+        }
+
+
+        public static bool ModificarFactura(Factura f)
+        {
+            try
+            {
+                SqlConnection Conexion = BDComun.ObtenerConexion();
+                SqlCommand comando = new SqlCommand("pero_compila.sp_update_factura", Conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                //se limpian los parámetros
+                comando.Parameters.Clear();
+                //comenzamos a mandar cada uno de los parámetros, deben de enviarse en el
+                //tipo de datos que coincida en sql server por ejemplo c# es string en sql server es varchar()
+                comando.Parameters.AddWithValue("@facturaId", f.facturaId);
+                comando.Parameters.AddWithValue("@total", f.total);
+                comando.Parameters.AddWithValue("@codFactura", f.codFactura);
+                comando.Parameters.AddWithValue("@cli_dni", f.cli_dni);
+                comando.Parameters.AddWithValue("@empresaId", f.empresa_id);
+                comando.Parameters.AddWithValue("@fechaAlta", f.fechaAlta);
+                comando.Parameters.AddWithValue("@fechaVto", f.fechaVenc);
+                return comando.ExecuteNonQuery() > 0 ? true : false;
+            }
+            catch (Exception ex) { return false; }
+        }
+
+
     }
 }

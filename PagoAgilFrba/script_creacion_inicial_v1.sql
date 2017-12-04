@@ -234,6 +234,7 @@ factura_fecha_alta datetime not null,
 factura_fecha_vencimiento datetime not null,
 factura_total decimal(18,2) not null default 0,
 factura_enviadoAPago bit default 0,
+factura_estado bit default 1
 FOREIGN KEY (factura_cliente_dni, factura_cliente_mail) REFERENCES pero_compila.Cliente(cliente_dni,cliente_email)
 )
 
@@ -487,12 +488,10 @@ end
 
 GO
 create procedure [pero_compila].sp_get_facturas
-
 as
 begin
-	select * from pero_compila.Factura where factura_enviadoAPago=0
+	select * from pero_compila.Factura where factura_enviadoAPago=0 and factura_estado=1
 end
-
 
 
 /*
@@ -576,6 +575,41 @@ UPDATE pero_compila.Factura
               WHERE factura_cliente_dni = @cliente_dni and factura_cliente_mail =@cliente_mail
 					and factura_cod_factura=@cod_factura
 
+END
+
+ /*
+*********************FILTRA UNA FACTURA POR UNO O TODOS LOS CAMPOS*********************
+*/
+GO
+CREATE PROCEDURE [pero_compila].[filtrarFacturas]
+	(@fechaAlta datetime,
+	@fechaVencimiento datetime,
+	@nroFactura int,
+	@cliDni numeric(18,0),
+	@empresaId int
+	)
+AS
+BEGIN
+	select * from pero_compila.Factura where factura_estado=1 and (
+											 @fechaAlta is null or (factura_fecha_alta =@fechaAlta) or
+											 @fechaVencimiento is null or (factura_fecha_vencimiento =@fechaVencimiento) or
+											 @nroFactura is null or (factura_cod_factura =@nroFactura) or
+											 @cliDni is null or (factura_cliente_dni =@cliDni) or
+											 @empresaId is null or (factura_empresa =@empresaId))
+END
+
+ /*
+********************ELIMINA FACTURA(PASA A ESTADO 0)*********************
+*/
+GO
+CREATE PROCEDURE [pero_compila].[sp_eliminar_factura]
+	(@codFactura int,
+	@cli_dni numeric(18,0),
+	@facturaID int
+	)
+AS
+BEGIN
+	update pero_compila.Factura Set factura_estado=0 where factura_cod_factura=@codFactura and factura_cliente_dni=@cli_dni and factura_Id=@facturaID
 END
 
  /*

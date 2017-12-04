@@ -18,6 +18,7 @@ namespace PagoAgilFrba.AbmFactura
         public listar_modif_elim()
         {
             InitializeComponent();
+         
             //CargarComboClientes();
             CargarComboEmpresas();
 
@@ -41,19 +42,25 @@ namespace PagoAgilFrba.AbmFactura
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DataGridViewButtonColumn btnModif = new DataGridViewButtonColumn();
-            dataGridView1.Columns.Add(btnModif);
-            btnModif.HeaderText = "Modificar";
-            btnModif.Name = "modificar";
-            DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn();
-            dataGridView1.Columns.Add(btnEliminar);
-            btnEliminar.HeaderText = "Eliminar";
-            btnEliminar.Name = "eliminar";
+            
             Factura f = new Factura();
             f = sinNulos();
             List<Factura> facturas = f.getFacturasNoPagasYNoRendidas(f);
             // List<Factura> facturas = f.getFacturasNoPagasYNoRendidas(textNroFactura.Text,Convert.ToDecimal(textTotal.Text),textCliente.Text,comboBoxEmpresa.SelectedValue.ToString(),dateTimePicker1.Value,dateTimePicker2.Value);
             this.dataGridView1.DataSource = facturas;
+            DataGridViewButtonColumn btnModif = new DataGridViewButtonColumn();
+            dataGridView1.Columns.Add(btnModif);
+            btnModif.HeaderText = "Modificar";
+            btnModif.Name = "modificar";
+            btnModif.Text = "Modificar";
+            btnModif.UseColumnTextForButtonValue = true;
+            DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn();
+            btnEliminar.HeaderText = "Eliminar";
+            btnEliminar.Name = "eliminar";
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseColumnTextForButtonValue = true;
+            dataGridView1.Columns.Add(btnEliminar);
+
         }
         private Factura sinNulos()
         {
@@ -74,6 +81,8 @@ namespace PagoAgilFrba.AbmFactura
             {
                 fsn.empresa_id = comboBoxEmpresa.SelectedIndex;
             }
+            fsn.fechaAlta = dateTimePicker1.Value;
+            fsn.fechaVenc = dateTimePicker2.Value;
             return fsn;
         }
 
@@ -92,6 +101,40 @@ namespace PagoAgilFrba.AbmFactura
 
         }
         private void listar_modif_elim_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Ignore clicks that are not on button cells. 
+            //if (e.RowIndex < 0 || e.ColumnIndex !=
+            //    dataGridView1.Columns["Eliminar"].Index) return;
+            Factura f = new Factura();
+            f.facturaId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["facturaId"].Value.ToString()) ;
+            f.fechaAlta =Convert.ToDateTime( dataGridView1.Rows[e.RowIndex].Cells["fechaAlta"].Value.ToString()) ;
+            f.fechaVenc = Convert.ToDateTime(dataGridView1.Rows[e.RowIndex].Cells["fechaVenc"].Value.ToString());
+            f.cli_dni= Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells["cli_dni"].Value.ToString());
+            f.cli_mail = dataGridView1.Rows[e.RowIndex].Cells["cli_mail"].Value.ToString(); ;
+            f.codFactura =Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["codFactura"].Value.ToString()) ;
+            f.empresa_id = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["empresa_id"].Value.ToString()) ;
+            f.total = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells["total"].Value.ToString()) ;
+            if (e.RowIndex < 0 || e.ColumnIndex ==
+               dataGridView1.Columns["Eliminar"].Index)
+            {
+              
+                eliminar_factura ef = new eliminar_factura(f);
+                ef.Show();
+            }
+            if (e.RowIndex < 0 || e.ColumnIndex ==
+                 dataGridView1.Columns["Modificar"].Index)
+            {
+                modificar_factura mf = new modificar_factura(f);
+                mf.Show();
+            }
+        }
+
+        private void textNroFactura_TextChanged(object sender, EventArgs e)
         {
 
         }

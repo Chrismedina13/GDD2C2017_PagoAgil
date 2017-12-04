@@ -140,14 +140,41 @@ namespace PagoAgilFrba.AbmFactura
             Factura f = new Factura();
             List<Factura> facturasElegidas = new List<Factura>();
 
-            facturasElegidas = f.getFacturasPorDatosDeFactura(textBoxNroFact.Text, dateTimePicker1.Value,Convert.ToDecimal(textCliente.Text.ToString()));
+            facturasElegidas = f.getFacturasPorDatosDeFactura(sinNulos());
             if (facturasElegidas.Count() > 0)
             {
                 listar_factura lstFact = new listar_factura(facturasElegidas, labelSucursal.Text, Convert.ToDecimal(textCliente.Text.ToString()));
                 lstFact.ShowDialog();
-               
+
             }
-           }
+            else
+            {
+                MessageBox.Show("Filtre por otros campos.");
+            }
+         }
+
+        private Factura sinNulos()
+        {
+            Factura fsn = new Factura();
+            if (textBoxNroFact.Text != "")
+            {
+                fsn.codFactura = Convert.ToInt32(textBoxNroFact.Text);
+            }
+            //if ( textTotal.Text != "")
+            //{
+            //    fsn.total = Convert.ToDecimal(textTotal.Text);
+            //}
+            if (textCliente.Text != "")
+            {
+                fsn.cli_dni = Convert.ToDecimal(textCliente.Text);
+            }
+            if (comboBoxEmpresa.SelectedValue.ToString() != "")
+            {
+                fsn.empresa_id = comboBoxEmpresa.SelectedIndex;
+            }
+            return fsn;
+        }
+
 
         private void comboBoxEmpresa_SelectedIndexChanged(object sender, EventArgs e)
         {

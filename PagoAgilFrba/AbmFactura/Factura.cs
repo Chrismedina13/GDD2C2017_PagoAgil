@@ -20,7 +20,7 @@ namespace PagoAgilFrba.AbmFactura
         public DateTime fechaVenc { get; set; }
         public Decimal total { get; set; }
         bool estado { get; set; }
-        public List<Factura> getFacturasPorDatosDeFactura(String codFact, DateTime fechaVencimiento,  Decimal dniCliente)
+        public List<Factura> getFacturasPorDatosDeFactura(Factura f)
         {
             List<Factura> facs = new List<Factura>();
             using (SqlConnection Conexion = BDComun.ObtenerConexion())
@@ -32,7 +32,7 @@ namespace PagoAgilFrba.AbmFactura
 
                     try
                     {
-                        query = " select * from pero_compila.Factura Where factura_enviadoAPago =0 and factura_cliente_dni = " + dniCliente + "  or (factura_cod_factura =  " + codFact + " or cast(factura_fecha_vencimiento as date)='" + fechaVencimiento.ToString("dd/MM/yyyy") + "')";
+                        query = " select * from pero_compila.Factura Where factura_estado=1 and factura_enviadoAPago =0 and factura_cliente_dni = " + f.cli_dni + "  or (factura_cod_factura =  " + f.codFactura + " or cast(factura_fecha_vencimiento as date)='" + f.fechaVenc.ToString("dd/MM/yyyy") + "')";
 
                         //SqlCommand Comando = new SqlCommand(String.Format("select * from pero_compila.Factura where factura_cod_factura = '{0}' or cast(factura_fecha_vencimiento as date)='{1}' ", codFact, fechaVencimiento.ToString("dd/MM/yyyy")), Conexion);
                         SqlCommand Comando = new SqlCommand(query, Conexion);
@@ -123,29 +123,37 @@ namespace PagoAgilFrba.AbmFactura
             using (SqlConnection Conexion = BDComun.ObtenerConexion())
             {
 
-                SqlCommand comando = new SqlCommand("pero_compila.sp_get_facturas", Conexion);
-                comando.CommandType = CommandType.StoredProcedure;
-                //se limpian los parámetros
-                //comando.Parameters.Clear();
-
-                //executamos la consulta SqlDataReader reader = Comando.ExecuteReader();
-                SqlDataReader reader = comando.ExecuteReader();
-                while (reader.Read())
+                try
                 {
-                    Factura fact = new Factura();
-                    fact.facturaId = reader.GetInt32(0);
-                    fact.empresa_id = reader.GetInt32(1);
-                    fact.codFactura = Convert.ToInt32(reader.GetString(2));
-                    fact.cli_dni = reader.GetDecimal(3);
-                    fact.cli_mail = reader.GetString(4);
-                    fact.fechaAlta = reader.GetDateTime(5);
-                    fact.fechaVenc = reader.GetDateTime(6);
-                    fact.total = reader.GetDecimal(7);
+                    SqlCommand comando = new SqlCommand("pero_compila.sp_get_facturas", Conexion);
+                    comando.CommandType = CommandType.StoredProcedure;
+                    //se limpian los parámetros
+                    //comando.Parameters.Clear();
 
-                    facturas.Add(fact);
+                    //executamos la consulta SqlDataReader reader = Comando.ExecuteReader();
+                    SqlDataReader reader = comando.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Factura fact = new Factura();
+                        fact.facturaId = reader.GetInt32(0);
+                        fact.empresa_id = reader.GetInt32(1);
+                        fact.codFactura = Convert.ToInt32(reader.GetString(2));
+                        fact.cli_dni = reader.GetDecimal(3);
+                        fact.cli_mail = reader.GetString(4);
+                        fact.fechaAlta = reader.GetDateTime(5);
+                        fact.fechaVenc = reader.GetDateTime(6);
+                        fact.total = reader.GetDecimal(7);
 
+                        facturas.Add(fact);
+
+                    }
+                    Conexion.Close();
                 }
-                Conexion.Close();
+                catch (Exception e)
+                {
+                    
+                    throw;
+                } 
             }
             return facturas;
         }
@@ -168,13 +176,17 @@ namespace PagoAgilFrba.AbmFactura
             {
                 using (SqlConnection Conexion = BDComun.ObtenerConexion())
                 {
-                    SqlCommand comando = new SqlCommand("pero_compila.filtrarFacturasTrucho", Conexion);
+                    SqlCommand comando = new SqlCommand("pero_compila.filtrarFacturas", Conexion);
                     comando.CommandType = CommandType.StoredProcedure;
                     //se limpian los parámetros
                     comando.Parameters.Clear();
                     //comenzamos a mandar cada uno de los parámetros, deben de enviarse en el
                     //tipo de datos que coincida en sql server por ejemplo c# es string en sql server es varchar()
-                    comando.Parameters.AddWithValue("@total", ftra.total);
+                    comando.Parameters.AddWithValue("@fechaAlta", ftra.fechaAlta);
+                    comando.Parameters.AddWithValue("@fechaVencimiento", ftra.fechaVenc);
+                    comando.Parameters.AddWithValue("@nroFactura", ftra.codFactura);
+                    comando.Parameters.AddWithValue("@cliDni", ftra.cli_dni);
+                    comando.Parameters.AddWithValue("@empresaId", ftra.empresa_id);
                     SqlDataReader reader = comando.ExecuteReader();
                     while (reader.Read())
                     {
