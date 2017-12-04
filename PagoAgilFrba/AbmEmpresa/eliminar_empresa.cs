@@ -38,7 +38,7 @@ namespace PagoAgilFrba.AbmEmpresa
                 var row = dataGridView1.SelectedRows[0];
                 txtNombre.Text = row.Cells["empresa_nombre"].Value.ToString();
                 txtCuit.Text = row.Cells["empresa_cuit"].Value.ToString();
-                cmbRubro.SelectedIndex = cmbRubro.FindString(row.Cells["comboRubro"].Value.ToString());
+               // cmbRubro.SelectedIndex = cmbRubro.FindString(row.Cells["comboRubro"].Value.ToString());
             }
         }
 
@@ -74,9 +74,9 @@ namespace PagoAgilFrba.AbmEmpresa
                 var respuesta = MessageBox.Show("¿Estas seguro?","Confirme borrado",MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (respuesta == DialogResult.Yes)
                 {
-                    
-                    
-                    Database.deleteEmpresa(rubro, nombre, cuit);
+
+                    int idRubro = Database.idDelRubro(rubro);
+                    Database.deleteEmpresa(idRubro, nombre, cuit);
                     this.limpiarCuadrosDeTexto();
                     Database.cargarGriddEmpresa(dataGridView1,"","","");
                 }

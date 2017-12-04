@@ -38,7 +38,7 @@ namespace PagoAgilFrba.AbmEmpresa
                 var row = dataGridView1.SelectedRows[0];
                 txtNombre.Text = row.Cells["empresa_nombre"].Value.ToString();
                 txtCuit.Text = row.Cells["empresa_cuit"].Value.ToString();
-                cmbRubro.SelectedIndex = cmbRubro.FindString(row.Cells["comboRubro"].Value.ToString());
+                //cmbRubro.SelectedIndex = cmbRubro.FindString(row.Cells["comboRubro"].Value.ToString());
             }
         }
 
@@ -53,11 +53,11 @@ namespace PagoAgilFrba.AbmEmpresa
             String nombre = txtNombre.Text;
             String cuit = txtCuit.Text;
 
-            if (!System.Text.RegularExpressions.Regex.IsMatch(txtCuit.Text, @"^\d+$"))
+       /*     if (!System.Text.RegularExpressions.Regex.IsMatch(txtCuit.Text, @"^\d+$"))
             {
                 MessageBox.Show("Debe ingresar el cuit numérico de la empresa", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            }
+            } */
 
             if (txtCuit.Text.Trim() == "" | cmbRubro.Text.Trim() == "" | txtNombre.Text.Trim() == "")
             {

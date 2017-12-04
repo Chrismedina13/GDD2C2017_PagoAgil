@@ -56,7 +56,7 @@ namespace PagoAgilFrba.Support
             addClienteCommand.Parameters.AddWithValue("mail", mail);
             addClienteCommand.Parameters.AddWithValue("telefono", telefono);
             addClienteCommand.Parameters.AddWithValue("direccion", direccion);
-            addClienteCommand.Parameters.AddWithValue("codigoPostal", direccion);
+            addClienteCommand.Parameters.AddWithValue("codigoPostal", codigoPostal);
             addClienteCommand.Parameters.AddWithValue("localidad", localidad);
             addClienteCommand.Parameters.AddWithValue("fechadenacimiento", fechanacimiento);
             addClienteCommand.Connection = connection;
@@ -136,6 +136,51 @@ namespace PagoAgilFrba.Support
 
         /*   ABM EMPRESA */
 
+        internal static void AddEmpresa(string nombre, string cuit, int rubro, string direccion)
+        {
+
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
+            SqlCommand addEmpresaCommand = new SqlCommand("insert into [GD2C2017].[pero_compila].[Empresa] (empresa_nombre,empresa_cuit,empresa_rubro,empresa_direccion) values (@nombre,@cuit,@rubro,@direccion)");
+            addEmpresaCommand.Parameters.AddWithValue("nombre", nombre);
+            addEmpresaCommand.Parameters.AddWithValue("cuit", cuit);
+            addEmpresaCommand.Parameters.AddWithValue("rubro", rubro);
+            addEmpresaCommand.Parameters.AddWithValue("direccion", direccion);
+            addEmpresaCommand.Connection = connection;
+            connection.Open();
+            int registrosModificados = addEmpresaCommand.ExecuteNonQuery();
+            connection.Close();
+            if (registrosModificados > 0) MessageBox.Show("Empresa ingresada correctamente", "Estado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else MessageBox.Show("Error al cargar registro", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+        }
+
+        internal static Int32 idDelRubro(string rubro)
+        {
+            
+            Int32 Id;
+
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
+            SqlCommand getIDRUBRO = new SqlCommand("Select rubro_Id  From [GD2C2017].[pero_compila].[Rubro] Where rubro_descripcion = @rubro");
+            getIDRUBRO.Parameters.AddWithValue("rubro", rubro);
+
+            getIDRUBRO.Connection = connection;
+            connection.Open();
+            SqlDataReader reader = getIDRUBRO.ExecuteReader();
+
+            reader.Read();
+           
+                Id = reader.GetInt32(0);
+
+
+            reader.Close();
+            connection.Close();
+
+
+            return Id;
+        }
+
+
 
 
         internal static string getDireccionEmpresa(string rubro, string nombre, string cuit)
@@ -143,7 +188,7 @@ namespace PagoAgilFrba.Support
             String direccion = null;
 
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand getEmpresaDireccionCommand = new SqlCommand("Select empresa_direccion From [GD1C2017].[pero_compila].[Empresa] Where empresa_nombre =@nombre and empresa_cuit = @cuit and empresa_rubro =@rubro ");
+            SqlCommand getEmpresaDireccionCommand = new SqlCommand("Select empresa_direccion From [GD2C2017].[pero_compila].[Empresa] Where empresa_nombre =@nombre and empresa_cuit = @cuit ");
             getEmpresaDireccionCommand.Parameters.AddWithValue("rubro", rubro);
             getEmpresaDireccionCommand.Parameters.AddWithValue("nombre", nombre);
             getEmpresaDireccionCommand.Parameters.AddWithValue("cuit", cuit);
@@ -152,10 +197,10 @@ namespace PagoAgilFrba.Support
             connection.Open();
             SqlDataReader reader = getEmpresaDireccionCommand.ExecuteReader();
 
-            while (reader.Read())
-            {
+            reader.Read();
+            
                 direccion = reader["empresa_direccion"].ToString();
-            }
+            
 
             reader.Close();
             connection.Close();
@@ -192,7 +237,7 @@ namespace PagoAgilFrba.Support
             connection.Open();
             try
             {
-                String query = "SELECT [empresa_nombre],[empresa_cuit],[empresa_cuit] FROM [GD2C2017].[pero_compila].[Empresa] where [empresa_nombre] like '" + nombre + "%' and [empresa_cuit] like '" + cuit + "%' and [empresa_rubro] like '" + rubro + "%'";
+                String query = "SELECT [empresa_nombre],[empresa_cuit],[empresa_rubro] FROM [GD2C2017].[pero_compila].[Empresa] where [empresa_estado] = 1 and[empresa_nombre] like '" + nombre + "%' and [empresa_cuit] like '" + cuit + "%' and [empresa_rubro] like '" + rubro + "%'";
                 SqlDataAdapter da = new SqlDataAdapter(query, connection);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -209,23 +254,41 @@ namespace PagoAgilFrba.Support
         {
             String empresaID = null;
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand empresaHabilitada = new SqlCommand("SELECT empresa_Id FROM [GD1C2017].[pero_compila].[Empresa] WHERE empresa_cuit = @cuit and empresa_estado = 1");
+            SqlCommand empresaHabilitada = new SqlCommand("SELECT empresa_Id FROM [GD2C2017].[pero_compila].[Empresa] WHERE empresa_cuit = @cuit and empresa_estado = 1");
             empresaHabilitada.Parameters.AddWithValue("cuit", cuit);
             empresaHabilitada.Connection = connection;
             connection.Open();
             SqlDataReader reader = empresaHabilitada.ExecuteReader();
             while (reader.Read())
             {
-                empresaID = reader["auto_id"].ToString();
+                empresaID = reader["empresa_Id"].ToString();
             }
             connection.Close();
             return empresaID != null;
         }
 
-        internal static void deleteEmpresa(String rubro, String nombre, String cuit)
+
+        internal static bool cuitExistente(string cuit)
+        {
+            String empresaID = null;
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
+            SqlCommand cuitExistente = new SqlCommand("SELECT empresa_Id FROM [GD2C2017].[pero_compila].[Empresa] WHERE empresa_cuit = @cuit");
+            cuitExistente.Parameters.AddWithValue("cuit", cuit);
+            cuitExistente.Connection = connection;
+            connection.Open();
+            SqlDataReader reader = cuitExistente.ExecuteReader();
+            while (reader.Read())
+            {
+                empresaID = reader["empresa_Id"].ToString();
+            }
+            connection.Close();
+            return empresaID != null;
+        }
+
+        internal static void deleteEmpresa(int rubro, String nombre, String cuit)
         {
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand deleteEmpresaCommand = new SqlCommand("UPDATE [GD1C2017].[pero_compila].[Empresa] SET empresa_estado = 0 where empresa_nombre = @nombre and empresa_cuit = @cuit and empresa_rubro = @rubro ");
+            SqlCommand deleteEmpresaCommand = new SqlCommand("DELETE [GD2C2017].[pero_compila].[Empresa] SET empresa_estado = 0 where empresa_nombre = @nombre and empresa_cuit = @cuit and empresa_rubro = @rubro ");
             deleteEmpresaCommand.Parameters.AddWithValue("rubro", rubro);
             deleteEmpresaCommand.Parameters.AddWithValue("nombre", nombre);
             deleteEmpresaCommand.Parameters.AddWithValue("cuit", cuit);
@@ -244,7 +307,7 @@ namespace PagoAgilFrba.Support
         internal static void modificarEmpresa(String rubro, String nombre, String direccion, String cuit, String RubroNuevo, String nombreNuevo, String DireccionNuevo, String cuitNuevo, String habilitadoNuevo)
         {
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand updateEmpresaCommand = new SqlCommand("UPDATE [GD1C2017].[pero_compila].[Empresa] set empresa_nombre = @nombreNuevo, empresa_rubro = @RubroNuevo, empresa_direccion = @DireccionNuevo, empresa_cuit = @cuitNuevo, empresa_estado = @habilitadoNuevo WHERE empresa_nombre = @nombre and empresa_cuit = @cuit and empresa_rubro = @rubro ");
+            SqlCommand updateEmpresaCommand = new SqlCommand("UPDATE [GD2C2017].[pero_compila].[Empresa] set empresa_nombre = @nombreNuevo, empresa_rubro = @RubroNuevo, empresa_direccion = @DireccionNuevo, empresa_cuit = @cuitNuevo, empresa_estado = @habilitadoNuevo WHERE empresa_nombre = @nombre and empresa_cuit = @cuit");
 
             updateEmpresaCommand.Parameters.AddWithValue("rubro", rubro);
             updateEmpresaCommand.Parameters.AddWithValue("nombre", nombre);

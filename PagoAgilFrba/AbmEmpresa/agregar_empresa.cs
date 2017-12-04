@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using PagoAgilFrba.Support;
 namespace PagoAgilFrba.AbmEmpresa
 {
     public partial class agregar_empresa : Form
@@ -19,11 +19,11 @@ namespace PagoAgilFrba.AbmEmpresa
             InitializeComponent();
 
             List<String> Rubros = new List<String>();
-          /* Rubros = Database.getRubrosEmpresa();
-            foreach (string marca in Marcas)
+            Rubros = Database.getRubros();
+            foreach (string rubro in Rubros)
             {
-                cmbMarca.Items.Add(marca);
-            }*/ //      PARA LLENEAR EL COMBO DE RUBROS
+                comboRubro.Items.Add(rubro);
+            }
 
         }
 
@@ -55,17 +55,17 @@ namespace PagoAgilFrba.AbmEmpresa
                 return;
 
             }
-            else if (true) //Database.cuilExiste(cuit))
+            else if (Database.cuitExistente(Cuit))
             {
                 MessageBox.Show("El cuil ingresada ya esta en uso.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
             {
-
-                //Database.addEmpresa(Nombre,Cuit,rubro,direccion);
+                int idRubro = Database.idDelRubro(rubro);
+   
+                Database.AddEmpresa(Nombre,Cuit,idRubro,direccion);
                 this.limpiarCuadrosDeTexto();
-                MessageBox.Show("Empresa ingresads correctamente", "Estado", MessageBoxButtons.OK);
             }
 
         }

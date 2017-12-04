@@ -65,7 +65,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(56, 163);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 13);
+            this.label2.Size = new System.Drawing.Size(25, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Cuit";
             // 
@@ -78,6 +78,7 @@
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
+            // 
             // btnCancelar
             // 
             this.btnCancelar.Location = new System.Drawing.Point(30, 344);
@@ -87,14 +88,13 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(56, 120);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 13);
+            this.label3.Size = new System.Drawing.Size(44, 13);
             this.label3.TabIndex = 14;
             this.label3.Text = "Nombre";
             // 
@@ -103,7 +103,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(56, 203);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 13);
+            this.label4.Size = new System.Drawing.Size(52, 13);
             this.label4.TabIndex = 15;
             this.label4.Text = "Direccion";
             // 
@@ -114,16 +114,16 @@
             this.txtNombre.Size = new System.Drawing.Size(181, 20);
             this.txtNombre.TabIndex = 18;
             // 
-            // txtPatente
+            // txtCuit
             // 
-            this.txtCuit.Location = new System.Drawing.Point(127, 160);
+            this.txtCuit.Location = new System.Drawing.Point(127, 200);
             this.txtCuit.Name = "txtCuit";
             this.txtCuit.Size = new System.Drawing.Size(181, 20);
             this.txtCuit.TabIndex = 19;
             // 
-            // txtChofer
+            // txtDireccion
             // 
-            this.txtDireccion.Location = new System.Drawing.Point(127, 200);
+            this.txtDireccion.Location = new System.Drawing.Point(127, 160);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(181, 20);
             this.txtDireccion.TabIndex = 20;
@@ -188,7 +188,7 @@
             this.lblNombre.Size = new System.Drawing.Size(0, 13);
             this.lblNombre.TabIndex = 26;
             // 
-            // lblPatente
+            // lblCuit
             // 
             this.lblCuit.AutoSize = true;
             this.lblCuit.Location = new System.Drawing.Point(358, 163);
@@ -196,7 +196,7 @@
             this.lblCuit.Size = new System.Drawing.Size(0, 13);
             this.lblCuit.TabIndex = 27;
             // 
-            // lblChofer
+            // lblDireccion
             // 
             this.lblDireccion.AutoSize = true;
             this.lblDireccion.Location = new System.Drawing.Point(358, 203);

@@ -54,11 +54,11 @@ namespace PagoAgilFrba.AbmEmpresa
                 return;
             }
 
-            if (!System.Text.RegularExpressions.Regex.IsMatch(txtCuit.Text, @"^\d+$"))
+        /*    if (!System.Text.RegularExpressions.Regex.IsMatch(txtCuit.Text, @"^\d+$"))
             {
                 MessageBox.Show("Debe ingresar el CUIL numérico de la empresa", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            }
+            } */
 
             String Rubro = lblRubro.Text;
             String nombre = lblNombre.Text;
