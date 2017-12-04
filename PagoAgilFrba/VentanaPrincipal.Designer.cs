@@ -75,21 +75,18 @@
             this.button4.TabIndex = 6;
             this.button4.Text = "ABM Sucursales";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.button5_Click);
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(187, 183);
+            this.button5.Location = new System.Drawing.Point(186, 159);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(111, 38);
             this.button5.TabIndex = 7;
             this.button5.Text = "Devoluciones";
             this.button5.UseVisualStyleBackColor = true;
-
             this.button5.Click += new System.EventHandler(this.button5_Click);
-
-            this.button4.Click += new System.EventHandler(this.button5_Click);
-
+            // 
             // button6
             // 
             this.button6.Location = new System.Drawing.Point(12, 85);
@@ -112,7 +109,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(12, 287);
+            this.button8.Location = new System.Drawing.Point(96, 287);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(111, 38);
             this.button8.TabIndex = 10;
@@ -122,7 +119,7 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(187, 264);
+            this.button9.Location = new System.Drawing.Point(187, 224);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(111, 38);
             this.button9.TabIndex = 11;
