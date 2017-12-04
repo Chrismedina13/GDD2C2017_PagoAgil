@@ -85,7 +85,12 @@
             this.button5.TabIndex = 7;
             this.button5.Text = "Devoluciones";
             this.button5.UseVisualStyleBackColor = true;
+<<<<<<< HEAD
             this.button5.Click += new System.EventHandler(this.button5_Click);
+=======
+            this.button4.Click += new System.EventHandler(this.button5_Click);
+
+>>>>>>> a4cdaccb36e5c48cfb4e93b89d1f0ecdb041f2d9
             // 
             // button6
             // 

@@ -44,12 +44,12 @@ namespace PagoAgilFrba.Support
         }
 
 
-        internal static void AddCliente(string nombre, string apellido, string dni, string mail, string telefono, string direccion,string codigoPostal,int localidad, string fechanacimiento)
+        internal static void AddCliente(string nombre, string apellido, string dni, string mail, string telefono, string direccion, string codigoPostal, int localidad, string fechanacimiento)
         {
 
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
             SqlCommand addClienteCommand = new SqlCommand("insert into [GD2C2017].[pero_compila].[Cliente] (cliente_nombre, cliente_apellido, cliente_dni , cliente_email, cliente_telefono ,cliente_direccion,cliente_cp,cliente_localidad,cliente_fecha_nacimiento) values (@nombre,@apellido,@dni,@mail,@telefono,@direccion,@codigoPostal,@localidad,@fechadenacimiento)");
-           // SqlCommand addClienteCommand = new SqlCommand("insert into [GD2C2017].[pero_compila].[Cliente] (cliente_nombre, cliente_apellido) values (@nombre,@apellido)");
+            // SqlCommand addClienteCommand = new SqlCommand("insert into [GD2C2017].[pero_compila].[Cliente] (cliente_nombre, cliente_apellido) values (@nombre,@apellido)");
             addClienteCommand.Parameters.AddWithValue("nombre", nombre);
             addClienteCommand.Parameters.AddWithValue("apellido", apellido);
             addClienteCommand.Parameters.AddWithValue("dni", dni);
@@ -138,7 +138,7 @@ namespace PagoAgilFrba.Support
 
 
 
-        internal static string getDireccionEmpresa(string rubro,string nombre, string cuit)
+        internal static string getDireccionEmpresa(string rubro, string nombre, string cuit)
         {
             String direccion = null;
 
@@ -208,7 +208,7 @@ namespace PagoAgilFrba.Support
         internal static bool cuitHabilitado(string cuit)
         {
             String empresaID = null;
-            SqlConnection connection =  new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017"); 
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
             SqlCommand empresaHabilitada = new SqlCommand("SELECT empresa_Id FROM [GD1C2017].[pero_compila].[Empresa] WHERE empresa_cuit = @cuit and empresa_estado = 1");
             empresaHabilitada.Parameters.AddWithValue("cuit", cuit);
             empresaHabilitada.Connection = connection;
@@ -224,7 +224,7 @@ namespace PagoAgilFrba.Support
 
         internal static void deleteEmpresa(String rubro, String nombre, String cuit)
         {
-            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017"); 
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
             SqlCommand deleteEmpresaCommand = new SqlCommand("UPDATE [GD1C2017].[pero_compila].[Empresa] SET empresa_estado = 0 where empresa_nombre = @nombre and empresa_cuit = @cuit and empresa_rubro = @rubro ");
             deleteEmpresaCommand.Parameters.AddWithValue("rubro", rubro);
             deleteEmpresaCommand.Parameters.AddWithValue("nombre", nombre);
@@ -339,7 +339,7 @@ namespace PagoAgilFrba.Support
 
 
 
-        internal static void modificarSucursal(String nombre, String direccion, String cp, String nombreNuevo,string cpNuevo, String DireccionNuevo,String habilitadoNuevo)
+        internal static void modificarSucursal(String nombre, String direccion, String cp, String nombreNuevo, string cpNuevo, String DireccionNuevo, String habilitadoNuevo)
         {
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
             SqlCommand updateSucursalCommand = new SqlCommand("UPDATE [GD1C2017].[pero_compila].[Sucursal] set sucursal_nombre = @nombreNuevo, sucursal_CP = @cpNuevo, sucursal_direccion = @DireccionNuevo,sucursal_estado = @habilitadoNuevo WHERE sucursal_nombre = @nombre and sucursal_direccion = @direccion and sucursal_CP = @cp ");
@@ -397,8 +397,67 @@ namespace PagoAgilFrba.Support
         }
 
 
+        internal static void cargarGriddFacturasPagasCliente(DataGridView dgv, String nombre, String apellido, String dni, String mail)
+        {
+
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017"); ;
+            connection.Open();
+            try
+            {
+                String query = "SELECT [pagoFactura_Id],[pagoFactura_sucursal],[pagoFactura_medioPago],[pagoFactura_fecha_cobro],[pagoFactura_importe],[pagoFactura_nro] FROM [GD2C2017].[pero_compila].[PagoFactura] where [pagoFactura_cliente_dni] like '" + dni + "%' and [pagoFactura_cliente_mail] like '" + mail + "%' and [pagoFactura_estado] like '" + 1 + "%'";
+                SqlDataAdapter da = new SqlDataAdapter(query, connection);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dgv.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo llenar el DataGridView: " + ex.ToString());
+            }
+            connection.Close();
+        }
+
+        internal static void updatePagoFactura(int nroPagoFactura)
+        {
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
+            SqlCommand updatePagoFactura = new SqlCommand("UPDATE [GD1C2017].[pero_compila].[PagoFactura] set pagoFactura_estado = 0 WHERE pagoFactura_Id = @nroPagoFactura ");
+
+            updatePagoFactura.Parameters.AddWithValue("nroPagoFactura", nroPagoFactura);
+
+            updatePagoFactura.Connection = connection;
+            connection.Open();
+            int FilasAfectadasClientes = updatePagoFactura.ExecuteNonQuery();
+
+            if (FilasAfectadasClientes > 0)
+            {
+                MessageBox.Show("Pago Factura se ha modificado exitosamente.", "La base de datos ha sido modificada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else MessageBox.Show("El registro que quiso modificar no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
+
+        internal static void updateFacturaDevuelta(int nroPagoFactura)
+        {
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
+            SqlCommand updateFacturaDevuelta = new SqlCommand("UPDATE [GD1C2017].[pero_compila].[Factura] set factura_enviadoAPago = 1 WHERE factura_Id = (select pagoFactura_factura from [pero_compila].[PagoFactura] where pagoFactura_Id = @nroPagoFactura)");
+
+            updateFacturaDevuelta.Parameters.AddWithValue("nroPagoFactura", nroPagoFactura);
+
+            updateFacturaDevuelta.Connection = connection;
+            connection.Open();
+            int FilasAfectadasClientes = updateFacturaDevuelta.ExecuteNonQuery();
+
+            if (FilasAfectadasClientes > 0)
+            {
+                MessageBox.Show("Pago Factura se ha modificado exitosamente.", "La base de datos ha sido modificada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else MessageBox.Show("El registro que quiso modificar no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
+
+
     }
-}
+    }
 
 
 

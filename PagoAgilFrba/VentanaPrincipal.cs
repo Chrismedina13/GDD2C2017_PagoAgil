@@ -14,7 +14,7 @@ using PagoAgilFrba.AbmSucursal;
 using PagoAgilFrba.ListadoEstadistico;
 using PagoAgilFrba.AbmFactura;
 using PagoAgilFrba.Rendicion;
-
+using PagoAgilFrba.Devoluciones;
 namespace PagoAgilFrba
 {
     public partial class VentanaPrincipal : Form
@@ -97,8 +97,17 @@ namespace PagoAgilFrba
 
         private void button5_Click(object sender, EventArgs e)
         {
+<<<<<<< HEAD
 
         }
 
+=======
+            seleccionar_cliente frend = new seleccionar_cliente();
+            frend.Show();
+        }
+
+
+
+>>>>>>> a4cdaccb36e5c48cfb4e93b89d1f0ecdb041f2d9
     }
 }
