@@ -845,8 +845,7 @@ insert into pero_compila.RolXUsuario (rolXUsuario_usuario, rolXUsuario_rol) valu
 insert into pero_compila.Sucursal(sucursal_CP,sucursal_direccion,sucursal_nombre,sucursal_localidad)
 select distinct Sucursal_Codigo_Postal,Sucursal_Dirección,Sucursal_Nombre,localidad_Id
 from gd_esquema.Maestra m, pero_compila.Localidad l
-
-
+where Sucursal_Dirección not like 'null'
 
 				/*UsuarioXSucursal*/
 insert into pero_compila.UsuarioXSucursal (usuarioXSucursal_sucursal, usuarioXSucursal_usuario)
