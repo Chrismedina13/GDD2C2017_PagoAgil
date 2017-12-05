@@ -581,7 +581,7 @@ END
 *********************FILTRA UNA FACTURA POR UNO O TODOS LOS CAMPOS*********************
 */
 GO
-CREATE PROCEDURE [pero_compila].[filtrarFacturas]
+ALTER PROCEDURE [pero_compila].[filtrarFacturas]
 	(@fechaAlta datetime,
 	@fechaVencimiento datetime,
 	@nroFactura int,
@@ -590,7 +590,8 @@ CREATE PROCEDURE [pero_compila].[filtrarFacturas]
 	)
 AS
 BEGIN
-	select * from pero_compila.Factura where factura_estado=1 and (
+	select * from pero_compila.Factura where factura_estado=1 and
+											factura_enviadoAPago=0 and(
 											 @fechaAlta is null or (factura_fecha_alta =@fechaAlta) or
 											 @fechaVencimiento is null or (factura_fecha_vencimiento =@fechaVencimiento) or
 											 @nroFactura is null or (factura_cod_factura =@nroFactura) or

@@ -64,15 +64,19 @@ namespace PagoAgilFrba
         {
             if (comboBox1.SelectedItem.ToString() == "Cobrador")
             {
-                int res = UsuarioDAL.CrearCuenta(txtUsuario.Text, txtContrasenia.Text, comboBox1.SelectedItem.ToString());
-                if (res > 0)
+                if (verificarCantCheck())
                 {
-                    verificarSucursalCobrador(res);
-                    MessageBox.Show("Cuenta del Cobrador Creada Correctamente !");
-                }
-                else
-                {
-                    MessageBox.Show("Error. No se pudo registrar el usuario");
+                    int res = UsuarioDAL.CrearCuenta(txtUsuario.Text, txtContrasenia.Text, comboBox1.SelectedItem.ToString());
+                    if (res > 0)
+                    {
+                        verificarSucursalCobrador(res);
+                        MessageBox.Show("Cuenta del Cobrador Creada Correctamente !");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error. No se pudo registrar el usuario");
+                    }
+ 
                 }
             }
             else
@@ -88,6 +92,24 @@ namespace PagoAgilFrba
                     MessageBox.Show("Error. No se pudo registrar el usuario");
                 }
             }
+        }
+        private bool verificarCantCheck()
+        {
+            int i = 0;
+            List<int> ChkedRow = new List<int>();
+            try
+            {
+                for (i = 0; i <= dataGridView2.RowCount - 1; i++)
+                {
+                    if (Convert.ToBoolean(dataGridView2.Rows[i].Cells["seleccion"].Value) == true)
+                    {
+                        ChkedRow.Add(i);
+                    }
+                }
+                if (ChkedRow.Count == 0 && ChkedRow.Count > 1) { return false; }
+                 return true;
+            }
+            catch (Exception e) { return false; }
         }
         private bool verificarSucursalCobrador(int id)
         { int i = 0;

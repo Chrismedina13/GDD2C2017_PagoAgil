@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagoAgilFrba.AbmEmpresa;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,15 +21,37 @@ namespace PagoAgilFrba.AbmFactura
         public modificar_factura(Factura f)
         {
             InitializeComponent();
+            CargarComboEmpresas();
             dateTimePicker1.Text = f.fechaAlta.ToString() ;
             dateTimePicker2.Text = f.fechaVenc.ToString();
             textTotal.Text = f.total.ToString();
             textNroFactura.Text = f.codFactura.ToString();
             textCliente.Text = f.cli_dni.ToString();
-            comboBoxEmpresa.Text = f.empresa_id.ToString();
+            comboBoxEmpresa.SelectedItem = f.empresa_id.ToString();
             facturaSinModif = f;
         }
+        private void CargarComboEmpresas()
+        {
+            //Vaciar comboBox
+            comboBoxEmpresa.DataSource = null;
+            try
+            {
+                //Indicar qué propiedad se verá en la lista
+                this.comboBoxEmpresa.DisplayMember = "Nombre";
+                //Indicar qué valor tendrá cada ítem
+                this.comboBoxEmpresa.ValueMember = "Id";
+                //Asignar la propiedad DataSource
+                List<Empresa> listita = new List<Empresa>();
 
+                listita = EmpresaDal.BuscarEmpresas();
+                //this.comboBox1.Items.Insert(0, "Seleccione un rol");
+                // listita.Add(new Empresa(0, "Seleccione una Empresa"));
+                this.comboBoxEmpresa.DataSource = listita;
+                //this.comboBox1.Items.Add(new KeyValuePair<string, string>("0", "Mujer"));
+            }
+            catch (Exception e)
+            { MessageBox.Show("Error al intentar cargar las Empresas -" + e.Message); }
+        }
         private void modificar_factura_Load(object sender, EventArgs e)
         {
 
@@ -37,39 +60,29 @@ namespace PagoAgilFrba.AbmFactura
         private void button1_Click(object sender, EventArgs e)
         {
             Factura factuModif = new Factura();
-            if (dateTimePicker1.Text != facturaSinModif.fechaAlta.ToString())
-            {
+           
                 factuModif.fechaAlta = dateTimePicker1.Value;
-            }
-            if (dateTimePicker2.Text !=facturaSinModif.fechaVenc.ToString())
-            {
                 factuModif.fechaVenc = dateTimePicker2.Value;
-            }
-            if (textTotal.Text != facturaSinModif.total.ToString())
-            {
                 factuModif.total = Convert.ToDecimal(textTotal.Text);
-            }
-            if (textNroFactura.Text != facturaSinModif.codFactura.ToString())
-            {
-                 factuModif.codFactura=Convert.ToInt32(textNroFactura.Text);
-            }
-            if (textCliente.Text != facturaSinModif.cli_dni.ToString())
-            {
-                 factuModif.cli_dni=Convert.ToDecimal(textCliente.Text);
-            }
-            if (comboBoxEmpresa.Text != facturaSinModif.empresa_id.ToString())
-            {
-                factuModif.empresa_id = Convert.ToInt32(comboBoxEmpresa.SelectedIndex.ToString());
-            }
-            factuModif.facturaId = facturaSinModif.facturaId;
-            if (FacturaDal.ModificarFactura(factuModif))
-            {
-                MessageBox.Show("Se modifico correctamente la factura!");
-            }
-            else
-            {
-                MessageBox.Show("Error. No se pudo modificar la factura");
-            }
+                factuModif.codFactura=Convert.ToInt32(textNroFactura.Text);
+                factuModif.cli_dni=Convert.ToDecimal(textCliente.Text);
+                
+                    factuModif.empresa_id = comboBoxEmpresa.SelectedIndex;
+                    factuModif.facturaId = facturaSinModif.facturaId;
+                    if (FacturaDal.ModificarFactura(factuModif))
+                    {
+                        MessageBox.Show("Se modifico correctamente la factura!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error. No se pudo modificar la factura");
+                    }
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Seleccione una empresa");
+                //} 
+                
         }
     }
 }

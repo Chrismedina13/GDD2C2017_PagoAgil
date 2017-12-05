@@ -18,7 +18,18 @@ namespace PagoAgilFrba.AbmFactura
         public listar_modif_elim()
         {
             InitializeComponent();
-         
+            DataGridViewButtonColumn btnModif = new DataGridViewButtonColumn();
+            btnModif.HeaderText = "Modificar";
+            btnModif.Name = "modificar";
+            btnModif.Text = "Modificar";
+            btnModif.UseColumnTextForButtonValue = true;
+            DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn();
+            btnEliminar.HeaderText = "Eliminar";
+            btnEliminar.Name = "eliminar";
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseColumnTextForButtonValue = true;
+            dataGridView1.Columns.Add(btnEliminar);
+            dataGridView1.Columns.Add(btnModif);
             //CargarComboClientes();
             CargarComboEmpresas();
 
@@ -42,24 +53,12 @@ namespace PagoAgilFrba.AbmFactura
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
             Factura f = new Factura();
             f = sinNulos();
             List<Factura> facturas = f.getFacturasNoPagasYNoRendidas(f);
             // List<Factura> facturas = f.getFacturasNoPagasYNoRendidas(textNroFactura.Text,Convert.ToDecimal(textTotal.Text),textCliente.Text,comboBoxEmpresa.SelectedValue.ToString(),dateTimePicker1.Value,dateTimePicker2.Value);
             this.dataGridView1.DataSource = facturas;
-            DataGridViewButtonColumn btnModif = new DataGridViewButtonColumn();
-            dataGridView1.Columns.Add(btnModif);
-            btnModif.HeaderText = "Modificar";
-            btnModif.Name = "modificar";
-            btnModif.Text = "Modificar";
-            btnModif.UseColumnTextForButtonValue = true;
-            DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn();
-            btnEliminar.HeaderText = "Eliminar";
-            btnEliminar.Name = "eliminar";
-            btnEliminar.Text = "Eliminar";
-            btnEliminar.UseColumnTextForButtonValue = true;
-            dataGridView1.Columns.Add(btnEliminar);
+
 
         }
         private Factura sinNulos()
