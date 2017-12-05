@@ -92,7 +92,7 @@ namespace PagoAgilFrba.Support
             connection.Open();
             try
             {
-                String query = "SELECT [cliente_nombre],[cliente_apellido],[cliente_dni] FROM [GD2C2017].[pero_compila].[Cliente] where [cliente_nombre] like '" + nombre + "%' and [cliente_apellido] like '" + apellido + "%' and [cliente_dni] like '" + dni + "%'";
+                String query = "SELECT [cliente_nombre],[cliente_apellido],[cliente_dni],[cliente_email] FROM [GD2C2017].[pero_compila].[Cliente] where [cliente_nombre] like '" + nombre + "%' and [cliente_apellido] like '" + apellido + "%' and [cliente_dni] like '" + dni + "%'";
                 SqlDataAdapter da = new SqlDataAdapter(query, connection);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -557,6 +557,48 @@ namespace PagoAgilFrba.Support
 
         }
 
+
+        internal static void devolverFactura(int IdUsuario, string motivo, string Dni, string Mail,DateTime today)
+        {
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
+            SqlCommand agregarDevolucion = new SqlCommand("insert into [GD2C2017].[pero_compila].[Devolucion] (devolucion_usuario,devolucion_cliente_dni,devolucion_cliente_email,devolucion_motivo,devolucion_fecha) values (@IdUsuario,@Dni,@Mail,@motivo,@today)");
+            agregarDevolucion.Parameters.AddWithValue("IdUsuario", IdUsuario);
+            agregarDevolucion.Parameters.AddWithValue("motivo", motivo);
+            agregarDevolucion.Parameters.AddWithValue("Dni", Dni);
+            agregarDevolucion.Parameters.AddWithValue("Mail", Mail);
+            agregarDevolucion.Parameters.AddWithValue("today", today);
+            agregarDevolucion.Connection = connection;
+            connection.Open();
+            int registrosModificados = agregarDevolucion.ExecuteNonQuery();
+            connection.Close();
+            if (registrosModificados > 0) MessageBox.Show("Devolucion ingresada correctamente", "Estado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else MessageBox.Show("Error al cargar registro", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        internal static int idUsuario(string nombreUsuario)
+        {
+            Int32 Id;
+
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
+            SqlCommand IdUsuario = new SqlCommand("Select usuario_Id  From [GD2C2017].[pero_compila].[Usuario] Where usuario_username = @nombreUsuario");
+            IdUsuario.Parameters.AddWithValue("nombreUsuario", nombreUsuario);
+
+            IdUsuario.Connection = connection;
+            connection.Open();
+            SqlDataReader reader = IdUsuario.ExecuteReader();
+
+            reader.Read();
+
+            Id = reader.GetInt32(0);
+
+
+            reader.Close();
+            connection.Close();
+
+
+            return Id;
+
+        }
     }
     }
 
