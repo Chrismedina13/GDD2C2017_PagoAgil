@@ -44,11 +44,11 @@ namespace PagoAgilFrba.Support
         }
 
 
-        internal static void AddCliente(string nombre, string apellido, string dni, string mail, string telefono, string direccion, string codigoPostal, int localidad, string fechanacimiento)
+        internal static void AddCliente(string nombre, string apellido, string dni, string mail, string telefono, string direccion, string codigoPostal, int localidad, DateTime fechanacimiento)
         {
 
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand addClienteCommand = new SqlCommand("insert into [GD2C2017].[pero_compila].[Cliente] (cliente_nombre, cliente_apellido, cliente_dni , cliente_email, cliente_telefono ,cliente_direccion,cliente_cp,cliente_localidad,cliente_fecha_nacimiento) values (@nombre,@apellido,@dni,@mail,@telefono,@direccion,@codigoPostal,1,@fechadenacimiento)");
+            SqlCommand addClienteCommand = new SqlCommand("insert into [GD2C2017].[pero_compila].[Cliente] (cliente_nombre, cliente_apellido, cliente_dni , cliente_email, cliente_telefono ,cliente_direccion,cliente_CP,cliente_localidad,cliente_fecha_nacimiento) values (@nombre,@apellido,@dni,@mail,@telefono,@direccion,@codigoPostal,1,@fechadenacimiento)");
             addClienteCommand.Parameters.AddWithValue("nombre", nombre);
             addClienteCommand.Parameters.AddWithValue("apellido", apellido);
             addClienteCommand.Parameters.AddWithValue("dni", dni);

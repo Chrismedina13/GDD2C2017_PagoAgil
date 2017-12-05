@@ -74,11 +74,11 @@ namespace PagoAgilFrba.AbmCliente
                 String mail = textMail.Text;
                 String telefono = textTelefono.Text;
                 String direccion = textDireccion.Text;
-                String codigoPostal = textCodigoPostal.Text;
+                String codigoPostal = textBox1.Text;
                 int localidad = 3;
                 String fechanacimiento = dateTimePickerFechaNac.Text;
                 DateTime fecha = Convert.ToDateTime(fechanacimiento);
-                Database.AddCliente(nombre, apellido, dni, mail, telefono, direccion,codigoPostal,localidad,fechanacimiento);
+                Database.AddCliente(nombre, apellido, dni, mail, telefono, direccion,codigoPostal,localidad,fecha);
                 this.limpiarCuadrosDeTexto();
             }
 
@@ -92,11 +92,17 @@ namespace PagoAgilFrba.AbmCliente
             textMail.Text = "";
             textTelefono.Text = "";
             textDireccion.Text = "";
+            textBox1.Text = "";
             dateTimePickerFechaNac.Text = "";
 
         }
 
         private void dateTimePickerFechaNac_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label20_Click(object sender, EventArgs e)
         {
 
         }
