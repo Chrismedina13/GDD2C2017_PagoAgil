@@ -48,8 +48,7 @@ namespace PagoAgilFrba.Support
         {
 
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand addClienteCommand = new SqlCommand("insert into [GD2C2017].[pero_compila].[Cliente] (cliente_nombre, cliente_apellido, cliente_dni , cliente_email, cliente_telefono ,cliente_direccion,cliente_cp,cliente_localidad,cliente_fecha_nacimiento) values (@nombre,@apellido,@dni,@mail,@telefono,@direccion,@codigoPostal,@localidad,@fechadenacimiento)");
-            // SqlCommand addClienteCommand = new SqlCommand("insert into [GD2C2017].[pero_compila].[Cliente] (cliente_nombre, cliente_apellido) values (@nombre,@apellido)");
+            SqlCommand addClienteCommand = new SqlCommand("insert into [GD2C2017].[pero_compila].[Cliente] (cliente_nombre, cliente_apellido, cliente_dni , cliente_email, cliente_telefono ,cliente_direccion,cliente_cp,cliente_localidad,cliente_fecha_nacimiento) values (@nombre,@apellido,@dni,@mail,@telefono,@direccion,@codigoPostal,1,@fechadenacimiento)");
             addClienteCommand.Parameters.AddWithValue("nombre", nombre);
             addClienteCommand.Parameters.AddWithValue("apellido", apellido);
             addClienteCommand.Parameters.AddWithValue("dni", dni);
@@ -72,12 +71,14 @@ namespace PagoAgilFrba.Support
         internal static void deleteCliente(String nombre, String apellido, String dni)
         {
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand deleteClienteCommand = new SqlCommand("update [GD2C2017].[pero_compila].[Cliente] set [cliente_habilitado] = 0 where cliente_nombre = @nombre and cliente_apellido = @apellido and cliente_dni = @dni ");
+            SqlCommand deleteClienteCommand = new SqlCommand("update [GD2C2017].[pero_compila].[Cliente] set [cliente_estado] = 0 where cliente_nombre = @nombre and cliente_apellido = @apellido and cliente_dni = @dni ");
             deleteClienteCommand.Parameters.AddWithValue("nombre", nombre);
             deleteClienteCommand.Parameters.AddWithValue("apellido", apellido);
             deleteClienteCommand.Parameters.AddWithValue("dni", dni);
 
             deleteClienteCommand.Connection = connection;
+            connection.Open();
+
             int FilasAfectadasAutos = deleteClienteCommand.ExecuteNonQuery();
 
             if (FilasAfectadasAutos > 0) MessageBox.Show("El cliente ha sido dado de baja exitosamente", "Estado", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -92,7 +93,7 @@ namespace PagoAgilFrba.Support
             connection.Open();
             try
             {
-                String query = "SELECT [cliente_nombre],[cliente_apellido],[cliente_dni],[cliente_email] FROM [GD2C2017].[pero_compila].[Cliente] where [cliente_nombre] like '" + nombre + "%' and [cliente_apellido] like '" + apellido + "%' and [cliente_dni] like '" + dni + "%'";
+                String query = "SELECT [cliente_nombre],[cliente_apellido],[cliente_dni],[cliente_email] FROM [GD2C2017].[pero_compila].[Cliente] where cliente_estado = 1 and [cliente_nombre] like '" + nombre + "%' and [cliente_apellido] like '" + apellido + "%' and [cliente_dni] like '" + dni + "%'";
                 SqlDataAdapter da = new SqlDataAdapter(query, connection);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -468,9 +469,22 @@ namespace PagoAgilFrba.Support
 
         /*ESTADISTICAS */
 
+        internal static void cargarGriddPorcentajeFacturasCobradasPorEmpresa(DataGridView dataGridView1, Trimestre trimestre, decimal p)
+        {
+            SqlCommand command = new SqlCommand("SELECT TOP 5 empresa_nombre as 'nombre', ((count(pagoFactura_Id)*100)/count(empresa_Id)) as 'Porcentaje' FROM pero_compila.Factura , pero_compila.Empresa , pero_compila.PagoFactura WHERE pagoFactura_factura = factura_Id and factura_empresa = empresa_Id and pagoFactura_estado = 1 and pagoFactura_fecha_cobro > @inicioFecha AND pagoFactura_fecha_cobro < @finFecha GROUP BY empresa_nombre ORDER BY ((count(pagoFactura_Id)*100)/count(empresa_nombre)) DESC");
+            obtenerEstadistica(dataGridView1, trimestre, p, command);
+
+        }
+
+        internal static void cargarGriddEmpresasConMayorMontoRendido(DataGridView dataGridView1, Trimestre trimestre, decimal p)
+        {
+            SqlCommand command = new SqlCommand("SELECT TOP 5 empresa_nombre as 'nombre', empresa_cuit as 'cuit' FROM pero_compila.Empresa JOIN pero_compila.Rendicion_Facturas ON (pagoFactura_cliente = cliente_Id) WHERE rendicion_facturas_fecha > @inicioFecha AND rendicion_facturas_fecha < @finFecha GROUP BY  empresa_nombre,empresa_cuit ORDER BY sum(rendicion_facturas_importeRecaudado) DESC");
+            obtenerEstadistica(dataGridView1, trimestre, p, command);
+        }
+
         internal static void cargarGriddClienteConMayorPorcentajeFacturasPagas(DataGridView dataGridView1, Trimestre trimestre, decimal año)
         {
-            SqlCommand command = new SqlCommand("SELECT TOP 5 cliente_nombre as 'nombre', ((count(pagoFactura_Id)*100)/count(cliente_Id)) as 'Porcentaje' FROM pero_compila.Cliente JOIN pero_compila.PagoFactura ON (pagoFactura_cliente = cliente_Id) WHERE pagoFactura_fecha_cobro > @inicioFecha AND pagoFactura_fecha_cobro < @finFecha GROUP cliente_nombre ORDER BY ((count(pagoFactura_Id)*100)/count(cliente_Id)) DESC");
+            SqlCommand command = new SqlCommand("SELECT TOP 5 cliente_nombre as 'nombre', ((count(pagoFactura_Id)*100)/count(cliente_Id)) as 'Porcentaje' FROM pero_compila.Cliente JOIN pero_compila.PagoFactura ON (empresa_nombre = rendicion_facturas_empresa) WHERE pagoFactura_fecha_cobro > @inicioFecha AND pagoFactura_fecha_cobro < @finFecha GROUP BY cliente_nombre ORDER BY ((count(pagoFactura_Id)*100)/count(cliente_Id)) DESC");
             obtenerEstadistica(dataGridView1, trimestre, año, command);
         }
 
@@ -599,6 +613,7 @@ namespace PagoAgilFrba.Support
             return Id;
 
         }
+
     }
     }
 

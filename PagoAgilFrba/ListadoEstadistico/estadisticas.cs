@@ -62,10 +62,10 @@ namespace PagoAgilFrba.ListadoEstadistico
                 switch (cmbTipo.Text)
                 {
                     case "Porcentaje de facturas cobradas por empresa":
-                       // Database.cargarGriddPorcentajeFacturasCobradasPorEmpresa(dataGridView1, cmbTrimestre.SelectedItem as Trimestre, añoNUD.Value);
+                       Database.cargarGriddPorcentajeFacturasCobradasPorEmpresa(dataGridView1, cmbTrimestre.SelectedItem as Trimestre, añoNUD.Value);
                         break;
                     case "Empresas con mayor monto rendido":
-                       // Database.cargarGriddEmpresasConMayorMontoRendido(dataGridView1, cmbTrimestre.SelectedItem as Trimestre, añoNUD.Value);
+                        Database.cargarGriddEmpresasConMayorMontoRendido(dataGridView1, cmbTrimestre.SelectedItem as Trimestre, añoNUD.Value);
                         break;
                     case "Clientes con mas pagos":
                         Database.cargarGriddClienteConMasPagos(dataGridView1, cmbTrimestre.SelectedItem as Trimestre, añoNUD.Value);

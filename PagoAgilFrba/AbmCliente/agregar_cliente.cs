@@ -77,6 +77,7 @@ namespace PagoAgilFrba.AbmCliente
                 String codigoPostal = textCodigoPostal.Text;
                 int localidad = 3;
                 String fechanacimiento = dateTimePickerFechaNac.Text;
+                DateTime fecha = Convert.ToDateTime(fechanacimiento);
                 Database.AddCliente(nombre, apellido, dni, mail, telefono, direccion,codigoPostal,localidad,fechanacimiento);
                 this.limpiarCuadrosDeTexto();
             }

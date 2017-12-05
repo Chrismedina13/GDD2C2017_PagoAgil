@@ -50,7 +50,7 @@ namespace PagoAgilFrba.AbmCliente
                 MessageBox.Show("Faltan completar campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            else if (dni.Length != 8)
+            else if (false)
             {
                 MessageBox.Show("Verificar que el DNI haya sido ingresado de forma correcta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
