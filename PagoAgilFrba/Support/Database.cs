@@ -106,10 +106,10 @@ namespace PagoAgilFrba.Support
             connection.Close();
         }
 
-        internal static void modificarCliente(String nombre, String apellido, String dni, String nombreNuevo, String apellidoNuevo, String dniNuevo, String telefonoNuevo, String direccionNueva, String mailNuevo, String FechaNacimientoNueva, String habilitadoNuevo)
+        internal static void modificarCliente(String nombre, String apellido, String dni, String nombreNuevo, String apellidoNuevo, String dniNuevo, String telefonoNuevo, String direccionNueva, String mailNuevo, DateTime FechaNacimientoNueva, String habilitadoNuevo)
         {
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand updateClienteCommand = new SqlCommand("UPDATE [GD1C2017].[pero_compila].[Cliente] set cliente_nombre = @nombreNuevo, cliente_apellido = @apellidoNuevo, cliente_dni = @dniNuevo, cliente_telefono = @telefonoNuevo, cliente_direccion = @direccionNueva , cliente_email = @mailNuevo, cliente_fecha_nacimiento = @fechaNacimientoNueva, cliente_habilitado = @habilitadoNuevo  WHERE cliente_nombre = @nombre and cliente_apellido = @apellido and cliente_dni = @dni ");
+            SqlCommand updateClienteCommand = new SqlCommand("UPDATE [GD2C2017].[pero_compila].[Cliente] set cliente_nombre = @nombreNuevo, cliente_apellido = @apellidoNuevo, cliente_dni = @dniNuevo, cliente_telefono = @telefonoNuevo, cliente_direccion = @direccionNueva , cliente_email = @mailNuevo, cliente_fecha_nacimiento = @fechaNacimientoNueva, cliente_estado = @habilitadoNuevo  WHERE cliente_nombre = @nombre and cliente_apellido = @apellido and cliente_dni = @dni ");
 
             updateClienteCommand.Parameters.AddWithValue("nombre", nombre);
             updateClienteCommand.Parameters.AddWithValue("apellido", apellido);

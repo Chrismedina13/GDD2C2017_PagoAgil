@@ -85,21 +85,38 @@ namespace PagoAgilFrba.AbmCliente
             String telefonoNuevo = textTelefonoN.Text;
             String direccionNueva = textDireccionN.Text;
             String fechaNacimientoNueva = dateTimePickerFechaNacN.Text;
+            DateTime fechaAPoner = Convert.ToDateTime(fechaNacimientoNueva);
             String habilitadoNuevo = textHabilitado.Text;
             if (nombreNuevo == "" | apellidoNuevo == "" | dniNuevo == "" | telefonoNuevo == "" | direccionNueva == "" | fechaNacimientoNueva == "" | habilitadoNuevo == "")
             {
                 MessageBox.Show("Verifique que los campos obligatorios hayan sido completados", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (dniNuevo.Length != 8)
+            else if (false)
             {
                 MessageBox.Show("Verifique que el dni sea valido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                Database.modificarCliente(nombre, apellido, dni, nombreNuevo, apellidoNuevo, dniNuevo, telefonoNuevo, direccionNueva, mailNuevo, fechaNacimientoNueva, habilitadoNuevo);
+                Database.modificarCliente(nombre, apellido, dni, nombreNuevo, apellidoNuevo, dniNuevo, telefonoNuevo, direccionNueva, mailNuevo, fechaAPoner, habilitadoNuevo);
+                this.limpiarCuadrosDeTexto();
                 this.Close();
             }
 
+
+        }
+
+        private void limpiarCuadrosDeTexto()
+        {
+
+            textNombreN.Text = "";
+            textApellidoN.Text = "";
+            textDniN.Text = "";
+            textMailN.Text = "";
+            textTelefonoN.Text = "";
+            textDireccionN.Text = "";
+            dateTimePickerFechaNacN.Text = "";
+            textHabilitado.Text = "";
+           
 
         }
 

@@ -49,19 +49,9 @@ namespace PagoAgilFrba.AbmCliente
             String nombre = textNombre.Text;
             String apellido = textApellido.Text;
             String dni = textDni.Text;
-            if (!System.Text.RegularExpressions.Regex.IsMatch(textDni.Text, @"^\d+$"))
-            {
-                MessageBox.Show("Sólo se permiten numeros en el DNI", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
             if (textNombre.Text.Trim() == "" | textApellido.Text.Trim() == "" | textDni.Text.Trim() == "")
             {
                 MessageBox.Show("Faltan completar campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            else if (dni.Length != 8)
-            {
-                MessageBox.Show("Verificar que el DNI haya sido ingresado de forma correcta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
@@ -70,6 +60,7 @@ namespace PagoAgilFrba.AbmCliente
                 if (respuesta == DialogResult.Yes)
                 {
                     modificar_clienteElegido form = new modificar_clienteElegido(nombre, apellido, dni);
+                    this.limpiarCuadrosDeTexto();
                     form.Show();
                 }
             }
@@ -80,6 +71,17 @@ namespace PagoAgilFrba.AbmCliente
 
         }
 
+
+
+        private void limpiarCuadrosDeTexto()
+        {
+
+            textNombre.Text = "";
+            textApellido.Text = "";
+            textDni.Text = "";
+
+
+        }
 
     }
 }
