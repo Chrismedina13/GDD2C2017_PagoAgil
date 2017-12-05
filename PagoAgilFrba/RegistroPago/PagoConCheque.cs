@@ -24,6 +24,7 @@ namespace PagoAgilFrba.RegistroPago
             InitializeComponent();
             lblMonto.Text = montoTot;
             dniCliente = dni;
+            label5.Text = dni.ToString();
         }
         public PagoConCheque()
         {
@@ -44,8 +45,8 @@ namespace PagoAgilFrba.RegistroPago
                 this.Hide();
                 chkPosta = new Cheque();
                 chkPosta.nroCheque = Convert.ToInt32(txtNroCheque.Text);
-                chkPosta.dniTitular = Convert.ToDecimal(txtTitular.Text);
-                chkPosta.destino = txtEmpresa.Text;
+                chkPosta.dniTitular = dniCliente;
+               // chkPosta.destino = txtEmpresa.Text;
                 chkPosta.monto = Convert.ToDecimal(montoTot);
             }
 
@@ -66,14 +67,7 @@ namespace PagoAgilFrba.RegistroPago
             {
                 retorno = true;
             }
-            if (dniCliente !=(Convert.ToDecimal(txtTitular.Text)))
-            {
-                MessageBox.Show("Error:El DNI del Titular no es válido.");
-            }
-            else
-            {
-                retorno = true;
-            }
+
             return retorno;
         }
 
