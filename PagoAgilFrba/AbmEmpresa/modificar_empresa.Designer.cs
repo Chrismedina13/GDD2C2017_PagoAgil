@@ -51,6 +51,7 @@
             this.btnVolver.TabIndex = 0;
             this.btnVolver.Text = "VOLVER";
             this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click_1);
             // 
             // txtCuit
             // 
@@ -59,7 +60,6 @@
             this.txtCuit.Size = new System.Drawing.Size(100, 20);
             this.txtCuit.TabIndex = 2;
             this.txtCuit.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCuit_KeyUp);
-
             // 
             // txtNombre
             // 
@@ -68,7 +68,6 @@
             this.txtNombre.Size = new System.Drawing.Size(100, 20);
             this.txtNombre.TabIndex = 3;
             this.txtNombre.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCuit_KeyUp);
-
             // 
             // label1
             // 
@@ -100,7 +99,7 @@
             // btnModificar
             // 
             this.btnModificar.Location = new System.Drawing.Point(331, 34);
-            this.btnModificar.Name = "btnEliminar";
+            this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(101, 51);
             this.btnModificar.TabIndex = 9;
             this.btnModificar.Text = "MODIFICAR EMPRESA";
@@ -146,7 +145,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(42, 13);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(157, 13);
+            this.label6.Size = new System.Drawing.Size(177, 13);
             this.label6.TabIndex = 13;
             this.label6.Text = "Ingrese datos para modificar la tabla";
             // 
@@ -159,7 +158,7 @@
             this.label8.TabIndex = 18;
             this.label8.Text = "* Seleccione uno para autocompletar los datos";
             // 
-            // eliminar_automovil
+            // modificar_empresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

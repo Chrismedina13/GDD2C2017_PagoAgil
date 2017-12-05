@@ -56,6 +56,12 @@ namespace PagoAgilFrba.AbmCliente
                 MessageBox.Show("Sólo se permiten numeros en el DNI", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (Database.existeEmail(textMail.Text)){
+
+                MessageBox.Show("Duplicacion de mails", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            
+            }
             if (!System.Text.RegularExpressions.Regex.IsMatch(textTelefono.Text, @"^\d+$"))
             {
                 MessageBox.Show("Sólo se permiten numeros en el Teléfono", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -117,5 +117,11 @@ namespace PagoAgilFrba.AbmEmpresa
         {
             Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
         }
+
+        private void btnVolver_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+
+        }
     }
 }

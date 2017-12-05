@@ -70,9 +70,11 @@ namespace PagoAgilFrba.AbmEmpresa
             String cuitNuevo = txtCuit.Text;
             String habilitadoNuevo = txtHabilitado.Text;
 
+            int idRubro = Database.idDelRubro(RubroNuevo);
 
 
-            Database.modificarEmpresa(Rubro, nombre, direccion, Cuit, RubroNuevo, nombreNuevo, direccionNueva, cuitNuevo, habilitadoNuevo);
+
+            Database.modificarEmpresa(Rubro, nombre, direccion, Cuit, idRubro, nombreNuevo, direccionNueva, cuitNuevo, habilitadoNuevo);
 
 
             this.Close();

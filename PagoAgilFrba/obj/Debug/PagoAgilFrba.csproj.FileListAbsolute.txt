@@ -90,3 +90,5 @@ C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.Rendicion.
 C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.Rendicion.RendirFactura.resources
 C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.VentanaPorSucursal.resources
 C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmFactura.eliminar_factura.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmEmpresa.modificar_empresa.resources
+C:\Users\chris\GDD2C2017_PagoAgil\PagoAgilFrba\obj\Debug\PagoAgilFrba.AbmSucursal.agregar_sucursal.resources

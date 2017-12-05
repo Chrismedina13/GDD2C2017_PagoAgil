@@ -64,6 +64,7 @@ namespace PagoAgilFrba.AbmSucursal
                 {
                     modificar_sucursalElegida form = new modificar_sucursalElegida(nombre, codigoPostal, direccion);                  
                     form.Show();
+                    this.Close();
                 }
             
         }

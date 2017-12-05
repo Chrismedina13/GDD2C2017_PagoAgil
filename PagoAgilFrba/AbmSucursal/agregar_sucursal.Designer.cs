@@ -37,7 +37,6 @@
             this.btnVolver = new System.Windows.Forms.Button();
             this.agregarEmpresa = new System.Windows.Forms.Button();
             this.SuspendLayout();
-     
             // 
             // label2
             // 
@@ -62,7 +61,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(15, 132);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 13);
+            this.label4.Size = new System.Drawing.Size(73, 13);
             this.label4.TabIndex = 3;
             this.label4.Text = "codigo postal:";
             // 
@@ -73,10 +72,10 @@
             this.Direccion.Size = new System.Drawing.Size(159, 20);
             this.Direccion.TabIndex = 4;
             // 
-            // cuit
+            // codigoPostal
             // 
             this.codigoPostal.Location = new System.Drawing.Point(97, 129);
-            this.codigoPostal.Name = "codigo postal";
+            this.codigoPostal.Name = "codigoPostal";
             this.codigoPostal.Size = new System.Drawing.Size(159, 20);
             this.codigoPostal.TabIndex = 5;
             // 
@@ -95,17 +94,17 @@
             this.btnVolver.TabIndex = 7;
             this.btnVolver.Text = "VOLVER";
             this.btnVolver.UseVisualStyleBackColor = true;
-
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click_1);
             // 
-            // bton_agregarSucursal            // 
+            // agregarEmpresa
+            // 
             this.agregarEmpresa.Location = new System.Drawing.Point(206, 265);
-            this.agregarEmpresa.Name = "agregarSucursal";
+            this.agregarEmpresa.Name = "agregarEmpresa";
             this.agregarEmpresa.Size = new System.Drawing.Size(100, 49);
             this.agregarEmpresa.TabIndex = 11;
             this.agregarEmpresa.Text = "AGREGAR SUCURSAL";
             this.agregarEmpresa.UseVisualStyleBackColor = true;
             this.agregarEmpresa.Click += new System.EventHandler(this.agregarEmpresa_Click);
- 
             // 
             // agregar_sucursal
             // 

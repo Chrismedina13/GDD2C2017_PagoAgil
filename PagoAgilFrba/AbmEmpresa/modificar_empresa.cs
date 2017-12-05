@@ -73,7 +73,6 @@ namespace PagoAgilFrba.AbmEmpresa
                     String Cuit = txtCuit.Text;
                     
                     String Direccio;
-                    Direccio = "hola";
 
                     Direccio = Database.getDireccionEmpresa(Rubro,Nombre,Cuit);
                     if (Direccio != null)
@@ -82,6 +81,7 @@ namespace PagoAgilFrba.AbmEmpresa
                          form.Show();
                         limpiarCuadrosDeTexto();
                         Database.cargarGriddEmpresa(dataGridView1, "", "", "");
+                        this.Close();
                
                     }
                     else MessageBox.Show("Los datos ingresados no corresponden a ningun registro","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
@@ -122,6 +122,11 @@ namespace PagoAgilFrba.AbmEmpresa
         private void cmbRubro_DropDownClosed(object sender, EventArgs e)
         {
             Database.cargarGriddEmpresa(dataGridView1, cmbRubro.Text, txtNombre.Text, txtCuit.Text);
+        }
+
+        private void btnVolver_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

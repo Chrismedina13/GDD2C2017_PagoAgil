@@ -370,6 +370,9 @@
     <EmbeddedResource Include="AbmEmpresa\modificarElegido.resx">
       <DependentUpon>modificarElegido.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbmEmpresa\modificar_empresa.resx">
+      <DependentUpon>modificar_empresa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmFactura\ABM_Factura.resx">
       <DependentUpon>ABM_Factura.cs</DependentUpon>
     </EmbeddedResource>
@@ -411,6 +414,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\modificar_rol.resx">
       <DependentUpon>modificar_rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmSucursal\agregar_sucursal.resx">
+      <DependentUpon>agregar_sucursal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmSucursal\eliminar_sucursal.resx">
       <DependentUpon>eliminar_sucursal.cs</DependentUpon>

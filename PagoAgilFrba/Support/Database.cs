@@ -135,6 +135,8 @@ namespace PagoAgilFrba.Support
 
         }
 
+
+
         /*   ABM EMPRESA */
 
         internal static void AddEmpresa(string nombre, string cuit, int rubro, string direccion)
@@ -289,8 +291,7 @@ namespace PagoAgilFrba.Support
         internal static void deleteEmpresa(int rubro, String nombre, String cuit)
         {
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand deleteEmpresaCommand = new SqlCommand("DELETE [GD2C2017].[pero_compila].[Empresa] SET empresa_estado = 0 where empresa_nombre = @nombre and empresa_cuit = @cuit and empresa_rubro = @rubro ");
-            deleteEmpresaCommand.Parameters.AddWithValue("rubro", rubro);
+            SqlCommand deleteEmpresaCommand = new SqlCommand("UPDATE [GD2C2017].[pero_compila].[Empresa] SET empresa_estado = 0 where empresa_nombre = @nombre and empresa_cuit = @cuit ");            
             deleteEmpresaCommand.Parameters.AddWithValue("nombre", nombre);
             deleteEmpresaCommand.Parameters.AddWithValue("cuit", cuit);
             deleteEmpresaCommand.Connection = connection;
@@ -305,12 +306,11 @@ namespace PagoAgilFrba.Support
 
         }
 
-        internal static void modificarEmpresa(String rubro, String nombre, String direccion, String cuit, String RubroNuevo, String nombreNuevo, String DireccionNuevo, String cuitNuevo, String habilitadoNuevo)
+        internal static void modificarEmpresa(String rubro, String nombre, String direccion, String cuit, int RubroNuevo, String nombreNuevo, String DireccionNuevo, String cuitNuevo, String habilitadoNuevo)
         {
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand updateEmpresaCommand = new SqlCommand("UPDATE [GD2C2017].[pero_compila].[Empresa] set empresa_nombre = @nombreNuevo, empresa_rubro = @RubroNuevo, empresa_direccion = @DireccionNuevo, empresa_cuit = @cuitNuevo, empresa_estado = @habilitadoNuevo WHERE empresa_nombre = @nombre and empresa_cuit = @cuit");
+            SqlCommand updateEmpresaCommand = new SqlCommand("UPDATE [GD2C2017].[pero_compila].[Empresa] set empresa_nombre = @nombreNuevo, empresa_rubro = @RubroNuevo, empresa_direccion = @DireccionNuevo, empresa_cuit = @cuitNuevo, empresa_estado = @habilitadoNuevo WHERE empresa_nombre = @nombre and empresa_cuit = @direccion");
 
-            updateEmpresaCommand.Parameters.AddWithValue("rubro", rubro);
             updateEmpresaCommand.Parameters.AddWithValue("nombre", nombre);
             updateEmpresaCommand.Parameters.AddWithValue("direccion", direccion);
             updateEmpresaCommand.Parameters.AddWithValue("cuit", cuit);
@@ -360,7 +360,7 @@ namespace PagoAgilFrba.Support
         internal static void deleteSucursal(String nombre, String direccion, String codigoPostal)
         {
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand deleteSucursalCommand = new SqlCommand("Delete [GD2C2017].[pero_compila].[Sucursal] where sucursal_estado = 1 and sucursal_nombre = @nombre and sucursal_CP = @codigoPostal and sucursal_direccion = @direccion ");
+            SqlCommand deleteSucursalCommand = new SqlCommand("update [GD2C2017].[pero_compila].[Sucursal] set sucursal_estado = 0 where sucursal_nombre = @nombre and sucursal_CP = @codigoPostal and sucursal_direccion = @direccion ");
             deleteSucursalCommand.Parameters.AddWithValue("direccion", direccion);
             deleteSucursalCommand.Parameters.AddWithValue("nombre", nombre);
             deleteSucursalCommand.Parameters.AddWithValue("codigoPostal", codigoPostal);
@@ -405,7 +405,7 @@ namespace PagoAgilFrba.Support
         {
 
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand addsucursal = new SqlCommand("insert into [GD2C2017].[pero_compila].[Sucursal] (sucursal_direccion,sucursal_nombre,sucursal_CP,sucursal_localidad) values (@nombre,@direccion,@cp,1)");
+            SqlCommand addsucursal = new SqlCommand("insert into [GD2C2017].[pero_compila].[Sucursal] (sucursal_direccion,sucursal_nombre,sucursal_CP,sucursal_localidad) values (@direccion,@nombre,@cp,1)");
             addsucursal.Parameters.AddWithValue("nombre", nombre);
             addsucursal.Parameters.AddWithValue("direccion", direccion);
             addsucursal.Parameters.AddWithValue("cp", cp);
@@ -614,6 +614,27 @@ namespace PagoAgilFrba.Support
 
         }
 
+
+        internal static bool existeEmail(string mail)
+        {
+           
+            String id = null;
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
+            SqlCommand existeMail = new SqlCommand("SELECT cliente_nombre FROM [GD2C2017].[pero_compila].[Cliente] WHERE cliente_email = @mail");
+            existeMail.Parameters.AddWithValue("mail", mail);
+            existeMail.Connection = connection;
+            connection.Open();
+            SqlDataReader reader = existeMail.ExecuteReader();
+            while (reader.Read())
+            {
+                id = reader["cliente_nombre"].ToString();
+            }
+            connection.Close();
+            return id != null;
+        }
+
+
+       
     }
     }
 
