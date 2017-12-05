@@ -696,7 +696,7 @@ values (@facturaId ,@sucursalId ,
         @cliente_mail ,
         @medioPagoId ,
         @fechaCobro ,
-        @importe ,0)
+        @importe ,1)
 
 
 END
