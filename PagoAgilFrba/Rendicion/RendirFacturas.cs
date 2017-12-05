@@ -1,4 +1,5 @@
-﻿using PagoAgilFrba.RegistroPago;
+﻿using PagoAgilFrba.AbmUsuario;
+using PagoAgilFrba.RegistroPago;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,21 +17,22 @@ namespace PagoAgilFrba.Rendicion
          List<PagoFacturaReporte> rendiciones { get; set; }
          int mes;
          int año;
-         decimal importeTotalFacturas;
-         int cantidadTotalFacturas;
+         public String usuario { get; set; }
         public cantArendir()
         {
             InitializeComponent();
         }
-        public cantArendir(int empresaId,int _mes,int _año)
+        public cantArendir(int empresaId,int _mes,int _año,String user)
         {
+            Usuario u = new Usuario();
+            usuario = user;
             InitializeComponent();
             mes = _mes;
             año = _año;
             RendicionDal rdal = new RendicionDal();
             dataGridView1.Columns.Clear();
             dataGridView1.DataSource = null;
-            rendiciones=rdal.buscarRendicionPorEmpresaMesAño(empresaId,mes,año);
+            rendiciones=rdal.buscarRendicionPorEmpresaMesAño(empresaId,mes,año,u.getSucursal(usuario));
             if (rendiciones.Count > 0)
             {
                 dataGridView1.DataSource = rendiciones;

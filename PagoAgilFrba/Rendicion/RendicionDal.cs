@@ -43,7 +43,7 @@ namespace PagoAgilFrba.Rendicion
             return rendiciones;
 
         }
-        public List<PagoFacturaReporte> buscarRendicionPorEmpresaMesAño(int empresaId, int mes, int año)
+        public List<PagoFacturaReporte> buscarRendicionPorEmpresaMesAño(int empresaId, int mes, int año,String sucu)
         {
             int id = 0;
             List<PagoFacturaReporte> facturasARendir = new List<PagoFacturaReporte>();
@@ -52,7 +52,7 @@ namespace PagoAgilFrba.Rendicion
 
 
                 //int idEmpresa = buscarIdEmpresaPorNombre(empresaId);
-                    SqlCommand Comando = new SqlCommand(String.Format("select distinct pf.pagoFactura_id,pagoFactura_importe,f.factura_cod_factura,e.empresa_nombre from pero_compila.Empresa e join pero_compila.Factura f on f.factura_empresa=e.empresa_Id join pero_compila.PagoFactura pf on pf.pagoFactura_factura=f.factura_Id	where pagoFactura_estado=0 and e.empresa_Id = '{0}' and month(pagoFactura_fecha_cobro)='{1}' and year(pagoFactura_fecha_cobro)='{2}'", empresaId, mes, año), Conexion);
+                SqlCommand Comando = new SqlCommand(String.Format("select distinct pf.pagoFactura_id,pagoFactura_importe,f.factura_cod_factura,e.empresa_nombre from pero_compila.Empresa e join pero_compila.Factura f on f.factura_empresa=e.empresa_Id join pero_compila.PagoFactura pf on pf.pagoFactura_factura=f.factura_Id join pero_compila.Sucursal s on(s.sucursal_Id=pf.pagoFactura_sucursal) where pagoFactura_estado=0 and e.empresa_Id = '{0}' and month(pagoFactura_fecha_cobro)='{1}' and year(pagoFactura_fecha_cobro)='{2}' and sucursal_nombre= '{3}'", empresaId, mes, año, sucu), Conexion);
                 SqlDataReader reader = Comando.ExecuteReader(); 
                 while (reader.Read())
                 {

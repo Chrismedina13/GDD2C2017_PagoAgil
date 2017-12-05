@@ -21,6 +21,7 @@ namespace PagoAgilFrba
     {
         public String user { get; set; }
         public String rol { get; set; }
+        public String fechaSistema { get; set; }
         public VentanaPrincipal(string nombre,String rolUser)
         {
             user = nombre;
@@ -55,56 +56,124 @@ namespace PagoAgilFrba
 
         private void button3_Click(object sender, EventArgs e)
         {
-            abm_cliente form3 = new abm_cliente();
-            form3.Show();
+            if (fechaSistema == null)
+            {
+                MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
+            }
+            else
+            {
+                abm_cliente form3 = new abm_cliente();
+                form3.Show();
+            }
         }
         private void button11_Click(object sender, EventArgs e)
         {
-            abm_empresa form11 = new abm_empresa();
-            form11.Show();
+            if (fechaSistema == null)
+            {
+                MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
+            }
+            else
+            {
+                abm_empresa form11 = new abm_empresa();
+                form11.Show();
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Abm_sucursal form4 = new Abm_sucursal();
-            form4.Show();
+            if (fechaSistema == null)
+            {
+                MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
+            }
+            else
+            {
+                Abm_sucursal form4 = new Abm_sucursal();
+                form4.Show();
+            }
         }
 
 
         private void button10_Click(object sender, EventArgs e)
         {
-            estadistica form10 = new estadistica();
-            form10.Show();
+            if (fechaSistema == null)
+            {
+                MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
+            }
+            else
+            {
+                estadistica form10 = new estadistica();
+                form10.Show();
+            }
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Registro reg = new Registro();
-            reg.Show();
+            if (fechaSistema == null)
+            {
+                MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
+            }
+            else
+            {
+                Registro reg = new Registro();
+                reg.Show();
+            }
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            ABM_Rol objRol = new ABM_Rol();
-            objRol.Show();
+            if (fechaSistema == null)
+            {
+                MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
+            }
+            else
+            {
+                ABM_Rol objRol = new ABM_Rol();
+                objRol.Show();
+            }
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-             ABM_Factura abmf = new ABM_Factura();
-             abmf.Show();
+            if (fechaSistema == null)
+            {
+                MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
+            }
+            else
+            {
+                ABM_Factura abmf = new ABM_Factura();
+                abmf.Show();
+            }
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
-            RendirFactura frend = new RendirFactura();
-            frend.Show();
+            if (fechaSistema == null)
+            {
+                MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
+            }
+            else
+            {
+                RendirFactura frend = new RendirFactura(user);
+                frend.Show();
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            seleccionar_cliente frend = new seleccionar_cliente(user);
-            frend.Show();
+            if (fechaSistema == null)
+            {
+                MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
+            }
+            else
+            {
+                seleccionar_cliente frend = new seleccionar_cliente(user);
+                frend.Show();
+            }
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            fechaSistema = dateTimePicker1.Value.ToString("dd/MM/yyyy");
         }
 
 

@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -42,16 +40,13 @@
             this.button11 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(12, 45);
+            this.button3.Location = new System.Drawing.Point(12, 95);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(111, 38);
             this.button3.TabIndex = 3;
@@ -61,7 +56,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(111, 380);
+            this.button1.Location = new System.Drawing.Point(111, 415);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 4;
@@ -71,7 +66,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(12, 187);
+            this.button4.Location = new System.Drawing.Point(10, 229);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(111, 38);
             this.button4.TabIndex = 6;
@@ -81,7 +76,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(186, 187);
+            this.button5.Location = new System.Drawing.Point(186, 229);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(111, 38);
             this.button5.TabIndex = 7;
@@ -91,7 +86,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(12, 120);
+            this.button6.Location = new System.Drawing.Point(10, 164);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(111, 38);
             this.button6.TabIndex = 8;
@@ -101,7 +96,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(187, 120);
+            this.button7.Location = new System.Drawing.Point(186, 164);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(111, 38);
             this.button7.TabIndex = 9;
@@ -111,7 +106,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(96, 320);
+            this.button8.Location = new System.Drawing.Point(96, 361);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(111, 38);
             this.button8.TabIndex = 10;
@@ -121,7 +116,7 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(187, 250);
+            this.button9.Location = new System.Drawing.Point(186, 297);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(111, 38);
             this.button9.TabIndex = 11;
@@ -131,7 +126,7 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(12, 250);
+            this.button10.Location = new System.Drawing.Point(12, 297);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(111, 38);
             this.button10.TabIndex = 12;
@@ -141,7 +136,7 @@
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(186, 55);
+            this.button11.Location = new System.Drawing.Point(186, 95);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(111, 38);
             this.button11.TabIndex = 13;
@@ -166,11 +161,30 @@
             this.label2.Size = new System.Drawing.Size(0, 13);
             this.label2.TabIndex = 15;
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(45, 58);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(203, 20);
+            this.dateTimePicker1.TabIndex = 16;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 42);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(179, 13);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "Elija una fecha de inicio del Sistema:";
+            // 
             // VentanaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(309, 415);
+            this.ClientSize = new System.Drawing.Size(309, 459);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button11);
@@ -190,7 +204,6 @@
             this.PerformLayout();
 
         }
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button1;
 
@@ -208,6 +221,8 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Label label3;
 
     }
 }
