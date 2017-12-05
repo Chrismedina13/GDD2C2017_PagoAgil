@@ -45,6 +45,7 @@ namespace PagoAgilFrba.AbmFactura
             if (FacturaDal.EliminarFactura(factAEliminar))
             {
                 MessageBox.Show("Se eliminó correctamente.");
+                this.Hide();
             }
             else
             {

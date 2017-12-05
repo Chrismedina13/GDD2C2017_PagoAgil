@@ -52,7 +52,7 @@ namespace PagoAgilFrba.Rendicion
 
 
                 //int idEmpresa = buscarIdEmpresaPorNombre(empresaId);
-                    SqlCommand Comando = new SqlCommand(String.Format("select distinct pf.pagoFactura_id,pagoFactura_importe,f.factura_cod_factura,e.empresa_nombre from pero_compila.Empresa e join pero_compila.Factura f on f.factura_empresa=e.empresa_Id join pero_compila.PagoFactura pf on pf.pagoFactura_factura=f.factura_Id	where pagoFactura_estado=1 and e.empresa_Id = '{0}' and month(pagoFactura_fecha_cobro)='{1}' and year(pagoFactura_fecha_cobro)='{2}'", empresaId, mes, año), Conexion);
+                    SqlCommand Comando = new SqlCommand(String.Format("select distinct pf.pagoFactura_id,pagoFactura_importe,f.factura_cod_factura,e.empresa_nombre from pero_compila.Empresa e join pero_compila.Factura f on f.factura_empresa=e.empresa_Id join pero_compila.PagoFactura pf on pf.pagoFactura_factura=f.factura_Id	where pagoFactura_estado=0 and e.empresa_Id = '{0}' and month(pagoFactura_fecha_cobro)='{1}' and year(pagoFactura_fecha_cobro)='{2}'", empresaId, mes, año), Conexion);
                 SqlDataReader reader = Comando.ExecuteReader(); 
                 while (reader.Read())
                 {
@@ -125,7 +125,7 @@ namespace PagoAgilFrba.Rendicion
 
                     int resultado;
                     string query = "";
-                    query=String.Format("update pero_compila.PagoFactura set pagoFactura_estado = 0 where pagoFactura_id='{0}'", idPagoFactura);
+                    query=String.Format("update pero_compila.PagoFactura set pagoFactura_estado = 1 where pagoFactura_id='{0}'", idPagoFactura);
                     SqlCommand Comando = new SqlCommand(query, Conexion);
                     resultado = Comando.ExecuteNonQuery();
                     Conexion.Close();

@@ -185,7 +185,7 @@ namespace PagoAgilFrba.AbmFactura
                 comando.Parameters.AddWithValue("@total", f.total);
                 comando.Parameters.AddWithValue("@codFactura", f.codFactura);
                 comando.Parameters.AddWithValue("@cli_dni", f.cli_dni);
-                comando.Parameters.AddWithValue("@empresaId", f.empresa_id);
+                comando.Parameters.AddWithValue("@empresaId", f.empresa_id+1);
                 comando.Parameters.AddWithValue("@fechaAlta", f.fechaAlta);
                 comando.Parameters.AddWithValue("@fechaVto", f.fechaVenc);
                 return comando.ExecuteNonQuery() > 0 ? true : false;

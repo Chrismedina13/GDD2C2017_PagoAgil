@@ -14,18 +14,20 @@ namespace PagoAgilFrba
     public partial class VentanaPorSucursal : Form
     {
          public String nombreUser { get; set; }
+         public String rolUser { get; set; }
         public VentanaPorSucursal()
         {
             InitializeComponent();
         }
-          public VentanaPorSucursal(String idUser)
+          public VentanaPorSucursal(String idUser,String rolUsuario)
         {
             this.nombreUser = idUser;
+            rolUser = rolUsuario;
             InitializeComponent();
-            CargarComboSucursal();
+            CargarComboSucursal(idUser,rolUsuario);
 
         }
-          private void CargarComboSucursal()
+          private void CargarComboSucursal(String idUser, String rolUsuario)
           {
               //Vaciar comboBox
               comboBox1.DataSource = null;
@@ -35,7 +37,7 @@ namespace PagoAgilFrba
               //Indicar qué valor tendrá cada ítem
               this.comboBox1.ValueMember = "UsuarioPorSucursal";
               //Asignar la propiedad DataSource
-              this.comboBox1.DataSource = suc.getSucursalPorUsuario(this.nombreUser);
+              this.comboBox1.DataSource = suc.getSucursalPorUsuario(this.nombreUser,rolUsuario);
           }
         private void label1_Click(object sender, EventArgs e)
         {
@@ -56,9 +58,18 @@ namespace PagoAgilFrba
 
         private void button1_Click(object sender, EventArgs e)
         {
-             VentanaPrincipal nuevaVentanta = new VentanaPrincipal(nombreUser);
-             nuevaVentanta.ShowDialog();
-            this.Hide();
+                    if (rolUser == "Administrativo")
+            {
+                VentanaPrincipal nuevaVentanta = new VentanaPrincipal(nombreUser,rolUser);
+                nuevaVentanta.ShowDialog();
+                this.Hide();
+            }
+            else
+            {
+                VentanaCobrador vcob = new VentanaCobrador(nombreUser,rolUser);
+                vcob.Show();
+                this.Hide();
+            }
         }
 
         private void VentanaPorSucursal_Load(object sender, EventArgs e)

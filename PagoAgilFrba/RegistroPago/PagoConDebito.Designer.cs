@@ -104,9 +104,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 13);
+            this.label1.Size = new System.Drawing.Size(75, 13);
             this.label1.TabIndex = 14;
-            this.label1.Text = "Nombre del Titular";
+            this.label1.Text = "DNI del Titular";
             // 
             // lblMonto
             // 

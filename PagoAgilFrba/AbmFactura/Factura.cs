@@ -28,15 +28,23 @@ namespace PagoAgilFrba.AbmFactura
                 //Factura factu = new Factura();
                 //FALTTA IMPORTEEEE  or importe ='{2}' ,importe
                 //VER PORQUE CUANDO NO PONGO IMPORTE NO ANDA
-                string query = "";
-
+                
                     try
                     {
-                        query = " select * from pero_compila.Factura Where factura_estado=1 and factura_enviadoAPago =0 and factura_cliente_dni = " + f.cli_dni + "  or (factura_cod_factura =  " + f.codFactura + " or cast(factura_fecha_vencimiento as date)='" + f.fechaVenc.ToString("dd/MM/yyyy") + "')";
-
-                        //SqlCommand Comando = new SqlCommand(String.Format("select * from pero_compila.Factura where factura_cod_factura = '{0}' or cast(factura_fecha_vencimiento as date)='{1}' ", codFact, fechaVencimiento.ToString("dd/MM/yyyy")), Conexion);
-                        SqlCommand Comando = new SqlCommand(query, Conexion);
-                        SqlDataReader reader = Comando.ExecuteReader();
+                        SqlCommand comando = new SqlCommand("pero_compila.filtrarFacturas", Conexion);
+                        comando.CommandType = CommandType.StoredProcedure;
+                        //se limpian los parámetros
+                        comando.Parameters.Clear();
+                        //comenzamos a mandar cada uno de los parámetros, deben de enviarse en el
+                        //tipo de datos que coincida en sql server por ejemplo c# es string en sql server es varchar()
+                        comando.Parameters.AddWithValue("@fechaAlta", DateTime.Today);
+                        comando.Parameters.AddWithValue("@fechaVencimiento", f.fechaVenc);
+                        comando.Parameters.AddWithValue("@nroFactura", f.codFactura);
+                        comando.Parameters.AddWithValue("@cliDni", f.cli_dni);
+                        comando.Parameters.AddWithValue("@empresaId", f.empresa_id);
+                       
+                     
+                        SqlDataReader reader = comando.ExecuteReader();
                         while (reader.Read())
                         {
                             Factura factu = new Factura();

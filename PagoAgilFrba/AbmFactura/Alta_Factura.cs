@@ -17,8 +17,12 @@ namespace PagoAgilFrba.AbmFactura
 {
     public partial class Alta_Factura : Form
     {
-        
+
         public Alta_Factura()
+        {
+            InitializeComponent();
+        }
+        public Alta_Factura(String user, String rol)
         {
             InitializeComponent();
           //  CargarComboClientes();
@@ -31,8 +35,8 @@ namespace PagoAgilFrba.AbmFactura
             //textImporte.AutoCompleteCustomSource = ItemDal.LoadAutoComplete();
             //textImporte.AutoCompleteMode = AutoCompleteMode.Suggest;
             //textImporte.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            MessageBox.Show("Falta buscar el usuario actual!!!!");
-            labelSucursal.Text = u.getSucursal("admin");
+        
+            labelSucursal.Text = u.getSucursal(user);
             labelFechaAct.Text = DateTime.Today.ToString("dd/MM/yyyy");
             //CargarComboClientes();
             textCliente.AutoCompleteCustomSource = ClienteDal.LoadAutoComplete();
@@ -139,18 +143,34 @@ namespace PagoAgilFrba.AbmFactura
         {
             Factura f = new Factura();
             List<Factura> facturasElegidas = new List<Factura>();
-
-            facturasElegidas = f.getFacturasPorDatosDeFactura(sinNulos());
-            if (facturasElegidas.Count() > 0)
+            try
             {
-                listar_factura lstFact = new listar_factura(facturasElegidas, labelSucursal.Text, Convert.ToDecimal(textCliente.Text.ToString()));
-                lstFact.ShowDialog();
+                if (textCliente.Text.ToString() == "")
+                {
+                    MessageBox.Show("Debe escribir un DNI.");
+                }
+                else
+                {
+                    facturasElegidas = f.getFacturasPorDatosDeFactura(sinNulos());
+                    if (facturasElegidas.Count() > 0)
+                    {
 
+                        listar_factura lstFact = new listar_factura(facturasElegidas, labelSucursal.Text, Convert.ToDecimal(textCliente.Text.ToString()));
+                        lstFact.ShowDialog();
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Filtre por otros campos.");
+                    }
+                } 
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Filtre por otros campos.");
+                MessageBox.Show(ex.Data.ToString());
+                throw;
             }
+            
          }
 
         private Factura sinNulos()
@@ -160,18 +180,21 @@ namespace PagoAgilFrba.AbmFactura
             {
                 fsn.codFactura = Convert.ToInt32(textBoxNroFact.Text);
             }
+            else
+            {
+                fsn.codFactura = 0;
+            }
+
             //if ( textTotal.Text != "")
             //{
             //    fsn.total = Convert.ToDecimal(textTotal.Text);
             //}
-            if (textCliente.Text != "")
-            {
+           
                 fsn.cli_dni = Convert.ToDecimal(textCliente.Text);
-            }
-            if (comboBoxEmpresa.SelectedValue.ToString() != "")
-            {
+                fsn.fechaVenc = dateTimePicker1.Value;
+            
                 fsn.empresa_id = comboBoxEmpresa.SelectedIndex;
-            }
+            
             return fsn;
         }
 

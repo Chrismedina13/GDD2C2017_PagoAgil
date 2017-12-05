@@ -49,31 +49,12 @@ namespace PagoAgilFrba
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (this.comboBox1.Text.ToString() == "Administrativo")
-            {
-            //    VentanaPrincipal nuevaVentanta = new VentanaPrincipal(nombreUser);
-            //    nuevaVentanta.ShowDialog();
-            //    this.Hide();
-                VentanaPorSucursal vsuc = new VentanaPorSucursal(nombreUser);
+  
+                VentanaPorSucursal vsuc = new VentanaPorSucursal(nombreUser,this.comboBox1.Text.ToString());
                 vsuc.ShowDialog();
                 this.Hide();
-            }
-            else
-            {
-                if (this.comboBox1.Text.ToString() == "Administrativo")
-                {
-                    VentanaPrincipal nuevaVentanta = new VentanaPrincipal(nombreUser);
-                    nuevaVentanta.ShowDialog();
-                    this.Hide();
-                }
-                else
-                {
-                    VentanaCobrador nuevaVentana = new VentanaCobrador(nombreUser);
-                    nuevaVentana.ShowDialog();
-                    this.Hide();
 
-                }
-            }
+           
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

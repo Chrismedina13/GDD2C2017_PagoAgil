@@ -16,14 +16,14 @@ namespace PagoAgilFrba.AbmSucursal
         public int habilitado { get; set; }
         public String UsuarioPorSucursal { get; set; }
 
-        public List<String> getSucursalPorUsuario(String nombreUser)
+        public List<String> getSucursalPorUsuario(String nombreUser,String rolUsuario)
         {
             {
                 List<String> sucursales = new List<String>();
 
                 using (SqlConnection Conexion = BDComun.ObtenerConexion())
                 {
-                    SqlCommand Comando = new SqlCommand(String.Format("select distinct S.sucursal_nombre FROM pero_compila.Usuario u JOIN pero_compila.UsuarioXSucursal uxs ON (u.usuario_ID = uxs.usuarioXSucursal_usuario) JOIN pero_compila.Sucursal S ON (S.sucursal_Id=uxs.usuarioXSucursal_sucursal) WHERE u.usuario_username LIKE '{0}' and S.sucursal_estado=1 and sucursal_nombre not like 'null'", nombreUser), Conexion);
+                    SqlCommand Comando = new SqlCommand(String.Format("select distinct S.sucursal_nombre FROM pero_compila.Usuario u JOIN pero_compila.UsuarioXSucursal uxs ON (u.usuario_ID = uxs.usuarioXSucursal_usuario) JOIN pero_compila.Sucursal S ON (S.sucursal_Id=uxs.usuarioXSucursal_sucursal) JOIN pero_compila.RolXUsuario rxu ON(rxu.rolXUsuario_usuario=u.usuario_Id) JOIN pero_compila.Rol r ON(r.rol_Id=rxu.rolXUsuario_rol) WHERE u.usuario_username LIKE '{0}' and S.sucursal_estado=1 and sucursal_nombre not like 'null' and r.rol_nombre LIKE '{1}'", nombreUser,rolUsuario), Conexion);
                     SqlDataReader reader = Comando.ExecuteReader();
 
                     while (reader.Read())
