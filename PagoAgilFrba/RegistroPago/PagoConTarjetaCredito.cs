@@ -23,6 +23,7 @@ namespace PagoAgilFrba.RegistroPago
             InitializeComponent();
             lblMonto.Text = montoTot;
             dniCliente = dni;
+            label6.Text = dni.ToString();
         }
 
         private void PagoConTarjetaCredito_Load(object sender, EventArgs e)
@@ -38,7 +39,7 @@ namespace PagoAgilFrba.RegistroPago
                 tarjCred = new TarjetaCredito();
                 tarjCred.codTarjeta = Convert.ToInt32(tctNroTarjeta.Text);
                 tarjCred.codVerificacion = Convert.ToInt32(txtCodVerif.Text);
-                tarjCred.dniTitular = Convert.ToDecimal(tctTitular.Text);
+                tarjCred.dniTitular = Convert.ToDecimal(dniCliente);
                 tarjCred.monto = Convert.ToDecimal(montoTot);
                 tarjCred.vtoTarj = dateTimePicker1.Value;
             }
@@ -60,14 +61,7 @@ namespace PagoAgilFrba.RegistroPago
             {
                 retorno = true;
             }
-            if (dniCliente != (Convert.ToDecimal(tctTitular.Text)))
-            {
-                MessageBox.Show("Error:El DNI del Titular no es válido.");
-            }
-            else
-            {
-                retorno = true;
-            }
+
             return retorno;
         }
 

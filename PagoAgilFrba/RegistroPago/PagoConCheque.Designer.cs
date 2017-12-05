@@ -30,13 +30,12 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.txtNroCheque = new System.Windows.Forms.TextBox();
-            this.txtTitular = new System.Windows.Forms.TextBox();
-            this.txtEmpresa = new System.Windows.Forms.TextBox();
             this.lblMonto = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -56,15 +55,6 @@
             this.label2.Size = new System.Drawing.Size(75, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "DNI del Titular";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 124);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(74, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Dirigido hacia ";
             // 
             // label4
             // 
@@ -92,21 +82,6 @@
             this.txtNroCheque.Size = new System.Drawing.Size(100, 20);
             this.txtNroCheque.TabIndex = 9;
             // 
-            // txtTitular
-            // 
-            this.txtTitular.Location = new System.Drawing.Point(125, 73);
-            this.txtTitular.Name = "txtTitular";
-            this.txtTitular.Size = new System.Drawing.Size(100, 20);
-            this.txtTitular.TabIndex = 6;
-            this.txtTitular.TextChanged += new System.EventHandler(this.txtTitular_TextChanged);
-            // 
-            // txtEmpresa
-            // 
-            this.txtEmpresa.Location = new System.Drawing.Point(106, 124);
-            this.txtEmpresa.Name = "txtEmpresa";
-            this.txtEmpresa.Size = new System.Drawing.Size(100, 20);
-            this.txtEmpresa.TabIndex = 7;
-            // 
             // lblMonto
             // 
             this.lblMonto.AutoSize = true;
@@ -115,18 +90,34 @@
             this.lblMonto.Size = new System.Drawing.Size(0, 13);
             this.lblMonto.TabIndex = 8;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(107, 76);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(10, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = " ";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(107, 76);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(0, 13);
+            this.label3.TabIndex = 11;
+            // 
             // PagoConCheque
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(489, 205);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.lblMonto);
-            this.Controls.Add(this.txtEmpresa);
-            this.Controls.Add(this.txtTitular);
             this.Controls.Add(this.txtNroCheque);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "PagoConCheque";
@@ -141,12 +132,11 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox txtNroCheque;
-        private System.Windows.Forms.TextBox txtTitular;
-        private System.Windows.Forms.TextBox txtEmpresa;
         private System.Windows.Forms.Label lblMonto;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label3;
     }
 }

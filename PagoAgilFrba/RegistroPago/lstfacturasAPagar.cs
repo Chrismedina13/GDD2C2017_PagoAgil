@@ -70,28 +70,45 @@ namespace PagoAgilFrba.RegistroPago
             //Como ahcer que elija el seleccionado , me elige el anterior...
             label10.Text = total.Text;
            
-            if (comboBox1.SelectedItem.ToString() == "Cheque")
+            if (comboBox1.SelectedValue.ToString() == "Cheque")
             {
                 pcheq = new PagoConCheque(total.Text,dniCliente);
-                lblMedioPago.Text = comboBox1.Text;        
+                lblMedioPago.Text = "Cheque";        
                 pcheq.Show();
            
             }
             else
             {
-                if (comboBox1.SelectedItem.ToString() == "Tarjeta de Crédito")
+                if (comboBox1.SelectedValue.ToString() == "Tarjeta de Crédito")
                 {
                      pcred = new PagoConTarjetaCredito(total.Text,dniCliente);
-                    lblMedioPago.Text = comboBox1.Text;
+                     lblMedioPago.Text = "Tarjeta de Crédito";
                     pcred.Show();
                 }
                 else
                 {
-                    pdeb = new PagoConDebito(total.Text,dniCliente);
-                    lblMedioPago.Text = comboBox1.Text;
-                    pdeb.Show();
+                    if (comboBox1.SelectedValue.ToString() == "Tarjeta de Débito")
+                    {
+                        pdeb = new PagoConDebito(total.Text, dniCliente);
+                        lblMedioPago.Text = "Tarjeta de Débito";
+                        pdeb.Show();
+                    }
+                    else
+                    {
+                        lblMedioPago.Text = "Efectivo";
+                        label10.Text = total.Text;
+                        Efectivo ef = new Efectivo();
+                        if (ef.altaEfectivo(Convert.ToDecimal(total.Text),dniCliente))
+                        {
+                            MessageBox.Show("Se aceptó el pago con efectivo Correctamente!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error. no se pudo realizar el pago");
+                        }
+                    }
                 }
-                lblMedioPago.Text = comboBox1.Text;
+               // lblMedioPago.Text = comboBox1.SelectedValue.ToString();
             }
             
         }
@@ -183,6 +200,11 @@ namespace PagoAgilFrba.RegistroPago
 
 
 
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }
