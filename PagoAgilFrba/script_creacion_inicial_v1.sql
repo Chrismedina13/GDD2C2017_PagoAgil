@@ -732,7 +732,16 @@ insert into pero_compila.MedioPago(medioPago_nroTarjCredit,medioPago_fechaVtoTar
 values(@nroTarjCredit,@fechaVtoTarjeta ,@codVerificacionTarjeta, @dniTitular ,@monto,'Tarjeta de Crédito' )
 end
 
-
+/*
+********************** dar de alta en efectivo*********************
+*/	
+GO
+create procedure [pero_compila].[sp_alta_efectivo](@dniTitular NUMERIC(18,0),@monto NUMERIC(18,2))
+AS 
+BEGIN
+INSERT INTO pero_compila.MedioPago(medioPago_dniTitular,medioPago_monto,medioPago_descripcion)
+values( @dniTitular ,@monto,'Efectivo' )
+end
 
 /*
 ********************** dar de alta en una tarj de debito*********************
