@@ -191,5 +191,28 @@ namespace PagoAgilFrba.AbmRol
             return roles;
         }
 
+
+
+        public int RolId(String nombreRol)
+        {
+            int id = 0;
+            using (SqlConnection Conexion = BDComun.ObtenerConexion())
+            {
+
+                Rol rol = new Rol();
+                SqlCommand Comando = new SqlCommand(String.Format("select rol_id from pero_compila.Rol where rol_nombre = '{0}'", nombreRol), Conexion);
+                SqlDataReader reader = Comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    id = reader.GetInt32(0);
+
+                }
+
+                Conexion.Close();
+            }
+            return id;
+
+        }
+
     }
 }

@@ -17,6 +17,7 @@ namespace PagoAgilFrba
     {
         public String user { get; set; }
         public String rolUser { get; set; }
+        public String fechaSistema { get; set; }
         public VentanaCobrador()
         {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace PagoAgilFrba
             InitializeComponent();
            // label1.Text = label1.Text + " " + user;
             label2.Text = user;
+
         }
         private void VentanaCobrador_Load(object sender, EventArgs e)
         {
@@ -36,8 +38,15 @@ namespace PagoAgilFrba
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Alta_Factura af = new Alta_Factura(user,rolUser);
-            af.Show();
+            if (fechaSistema == null)
+            {
+                MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
+            }
+            else
+            {
+                Alta_Factura af = new Alta_Factura(user, rolUser, fechaSistema);
+                af.Show();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -48,6 +57,11 @@ namespace PagoAgilFrba
 
         private void button3_Click(object sender, EventArgs e)
         {
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            fechaSistema = dateTimePicker1.Value.ToString("dd/MM/yyyy");
         }
     }
 }

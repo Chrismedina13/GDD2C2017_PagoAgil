@@ -152,18 +152,22 @@ namespace PagoAgilFrba.AbmFactura
 
                 totalItems.Text = totalSumaItems.ToString();
                 factura.total = Convert.ToDecimal(totalItems.Text);
+                FacturaDal fdal = new FacturaDal();
 
-
-
-                if (FacturaDal.registrar(factura.cli_dni,factura.cli_mail,factura.empresa_id,factura.codFactura,factura.fechaAlta,factura.fechaVenc,factura.total))
+                if (fdal.buscarIdFactura(Convert.ToInt32(textBox1.Text)) > 0)
                 {
-                    MessageBox.Show("Factura registrada Correctamente!");
+                    MessageBox.Show("Error. Ya existe ese código de Factura");
                 }
-                else
-                {
-                    MessageBox.Show("No se pudo registrar la factura :(");
+                else{
+                    if (FacturaDal.registrar(factura.cli_dni,factura.cli_mail,factura.empresa_id,factura.codFactura,factura.fechaAlta,factura.fechaVenc,factura.total))
+                    {
+                        MessageBox.Show("Factura registrada Correctamente!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo registrar la factura :(");
+                    }
                 }
-
 
             }
             catch (Exception ex)

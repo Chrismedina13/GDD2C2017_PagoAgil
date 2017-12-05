@@ -13,8 +13,10 @@ namespace PagoAgilFrba.Rendicion
 {
     public partial class RendirFactura : Form
     {
-        public RendirFactura()
+        public String usuario { get; set; }
+        public RendirFactura(String user)
         {
+            usuario = user;
             InitializeComponent();
             CargarComboEmpresas();
         }
@@ -48,8 +50,13 @@ namespace PagoAgilFrba.Rendicion
         private void button1_Click(object sender, EventArgs e)
         {
             int id = Convert.ToInt32(comboBoxEmpresa.SelectedValue);
-            cantArendir rfacts = new cantArendir(id, dateTimePicker1.Value.Month, dateTimePicker1.Value.Year);
+            cantArendir rfacts = new cantArendir(id, dateTimePicker1.Value.Month, dateTimePicker1.Value.Year,usuario);
             rfacts.Show();
+        }
+
+        private void RendirFactura_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

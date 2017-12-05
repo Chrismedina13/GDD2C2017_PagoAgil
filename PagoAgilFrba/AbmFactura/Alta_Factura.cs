@@ -17,13 +17,15 @@ namespace PagoAgilFrba.AbmFactura
 {
     public partial class Alta_Factura : Form
     {
+        public String fechaSistema { get; set; }
 
         public Alta_Factura()
         {
             InitializeComponent();
         }
-        public Alta_Factura(String user, String rol)
+        public Alta_Factura(String user, String rol,String fechaSist)
         {
+            fechaSistema = fechaSist;
             InitializeComponent();
           //  CargarComboClientes();
             CargarComboEmpresas();
@@ -37,7 +39,7 @@ namespace PagoAgilFrba.AbmFactura
             //textImporte.AutoCompleteSource = AutoCompleteSource.CustomSource;
         
             labelSucursal.Text = u.getSucursal(user);
-            labelFechaAct.Text = DateTime.Today.ToString("dd/MM/yyyy");
+            labelFechaAct.Text = fechaSist;
             //CargarComboClientes();
             textCliente.AutoCompleteCustomSource = ClienteDal.LoadAutoComplete();
             textCliente.AutoCompleteMode = AutoCompleteMode.Suggest;
@@ -66,11 +68,8 @@ namespace PagoAgilFrba.AbmFactura
             //{
             //    MessageBox.Show("Error: El nro de Factura debe ser numérico o mayor a CERO.");
             //}
-            if (DateTime.Compare(dateTimePicker1.Value, DateTime.Today) < 0)
-            {
-                MessageBox.Show("Error: la fecha de vencimiento debe ser posterior a la actual.");
-            }
-            string msjFalla = "";
+            return String.Compare((dateTimePicker1.Value.ToString("dd/MM/yyyy")), fechaSistema) < 0;
+            
             //if (textBox3.Text == "" || tieneLetras(textBox1.Text)) { msjFalla = msjFalla + "Ingresar ID Cliente"; }
             //if (textBox3.Text == "" || tieneLetras(textBox2.Text)) { msjFalla = msjFalla + "Ingresar ID Empresa"; }
             //if (textBox3.Text == "" || tieneLetras(textBox3.Text)) { msjFalla = msjFalla + "Ingresar Codigo válido"; }
@@ -78,8 +77,7 @@ namespace PagoAgilFrba.AbmFactura
             //if (!(DateTime.Compare(dateTimePicker1.Value, DateTime.Now) <= 0)) { msjFalla = msjFalla + "Fecha inválida"; }
             //if (!(DateTime.Compare(dateTimePicker2.Value, DateTime.Now) <= 0)) { msjFalla = msjFalla + "Fecha inválida"; }
             //if ((textBox5.Text == "") || tieneLetras(textBox5.Text)) { msjFalla = msjFalla + "Habilitado"; }
-            if (msjFalla == "") { return true; }
-            else { MessageBox.Show(msjFalla); return false; }
+            
         }
         private bool tieneLetras(string texto)
         {
@@ -131,6 +129,7 @@ namespace PagoAgilFrba.AbmFactura
                 //    DateTime.Now,
                 //    dateTimePicker2.Value
                 //    );
+                this.Hide();
             }
         }
 
@@ -151,18 +150,26 @@ namespace PagoAgilFrba.AbmFactura
                 }
                 else
                 {
-                    facturasElegidas = f.getFacturasPorDatosDeFactura(sinNulos());
-                    if (facturasElegidas.Count() > 0)
+                    if (verificarCampos())
                     {
-
-                        listar_factura lstFact = new listar_factura(facturasElegidas, labelSucursal.Text, Convert.ToDecimal(textCliente.Text.ToString()));
-                        lstFact.ShowDialog();
-
+                        MessageBox.Show("Error: la fecha de vencimiento debe ser posterior a la actual.");
                     }
                     else
                     {
-                        MessageBox.Show("Filtre por otros campos.");
+                        facturasElegidas = f.getFacturasPorDatosDeFactura(sinNulos());
+                        if (facturasElegidas.Count() > 0)
+                        {
+
+                            listar_factura lstFact = new listar_factura(facturasElegidas, labelSucursal.Text, Convert.ToDecimal(textCliente.Text.ToString()));
+                            lstFact.ShowDialog();
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Filtre por otros campos.");
+                        }
                     }
+
                 } 
             }
             catch (Exception ex)

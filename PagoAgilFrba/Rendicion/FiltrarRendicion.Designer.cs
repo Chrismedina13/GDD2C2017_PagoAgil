@@ -31,9 +31,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboBoxEmpresa = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxEmpresa = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,14 +70,12 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Busqueda de la Rendicion";
             // 
-            // comboBoxEmpresa
+            // dateTimePicker1
             // 
-            this.comboBoxEmpresa.FormattingEnabled = true;
-            this.comboBoxEmpresa.Location = new System.Drawing.Point(67, 36);
-            this.comboBoxEmpresa.Name = "comboBoxEmpresa";
-            this.comboBoxEmpresa.Size = new System.Drawing.Size(127, 21);
-            this.comboBoxEmpresa.TabIndex = 10;
-            this.comboBoxEmpresa.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.dateTimePicker1.Location = new System.Drawing.Point(112, 73);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(196, 20);
+            this.dateTimePicker1.TabIndex = 13;
             // 
             // label1
             // 
@@ -88,12 +86,14 @@
             this.label1.TabIndex = 12;
             this.label1.Text = "Seleccione el mes";
             // 
-            // dateTimePicker1
+            // comboBoxEmpresa
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(112, 73);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(196, 20);
-            this.dateTimePicker1.TabIndex = 13;
+            this.comboBoxEmpresa.FormattingEnabled = true;
+            this.comboBoxEmpresa.Location = new System.Drawing.Point(67, 36);
+            this.comboBoxEmpresa.Name = "comboBoxEmpresa";
+            this.comboBoxEmpresa.Size = new System.Drawing.Size(127, 21);
+            this.comboBoxEmpresa.TabIndex = 10;
+            this.comboBoxEmpresa.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // RendirFactura
             // 
@@ -103,6 +103,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "RendirFactura";
             this.Text = "Filtrar Facturas a Rendir";
+            this.Load += new System.EventHandler(this.RendirFactura_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
