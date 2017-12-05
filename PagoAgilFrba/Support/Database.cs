@@ -491,7 +491,7 @@ namespace PagoAgilFrba.Support
 
         internal static void cargarGriddClienteConMasPagos(DataGridView dataGridView1, Trimestre trimestre, decimal año)
         {
-            SqlCommand command = new SqlCommand("SELECT TOP 5 cliente_nombre as 'CLIENTE', count(pagoFActura_Id) as 'PAGOS' FROM pero_compila.Cliente JOIN pero_compila.PagoFactura ON (pagoFactura_cliente = cliente_Id) WHERE pagoFactura_fecha_cobro > @inicioFecha AND pagoFactura_fecha_cobro < @finFecha GROUP BY cliente_nombre ORDER BY count(pagoFactura_Id) DESC");
+            SqlCommand command = new SqlCommand("SELECT TOP 5 cliente_nombre as 'CLIENTE', count(pagoFActura_Id) as 'PAGOS' FROM pero_compila.Cliente JOIN pero_compila.PagoFactura ON (pagoFactura_cliente_dni = cliente_dni and pagoFactura_cliente_mail = cliente_email) WHERE pagoFactura_fecha_cobro > @inicioFecha AND pagoFactura_fecha_cobro < @finFecha GROUP BY cliente_nombre ORDER BY count(pagoFactura_Id) DESC");
             obtenerEstadistica(dataGridView1, trimestre, año, command);
         }
 
