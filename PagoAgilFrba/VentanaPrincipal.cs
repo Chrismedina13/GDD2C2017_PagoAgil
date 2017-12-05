@@ -23,13 +23,11 @@ namespace PagoAgilFrba
         public String rol { get; set; }
         public VentanaPrincipal(string nombre,String rolUser)
         {
-<<<<<<< HEAD
             user = nombre;
             rol = rolUser;
            // label2.Text = nombre;
-=======
+
             this.user = nombre;
->>>>>>> 9837f443de159b22231150a77376803891714bb4
             InitializeComponent();
         }
 
