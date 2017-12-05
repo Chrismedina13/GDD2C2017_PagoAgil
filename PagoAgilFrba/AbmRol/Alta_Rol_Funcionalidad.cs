@@ -39,15 +39,23 @@ namespace PagoAgilFrba.AbmRol
         {
             try
             {
+                RolDAL roldal = new RolDAL();
                 Rol rol = new Rol();
                 if(textBox1.Text!="")
                 {
-                    rol.Nombre = textBox1.Text;
-                    int res =RolDAL.insert(rol.Nombre);
-                    if (res>0)
-                    {
-                        int resultado = agregarFuncionalidades(res);
-                    }
+                   if(roldal.RolId(textBox1.Text)>0)
+                   {
+                       MessageBox.Show("Error. Nombre del rol ya existente");
+                   }
+                    else
+                   {
+                        rol.Nombre = textBox1.Text;
+                        int res =RolDAL.insert(rol.Nombre);
+                        if (res>0)
+                        {
+                            int resultado = agregarFuncionalidades(res);
+                        }
+                   }
                 }
                 else{
                     MessageBox.Show("Debe ingresar un nombre de ROL");
