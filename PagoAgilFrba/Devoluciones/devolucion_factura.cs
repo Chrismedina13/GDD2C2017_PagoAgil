@@ -15,12 +15,17 @@ namespace PagoAgilFrba.Devoluciones
     {
 
         List<int> IdsFacturasSeleccionadas = new List<int>();
+        string nombreUsuario;
+        string Dni;
+        string Mail;
 
-        public devolucion_factura(String nombre, String apellido, String dni,String mail)
+        public devolucion_factura(String nombre, String apellido, String dni,String mail,string usuario)
         {
             InitializeComponent();
             Database.cargarGriddFacturasPagasCliente(facturasDgv, "", "", "","");
-
+            this.nombreUsuario = usuario;
+            this.Dni = dni;
+            this.Mail = mail;
         }
 
         private void facturasDgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -61,11 +66,18 @@ namespace PagoAgilFrba.Devoluciones
 
                 foreach(int factura in IdsFacturasSeleccionadas){
 
+                    string motivo = motivoTb.Text;
+
                     Database.updatePagoFactura(factura);
                  
                     Database.updateFacturaDevuelta(factura);
-                    //falta ingresar a la tabla de devueltos
-                
+
+                    int IdUsuario = Database.idUsuario(nombreUsuario);
+
+                    DateTime thisDay = DateTime.Today;
+
+
+                    Database.devolverFactura(IdUsuario, motivo, Dni ,Mail,thisDay);
                 
                 }
                 motivoTb.Text = string.Empty;
@@ -106,6 +118,11 @@ namespace PagoAgilFrba.Devoluciones
             {
                 facturasDgv.CommitEdit(DataGridViewDataErrorContexts.Commit);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

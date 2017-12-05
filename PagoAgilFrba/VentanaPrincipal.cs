@@ -22,6 +22,7 @@ namespace PagoAgilFrba
         public String user { get; set; }
         public VentanaPrincipal(string nombre)
         {
+            this.user = nombre;
             InitializeComponent();
         }
 
@@ -97,7 +98,7 @@ namespace PagoAgilFrba
 
         private void button5_Click(object sender, EventArgs e)
         {
-            seleccionar_cliente frend = new seleccionar_cliente();
+            seleccionar_cliente frend = new seleccionar_cliente(user);
             frend.Show();
         }
 

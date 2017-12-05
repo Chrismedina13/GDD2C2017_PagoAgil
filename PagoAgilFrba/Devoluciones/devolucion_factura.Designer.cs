@@ -108,7 +108,6 @@
             this.tituloLb.Size = new System.Drawing.Size(197, 18);
             this.tituloLb.TabIndex = 10;
             this.tituloLb.Text = "Devolución de Facturas";
-            //  
             // 
             // button1
             // 
@@ -118,6 +117,7 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "VOLVER";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 

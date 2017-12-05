@@ -13,8 +13,11 @@ namespace PagoAgilFrba.Devoluciones
 {
     public partial class seleccionar_cliente : Form
     {
-        public seleccionar_cliente()
+        public String user { get; set; }
+
+        public seleccionar_cliente(string usuario)
         {
+            this.user = usuario;
             InitializeComponent();
             Database.cargarGriddCliente(dataGridViewSeleccionarCliente, "", "", "");
         }
@@ -60,7 +63,7 @@ namespace PagoAgilFrba.Devoluciones
                 MessageBox.Show("Faltan completar campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            else if (dni.Length != 8)
+            else if (false)
             {
                 MessageBox.Show("Verificar que el DNI haya sido ingresado de forma correcta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -70,7 +73,7 @@ namespace PagoAgilFrba.Devoluciones
                 var respuesta = MessageBox.Show("¿Estas seguro?", "Confirme borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (respuesta == DialogResult.Yes)
                 {
-                    devolucion_factura form = new devolucion_factura(nombre, apellido, dni,mail);
+                    devolucion_factura form = new devolucion_factura(nombre, apellido, dni,mail,user);
                     form.Show();
                 }
             }
