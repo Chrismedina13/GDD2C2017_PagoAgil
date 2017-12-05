@@ -328,7 +328,7 @@ END
 
 
 
-GO
+
 								/*FIN REGISTRAR USUARIO*/
 
 
@@ -437,10 +437,13 @@ GO
 /*
 ********************* alta los roles de acuerdo a un identificador(id)*********************
 */
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_rol')
+	DROP PROCEDURE pero_compila.sp_alta_rol
+GO
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER procedure [pero_compila].[sp_alta_rol] (@nombre varchar(255), @habilitado  bit,@funcionalidad varchar(255))
+create procedure [pero_compila].[sp_alta_rol] (@nombre varchar(255), @habilitado  bit,@funcionalidad varchar(255))
 as
 begin
 	insert into pero_compila.Rol (rol_nombre, rol_estado)
@@ -452,6 +455,9 @@ end
 /*
 *********************Obtiene todos los clientes que se encuentran habilitados*********************
 */
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_get_clientes')
+	DROP PROCEDURE pero_compila.sp_get_clientes
+GO
 GO
 create procedure [pero_compila].[sp_get_clientes]
 
@@ -462,7 +468,9 @@ end
 /*
 *********************Obtiene todas las empresas que se encuentran habilitados*********************
 */
-
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_get_empresas')
+	DROP PROCEDURE pero_compila.sp_get_empresas
+GO
 GO
 
 create procedure [pero_compila].[sp_get_empresas]
@@ -474,6 +482,9 @@ end
 /*
 *********************Obtiene todos los items *********************
 */
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_get_items')
+	DROP PROCEDURE pero_compila.sp_get_items
+GO
 GO
 create procedure [pero_compila].[sp_get_items]
 
@@ -485,7 +496,9 @@ end
 /*
 *********************Obtiene todas las facturas*********************
 */
-
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_get_facturas')
+	DROP PROCEDURE pero_compila.sp_get_facturas
+GO
 GO
 create procedure [pero_compila].sp_get_facturas
 as
@@ -533,7 +546,7 @@ go
 *********************Realiza el alta de un item*********************
 */
 IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_item')
-	DROP PROCEDURE pero_compila.sp_alta_funcionalidades
+	DROP PROCEDURE pero_compila.sp_alta_item
 GO
 create procedure [pero_compila].[sp_alta_item] (@descripcion nvarchar(255), @precio numeric(18,2),@cantidad int,@idFactura int)
 as
@@ -548,8 +561,11 @@ end
 /*
 *************************ALTA DE FACTURA *******************************
 */
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_factura')
+	DROP PROCEDURE pero_compila.sp_alta_factura
 GO
-ALTER procedure [pero_compila].[sp_alta_factura] 
+GO
+create procedure [pero_compila].[sp_alta_factura] 
 (@cliente_dni numeric(18,0),@cliente_mail nvarchar(255),
 @empresaId int,
 @cod_factura nvarchar(255),
@@ -565,6 +581,9 @@ end
 /*
 *********************PASA UNA FACTURA A ESTADO PAGA*********************
 */
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_pasar_a_pagada')
+	DROP PROCEDURE pero_compila.sp_pasar_a_pagada
+GO
 go
 create procedure [PERO_COMPILA].sp_pasar_a_pagada(@cliente_dni numeric(18,0),
 @cliente_mail nvarchar(255),@cod_factura nvarchar(255))
@@ -580,8 +599,11 @@ END
  /*
 *********************FILTRA UNA FACTURA POR UNO O TODOS LOS CAMPOS*********************
 */
+IF EXISTS (SELECT name FROM sysobjects WHERE name='filtrarFacturas')
+	DROP PROCEDURE pero_compila.filtrarFacturas
+GO	
 GO
-ALTER PROCEDURE [pero_compila].[filtrarFacturas]
+create PROCEDURE [pero_compila].[filtrarFacturas]
 	(@fechaAlta datetime,
 	@fechaVencimiento datetime,
 	@nroFactura int,
@@ -602,6 +624,9 @@ END
  /*
 ********************ELIMINA FACTURA(PASA A ESTADO 0)*********************
 */
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_eliminar_factura')
+	DROP PROCEDURE pero_compila.sp_eliminar_factura
+GO
 GO
 CREATE PROCEDURE [pero_compila].[sp_eliminar_factura]
 	(@codFactura int,
@@ -614,8 +639,47 @@ BEGIN
 END
 
  /*
+********************UPDATE DE FACTURA*********************
+*/
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_update_factura')
+	DROP PROCEDURE pero_compila.sp_update_factura
+GO
+GO
+CREATE PROCEDURE [pero_compila].[sp_update_factura]
+	(@facturaId int,
+	@total numeric(18,2),
+	@codFactura int,
+	@cli_dni numeric(18,0),
+	@empresaId int,
+	@fechaAlta datetime,
+	@fechaVto datetime
+	)
+AS
+BEGIN
+	update pero_compila.Factura set 
+					factura_fecha_alta = @fechaAlta,
+					factura_fecha_vencimiento =@fechaVto,
+					factura_total=@total,
+					factura_cod_factura=@codFactura,
+					factura_cliente_dni=@cli_dni,
+					factura_empresa=@empresaId
+	
+	where factura_id =@facturaId and ( factura_estado=1 and (
+		 @fechaAlta is null or (factura_fecha_alta =@fechaAlta) or
+		 @fechaVto is null or (factura_fecha_vencimiento =@fechaVto) or
+		 @codFactura is null or (factura_cod_factura =@codFactura) or
+		 @cli_dni is null or (factura_cliente_dni =@cli_dni) or
+		 @empresaId is null or (factura_empresa =@empresaId)))
+END
+
+
+
+ /*
 *********************DA DE ALTA EN UN PAGO_FACTURA*********************
 */
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_Pago_Factura')
+	DROP PROCEDURE pero_compila.sp_alta_Pago_Factura
+GO
 go
 create procedure [PERO_COMPILA].sp_alta_Pago_Factura(@facturaId int,
         @sucursalId int,
@@ -640,6 +704,9 @@ END
 /*
 *********************dar de alta en un cheque*********************
 */
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_cheque')
+	DROP PROCEDURE pero_compila.sp_alta_cheque
+GO
 go
 create procedure [PERO_COMPILA].sp_alta_cheque(@nroCheque INT, @dniTitular NUMERIC(18,0),
 @destino NVARCHAR(255),@monto NUMERIC(18,2))
@@ -654,7 +721,9 @@ end
 /*
 *********************dar de alta en una tarj de credito *********************
 */	
-
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_tarjCredito')
+	DROP PROCEDURE pero_compila.sp_alta_tarjCredito
+GO
 GO
 create procedure [pero_compila].[sp_alta_tarjCredito](@nroTarjCredit int,@fechaVtoTarjeta datetime,@codVerificacionTarjeta int, @dniTitular numeric(18,0),@monto numeric(18,2) )
 as
@@ -668,7 +737,9 @@ end
 /*
 ********************** dar de alta en una tarj de debito*********************
 */	
-
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_tarjDebito')
+	DROP PROCEDURE pero_compila.sp_alta_tarjDebito
+GO
 GO
 create procedure [pero_compila].[sp_alta_tarjDebito](@nroTarjDebito int,@fechaVtoTarjeta datetime,@codVerificacionTarjeta int, @dniTitular numeric(18,0),@monto numeric(18,2) )
 as
@@ -680,6 +751,9 @@ end
 /*
 ********************** dar de alta una rendicion en una fecha*********************
 */	
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_rendicion')
+	DROP PROCEDURE pero_compila.sp_alta_rendicion
+GO
 create procedure [PERO_COMPILA].sp_alta_rendicion(@rendicion_fecha datetime,
              @cantidad int,
              @empresa nvarchar(255),
