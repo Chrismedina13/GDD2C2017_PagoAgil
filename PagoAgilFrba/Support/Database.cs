@@ -21,7 +21,7 @@ namespace PagoAgilFrba.Support
         {
             String[] datos = new string[8];
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand getDatosClienteCommand = new SqlCommand("SELECT [cliente_nombre],[cliente_apellido],[cliente_dni],[cliente_email],[cliente_direccion],[cliente_telefono],[cliente_fecha_nacimiento],[cliente_habilitado] FROM [GD1C2017].[pero_compila].[Cliente] WHERE cliente_nombre = @nombreViejo AND cliente_apellido = @apellidoViejo AND cliente_dni = @dniViejo");
+            SqlCommand getDatosClienteCommand = new SqlCommand("SELECT [cliente_nombre],[cliente_apellido],[cliente_dni],[cliente_email],[cliente_direccion],[cliente_telefono],[cliente_fecha_nacimiento],[cliente_habilitado] FROM [GD2C2017].[pero_compila].[Cliente] WHERE cliente_nombre = @nombreViejo AND cliente_apellido = @apellidoViejo AND cliente_dni = @dniViejo");
             getDatosClienteCommand.Parameters.AddWithValue("nombreViejo", nombreViejo);
             getDatosClienteCommand.Parameters.AddWithValue("apellidoViejo", apellidoViejo);
             getDatosClienteCommand.Parameters.AddWithValue("dniViejo", dniViejo);
@@ -381,7 +381,7 @@ namespace PagoAgilFrba.Support
         {
             String[] datos = new string[4];
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand getDatosSucursal = new SqlCommand("SELECT [sucursal_nombre],[sucursal_CP],[sucursal_direccion],[sucursal_estado] FROM [GD1C2017].[pero_compila].[Sucursal] WHERE sucursal_nombre = @nombreViejo AND sucursal_direccion = @direccionVieja AND sucursal_CP = @codigoPostalViejo");
+            SqlCommand getDatosSucursal = new SqlCommand("SELECT [sucursal_nombre],[sucursal_CP],[sucursal_direccion],[sucursal_estado] FROM [GD2C2017].[pero_compila].[Sucursal] WHERE sucursal_nombre = @nombreViejo AND sucursal_direccion = @direccionVieja AND sucursal_CP = @codigoPostalViejo");
             getDatosSucursal.Parameters.AddWithValue("nombreViejo", nombreViejo);
             getDatosSucursal.Parameters.AddWithValue("codigoPostalViejo", codigoPostalViejo);
             getDatosSucursal.Parameters.AddWithValue("direccionVieja", direccionVieja);
