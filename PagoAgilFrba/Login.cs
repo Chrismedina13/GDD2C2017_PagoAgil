@@ -27,7 +27,7 @@ namespace PagoAgilFrba
         {
             if (txtContrasenia.Text == txtContrasenia.Text)
             {
-                if (UsuarioDAL.Autenticacion(txtUsuario.Text, txtContrasenia.Text))
+                if (UsuarioDAL.Autenticacion(txtUsuario.Text, txtContrasenia.Text) == 0 || UsuarioDAL.Autenticacion(txtUsuario.Text, txtContrasenia.Text) == -3)
                 {
                     VentanaPorRol vpr = new VentanaPorRol(txtUsuario.Text);
                     this.Hide();
@@ -35,8 +35,15 @@ namespace PagoAgilFrba
                 }
                 else
                 {
+                    if (UsuarioDAL.Autenticacion(txtUsuario.Text, txtContrasenia.Text) == -1)
+                    {
+                        MessageBox.Show("Error al iniciar sesion");
+                    }
+                    else{
+                        MessageBox.Show("Usuario Inhabilitado.");
+                        UsuarioDAL.PasarAInhabilitado(txtUsuario.Text);
+                    }
 
-                    MessageBox.Show("Error al iniciar sesion");
                 }
             }
         }

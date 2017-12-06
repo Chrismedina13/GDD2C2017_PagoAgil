@@ -11,7 +11,7 @@ namespace PagoAgilFrba.AbmUsuario
 {
     class UsuarioDAL
     {
-        public static int CrearCuenta(String nomUsuario, String contrasenia,String rol)
+        public static int CrearCuenta(String nomUsuario, String contrasenia)
         {
             int resultado = 0;
             try
@@ -26,7 +26,6 @@ namespace PagoAgilFrba.AbmUsuario
                 //tipo de datos que coincida en sql server por ejemplo c# es string en sql server es varchar()
                 comando.Parameters.AddWithValue("@user", nomUsuario);
                 comando.Parameters.AddWithValue("@pass", contrasenia);
-                comando.Parameters.AddWithValue("@rol", r.getidRolPorNombre(rol));
                    //declaramos el parámetro de retorno
                 //executamos la consulta
                 int id = Convert.ToInt32(comando.ExecuteScalar());
@@ -53,7 +52,7 @@ namespace PagoAgilFrba.AbmUsuario
         }
 
 
-        public static bool Autenticacion(String user, String pass)
+        public static int Autenticacion(String user, String pass)
         {
             try
             {
@@ -68,7 +67,8 @@ namespace PagoAgilFrba.AbmUsuario
                 comando.Parameters.AddWithValue("@user", user);
                 comando.Parameters.AddWithValue("@pass", pass);              //declaramos el parámetro de retorno
 
-                SqlParameter ValorRetorno = new SqlParameter("@ret", SqlDbType.Int);
+               SqlParameter ValorRetorno = new SqlParameter("@ret", SqlDbType.Int);
+
                 //asignamos el valor de retorno
                 ValorRetorno.Direction = ParameterDirection.Output;
                 comando.Parameters.Add(ValorRetorno);
@@ -80,19 +80,29 @@ namespace PagoAgilFrba.AbmUsuario
                 //si el procedimiento retorna un 1 la operación se realizó con éxito
                 //de no ser así se mantiene en false y pr lo tanto falló la operación
                 Conexion.Close();
-                if (Valor_Retornado == 0)
-                    return true;
-                else
-                    return false;
+                return Valor_Retornado;
 
             }
             catch (Exception ex)
             {
-                return false;
+                return 0;
                 //al ocurrir un error mostramos un mensaje
                 //MessageBox.Show(“Error en la operación”, “Error”, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        internal static void PasarAInhabilitado(string p)
+        {
+            using (SqlConnection Conexion = BDComun.ObtenerConexion())
+            {
+                SqlCommand Comando = new SqlCommand(String.Format("update pero_compila.Usuario set usuario_estado=0 where usuario_username='{0}'", p), Conexion);
+                Comando.ExecuteNonQuery();
+              
+
+                Conexion.Close();
+            }
+            
         }
     }
 

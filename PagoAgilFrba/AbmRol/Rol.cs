@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -37,6 +38,28 @@ namespace PagoAgilFrba.AbmRol
                     Nombre = reader.GetString(0);
 
                     roles.Add(Nombre);
+                }
+                Conexion.Close();
+            }
+            return roles;
+        }
+
+        public List<Rol> getAllRol()
+        {
+            List<Rol> roles = new List<Rol>();
+           
+            using (SqlConnection Conexion = BDComun.ObtenerConexion())
+            {
+                SqlCommand Comando = new SqlCommand(String.Format("SELECT * from pero_compila.Rol where rol_estado=1"), Conexion);
+                SqlDataReader reader = Comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Rol r = new Rol();
+                    r.Id = reader.GetInt32(0);
+                    r.Nombre = reader.GetString(1);
+                   
+                    roles.Add(r);
                 }
                 Conexion.Close();
             }
@@ -86,5 +109,39 @@ namespace PagoAgilFrba.AbmRol
 
 
 
+
+        internal static int insertRolXUsuario(int id, int rol)
+        {
+            SqlConnection Conexion = BDComun.ObtenerConexion();
+            try
+            {
+
+
+                SqlCommand comando = new SqlCommand("pero_compila.sp_alta_usuarioXRol", Conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                //se limpian los parámetros
+                comando.Parameters.Clear();
+                //comenzamos a mandar cada uno de los parámetros, deben de enviarse en el
+                //tipo de datos que coincida en sql server por ejemplo c# es string en sql server es varchar()
+                comando.Parameters.AddWithValue("@idUsuario", id);
+                comando.Parameters.AddWithValue("@idRol", rol);
+                if (comando.ExecuteNonQuery() > 0)
+                {
+                    Conexion.Close();
+                    return 1;
+                }
+                else
+                {
+                    Conexion.Close();
+                    return 0;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Conexion.Close();
+                return 0;
+            }
+        }
     }
 }

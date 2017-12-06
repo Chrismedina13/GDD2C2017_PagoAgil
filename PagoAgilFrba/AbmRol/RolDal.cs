@@ -117,7 +117,7 @@ namespace PagoAgilFrba.AbmRol
         //        return false;
         //    }
         //}
-        public static bool ModificarRol(int id, String nombre, int habilitado)
+        public static bool ModificarRol(int id, String nombre,int habilitado)
         {
             try
             {
@@ -140,6 +140,24 @@ namespace PagoAgilFrba.AbmRol
             {
                 return false;
             }
+        }
+        public static int SacarRolATodosLosUsuarios(int idRol)
+        {
+            
+                int reader=0;
+                List<String> roles = new List<String>();
+
+                using (SqlConnection Conexion = BDComun.ObtenerConexion())
+                {
+                    SqlCommand Comando = new SqlCommand(String.Format("delete from pero_compila.RolXUsuario  where rolXUsuario_rol='{0}' ", idRol), Conexion);
+                     reader = Comando.ExecuteNonQuery();
+
+                   
+                    Conexion.Close();
+                }
+               
+            
+            return reader;
         }
         public static bool EliminarRol(int idRol)
         {
@@ -191,6 +209,33 @@ namespace PagoAgilFrba.AbmRol
             return roles;
         }
 
+        public static List<Rol> BuscarRolesHabilitadosEInhabilitados()
+        {
+            List<Rol> roles = new List<Rol>();
+            try
+            {
+                using (SqlConnection Conexion = BDComun.ObtenerConexion())
+                {
+                    SqlCommand Comando = new SqlCommand(String.Format("SELECT * from pero_compila.Rol "), Conexion);
+                    SqlDataReader reader = Comando.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Rol rol = new Rol();
+                        rol.Id = reader.GetInt32(0);
+                        rol.Nombre = reader.GetString(1);
+                      
+
+                        roles.Add(rol);
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            return roles;
+        }
 
 
         public int RolId(String nombreRol)

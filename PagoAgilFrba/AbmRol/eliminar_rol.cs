@@ -54,13 +54,21 @@ namespace PagoAgilFrba.AbmRol
         {
             int IdProducto = Convert.ToInt32(comboBox1.SelectedValue);
             string Descripcion = Convert.ToString(comboBox1.Text);
-            if (RolDAL.ModificarRol(IdProducto, label2.Text, 0))
+            if (RolDAL.ModificarRol(IdProducto, label2.Text,0))
             {
-                MessageBox.Show("Se eliminó el rol " + label2.Text);
+                if (RolDAL.SacarRolATodosLosUsuarios(IdProducto) > 0)
+                {
+
+                    MessageBox.Show("Se eliminó el rol " + label2.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Error al intentar eliminar el rol seleccionado " + IdProducto);
+                }
             }
             else
             {
-                MessageBox.Show("Error al intentar eliminarar el rol seleccionado " + IdProducto);
+                MessageBox.Show("Error al intentar eliminar el rol seleccionado " + IdProducto);
             }
             CargarComboRoles();
         }

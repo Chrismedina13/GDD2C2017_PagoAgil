@@ -90,7 +90,60 @@ namespace PagoAgilFrba.AbmRol
                 return 0;
             }
         }
+        public static int update(int idRol, int idFuncionalidad)
+        {
+            SqlConnection Conexion = BDComun.ObtenerConexion();
+            try
+            {
 
+
+                SqlCommand comando = new SqlCommand("pero_compila.sp_update_funcionalidades", Conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                //se limpian los parámetros
+                comando.Parameters.Clear();
+                //comenzamos a mandar cada uno de los parámetros, deben de enviarse en el
+                //tipo de datos que coincida en sql server por ejemplo c# es string en sql server es varchar()
+                comando.Parameters.AddWithValue("@idRol", idRol);
+                comando.Parameters.AddWithValue("@idFuncionalidad", idFuncionalidad);
+                if (comando.ExecuteNonQuery() > 0)
+                {
+                    Conexion.Close();
+                    return 1;
+                }
+                else
+                {
+                    Conexion.Close();
+                    return 0;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Conexion.Close();
+                return 0;
+            }
+        }
+        public List<int> getIdFuncionalidadesPorRol(String rol)
+        {
+            List<int> funcionalidadesIds = new List<int>();
+            Rol r = new Rol();
+            int idRol=r.getidRolPorNombre(rol);
+            using (SqlConnection Conexion = BDComun.ObtenerConexion())
+            {
+                SqlCommand Comando = new SqlCommand(String.Format("SELECT DISTINCT funcionalidad_Id,funcionalidad_descripcion from pero_compila.Funcionalidad f join pero_compila.FuncionalidadXRol fxr on(f.funcionalidad_Id=fxr.funcionalidadXRol_funcionalidad) where fxr.funcionalidadXRol_rol='{0}'",idRol), Conexion);
+                SqlDataReader reader = Comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Funcionalidad f = new Funcionalidad();
+                    f.IdFuncionalidad = reader.GetInt32(0);
+                    f.descripcion = reader.GetString(1);
+                    funcionalidadesIds.Add(f.IdFuncionalidad);
+                }
+                Conexion.Close();
+            }
+            return funcionalidadesIds;
+        }
 
 
 

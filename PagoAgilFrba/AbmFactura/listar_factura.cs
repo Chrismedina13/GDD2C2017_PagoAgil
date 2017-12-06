@@ -105,16 +105,24 @@ namespace PagoAgilFrba.AbmFactura
                 totalAPagar = 0;
                 foreach (int k in ChkedRow)
                 {
-                    Factura facturaAPagar = new Factura();
-                    facturaAPagar.cli_dni = Convert.ToInt32(dataGridView1.Rows[k].Cells[2].Value.ToString());
-                    facturaAPagar.cli_mail =(dataGridView1.Rows[k].Cells[3].Value.ToString());
-                    facturaAPagar.codFactura=Convert.ToInt32(dataGridView1.Rows[k].Cells[5].Value.ToString());
-                    facturaAPagar.empresa_id = Convert.ToInt32(dataGridView1.Rows[k].Cells[4].Value.ToString());
-                    facturaAPagar.fechaAlta = Convert.ToDateTime(dataGridView1.Rows[k].Cells[6].Value);
-                    facturaAPagar.fechaVenc = Convert.ToDateTime(dataGridView1.Rows[k].Cells[7].Value);
-                    facturaAPagar.total = Convert.ToDecimal(dataGridView1.Rows[k].Cells[8].Value.ToString());
-                    totalAPagar += Convert.ToDecimal(dataGridView1.Rows[k].Cells[8].Value.ToString());
-                    facturasAPagar.Add(facturaAPagar);
+                    if (Convert.ToDecimal(dataGridView1.Rows[k].Cells[8].Value.ToString()) < 0)
+                    {
+                        MessageBox.Show("No se podrá pagar esta factura: " + Convert.ToInt32(dataGridView1.Rows[k].Cells[5].Value.ToString()) + " porque tiene un monto NO VALIDO");
+                    }
+                    else
+                    {
+
+                        Factura facturaAPagar = new Factura();
+                        facturaAPagar.cli_dni = Convert.ToInt32(dataGridView1.Rows[k].Cells[2].Value.ToString());
+                        facturaAPagar.cli_mail = (dataGridView1.Rows[k].Cells[3].Value.ToString());
+                        facturaAPagar.codFactura = Convert.ToInt32(dataGridView1.Rows[k].Cells[5].Value.ToString());
+                        facturaAPagar.empresa_id = Convert.ToInt32(dataGridView1.Rows[k].Cells[4].Value.ToString());
+                        facturaAPagar.fechaAlta = Convert.ToDateTime(dataGridView1.Rows[k].Cells[6].Value);
+                        facturaAPagar.fechaVenc = Convert.ToDateTime(dataGridView1.Rows[k].Cells[7].Value);
+                        facturaAPagar.total = Convert.ToDecimal(dataGridView1.Rows[k].Cells[8].Value.ToString());
+                        totalAPagar += Convert.ToDecimal(dataGridView1.Rows[k].Cells[8].Value.ToString());
+                        facturasAPagar.Add(facturaAPagar);
+                    }
 
                 }
                 MessageBox.Show("Se Seleccionaron las Facturas Correctamente!");

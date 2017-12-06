@@ -156,25 +156,19 @@ namespace PagoAgilFrba.AbmFactura
                     }
                     else
                     {
-                        if(Convert.ToDecimal(textImporte.Text)<0)
-                        {
-                            MessageBox.Show("Error. Importe a cobrar Negativo");
-                        }
-                        else
-                        {
-
-                            facturasElegidas = f.getFacturasPorDatosDeFactura(sinNulos());
-                            if (facturasElegidas.Count() > 0)
-                            {
-
-                                listar_factura lstFact = new listar_factura(facturasElegidas, labelSucursal.Text, Convert.ToDecimal(textCliente.Text.ToString()));
-                                lstFact.ShowDialog();
-                            }
-                            else
-                            {
-                                MessageBox.Show("Filtre por otros campos.");
-                         }
-                        }
+                       
+                       facturasElegidas = f.getFacturasPorDatosDeFactura(sinNulos());
+                       if (facturasElegidas.Count() > 0)
+                         {
+                                 listar_factura lstFact = new listar_factura(facturasElegidas, labelSucursal.Text, Convert.ToDecimal(textCliente.Text.ToString()));
+                                 lstFact.ShowDialog();
+                          }
+                       else
+                          {
+                                    MessageBox.Show("Filtre por otros campos.");
+                          }
+                            
+                        
                     }
 
                 } 
@@ -199,10 +193,19 @@ namespace PagoAgilFrba.AbmFactura
                 fsn.codFactura = 0;
             }
 
-            //if ( textTotal.Text != "")
-            //{
-                fsn.total = Convert.ToDecimal(textImporte.Text);
-            //}
+            if (textImporte.Text != "")
+            {
+                if (Convert.ToDecimal(textImporte.Text) < 0)
+                {
+                    MessageBox.Show("Error. No se permiten importes negativos");
+                  
+                }
+                else
+                {
+                    fsn.total = Convert.ToDecimal(textImporte.Text);
+                }
+                
+            }
            
                 fsn.cli_dni = Convert.ToDecimal(textCliente.Text);
                 fsn.fechaVenc = dateTimePicker1.Value;
