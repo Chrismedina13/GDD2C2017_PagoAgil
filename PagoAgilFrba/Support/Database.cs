@@ -536,7 +536,7 @@ namespace PagoAgilFrba.Support
         internal static void updatePagoFactura(int nroPagoFactura)
         {
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand updatePagoFactura = new SqlCommand("UPDATE [GD1C2017].[pero_compila].[PagoFactura] set pagoFactura_estado = 0 WHERE pagoFactura_Id = @nroPagoFactura ");
+            SqlCommand updatePagoFactura = new SqlCommand("UPDATE [GD2C2017].[pero_compila].[PagoFactura] set pagoFactura_estado = 0 WHERE pagoFactura_Id = @nroPagoFactura ");
 
             updatePagoFactura.Parameters.AddWithValue("nroPagoFactura", nroPagoFactura);
 
@@ -555,7 +555,7 @@ namespace PagoAgilFrba.Support
         internal static void updateFacturaDevuelta(int nroPagoFactura)
         {
             SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
-            SqlCommand updateFacturaDevuelta = new SqlCommand("UPDATE [GD1C2017].[pero_compila].[Factura] set factura_enviadoAPago = 1 WHERE factura_Id = (select pagoFactura_factura from [pero_compila].[PagoFactura] where pagoFactura_Id = @nroPagoFactura)");
+            SqlCommand updateFacturaDevuelta = new SqlCommand("UPDATE [GD2C2017].[pero_compila].[Factura] set factura_enviadoAPago = 1 WHERE factura_Id = (select pagoFactura_factura from [pero_compila].[PagoFactura] where pagoFactura_Id = @nroPagoFactura)");
 
             updateFacturaDevuelta.Parameters.AddWithValue("nroPagoFactura", nroPagoFactura);
 
