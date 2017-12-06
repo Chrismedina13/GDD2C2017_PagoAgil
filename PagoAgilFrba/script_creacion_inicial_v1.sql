@@ -42,25 +42,38 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.ItemXFactura'))
     DROP TABLE pero_compila.ItemXFactura
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Item'))
+    DROP TABLE pero_compila.Item
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Devolucion'))
+    DROP TABLE pero_compila.Devolucion
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.DevolucionesXFactura'))
+    DROP TABLE pero_compila.DevolucionesXFactura
+
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Usuario'))
+    DROP TABLE pero_compila.ItemPago
+
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Rendicion_Facturas'))
+    DROP TABLE pero_compila.ItemRendicion
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Usuario'))
     DROP TABLE pero_compila.Usuario
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.PagoFactura'))
+    DROP TABLE pero_compila.PagoFactura
+
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Factura'))
     DROP TABLE pero_compila.Factura
 
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Item'))
-    DROP TABLE pero_compila.Item
-
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Empresa'))
     DROP TABLE pero_compila.Empresa
 
-
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Rubro'))
     DROP TABLE pero_compila.Rubro
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.PagoFactura'))
-    DROP TABLE pero_compila.PagoFactura
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.MedioPago'))
     DROP TABLE pero_compila.MedioPago
@@ -72,24 +85,103 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Cliente'))
     DROP TABLE pero_compila.Cliente
 
-
-
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Localidad'))
     DROP TABLE pero_compila.Localidad
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Rendicion_Facturas'))
     DROP TABLE pero_compila.Rendicion_Facturas
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Devolucion'))
-    DROP TABLE pero_compila.Devolucion
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.DevolucionesXFactura'))
-    DROP TABLE pero_compila.DevolucionesXFactura
 
 ----------------------------------------------------------------------------------------------
 							/** FIN VALIDACION DE TABLAS **/
 ----------------------------------------------------------------------------------------------
 
+----------------------------------------------------------------------------------------------
+							/** VALIDACION DE PROCEDURES **/
+----------------------------------------------------------------------------------------------
+
+
+IF EXISTS (SELECT name FROM sysobjects WHERE name='registrarUsuario' AND type='p')
+	DROP PROCEDURE [pero_compila].registrarUsuario
+GO	
+IF EXISTS (SELECT name FROM sysobjects WHERE name='login' AND type='p')
+	DROP PROCEDURE [pero_compila].login
+GO
+
+IF EXISTS (SELECT name FROM sysobjects WHERE name='[pero_compila].[sp_alta_solo_rol]')
+	DROP PROCEDURE [pero_compila].[sp_alta_solo_rol]
+GO
+IF EXISTS (SELECT name FROM sysobjects WHERE name='pero_compila.sp_get_roles')
+	DROP PROCEDURE pero_compila.sp_get_roles
+GO
+IF EXISTS (SELECT name FROM sysobjects WHERE name='pero_compila.sp_update_rol')
+	DROP PROCEDURE pero_compila.sp_update_rol
+GO
+IF EXISTS (SELECT name FROM sysobjects WHERE name='pero_compila.sp_alta_rol')
+	DROP PROCEDURE pero_compila.sp_alta_rol
+GO
+
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_get_clientes')
+	DROP PROCEDURE pero_compila.sp_get_clientes
+GO
+
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_get_empresas')
+	DROP PROCEDURE pero_compila.sp_get_empresas
+GO
+
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_get_items')
+	DROP PROCEDURE pero_compila.sp_get_items
+GO
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_get_facturas')
+	DROP PROCEDURE pero_compila.sp_get_facturas
+GO
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_usuarioXSucursal')
+	DROP PROCEDURE pero_compila.sp_alta_usuarioXSucursal
+GO
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_funcionalidades')
+	DROP PROCEDURE pero_compila.sp_alta_funcionalidades
+GO
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_item')
+	DROP PROCEDURE pero_compila.sp_alta_item
+GO
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_factura')
+	DROP PROCEDURE pero_compila.sp_alta_factura
+GO
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_pasar_a_pagada')
+	DROP PROCEDURE pero_compila.sp_pasar_a_pagada
+GO
+IF EXISTS (SELECT name FROM sysobjects WHERE name='filtrarFacturas')
+	DROP PROCEDURE pero_compila.filtrarFacturas
+GO
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_eliminar_factura')
+	DROP PROCEDURE pero_compila.sp_eliminar_factura
+GO
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_update_factura')
+	DROP PROCEDURE pero_compila.sp_update_factura
+GO
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_Pago_Factura')
+	DROP PROCEDURE pero_compila.sp_alta_Pago_Factura
+GO
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_cheque')
+	DROP PROCEDURE pero_compila.sp_alta_cheque
+GO	
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_tarjCredito')
+	DROP PROCEDURE pero_compila.sp_alta_tarjCredito
+GO	
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_tarjDebito')
+	DROP PROCEDURE pero_compila.sp_alta_tarjDebito
+GO
+	
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_efectivo')
+	DROP PROCEDURE pero_compila.sp_alta_efectivo
+GO	
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_rendicion')
+	DROP PROCEDURE pero_compila.sp_alta_rendicion
+GO
+
+----------------------------------------------------------------------------------------------
+							/** FIN VALIDACION DE PROCEDURES **/
+----------------------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------------------------------
 								/** CREACION TABLAS **/
@@ -176,6 +268,21 @@ item_descripcion nvarchar(250),
 item_precio numeric(18,2)
 )
 
+
+create table [pero_compila].Cliente (
+cliente_nombre nvarchar(255),
+cliente_apellido nvarchar(255),
+cliente_dni  numeric(18,0) ,
+cliente_email nvarchar(255),
+cliente_telefono nvarchar(255),
+cliente_direccion nvarchar(255),
+cliente_CP nvarchar(255),
+cliente_localidad int not null references [pero_compila].Localidad,
+cliente_fecha_nacimiento datetime,
+cliente_estado bit default 1
+PRIMARY KEY (cliente_dni,cliente_email)
+)
+
 --El importe es lo que recibe el "RAPIPAGO"
 --El Total es lo que recibe la Empresa.....
 create table [pero_compila].Rendicion_Facturas (
@@ -197,20 +304,6 @@ itemRendicion_Id int primary key identity,
 itemRendicion_nro numeric(18,0) ,
 itemRendicion_importe numeric(18,2),
 itemRendicion_rendicionFactura int not null references [pero_compila].Rendicion_Facturas,
-)
-
-create table [pero_compila].Cliente (
-cliente_nombre nvarchar(255),
-cliente_apellido nvarchar(255),
-cliente_dni  numeric(18,0) ,
-cliente_email nvarchar(255),
-cliente_telefono nvarchar(255),
-cliente_direccion nvarchar(255),
-cliente_CP nvarchar(255),
-cliente_localidad int not null references [pero_compila].Localidad,
-cliente_fecha_nacimiento datetime,
-cliente_estado bit default 1
-PRIMARY KEY (cliente_dni,cliente_email)
 )
 
 
@@ -235,7 +328,7 @@ factura_fecha_vencimiento datetime not null,
 factura_total decimal(18,2) not null default 0,
 factura_enviadoAPago bit default 0,
 factura_estado bit default 1
-FOREIGN KEY (factura_cliente_dni, factura_cliente_mail) REFERENCES pero_compila.Cliente(cliente_dni,cliente_email)
+FOREIGN KEY (factura_cliente_dni, factura_cliente_mail) REFERENCES pero_compila.Cliente
 )
 
 
@@ -306,9 +399,6 @@ devolucionesXFactura_factura int not null references [pero_compila].Factura,
 
 
 
-IF EXISTS (SELECT name FROM sysobjects WHERE name='registrarUsuario' AND type='p')
-	DROP PROCEDURE [pero_compila].registrarUsuario
-GO	
 
 GO
 --falta que se agreguen las sucursales
@@ -333,9 +423,6 @@ END
 
 
 /**********************LOGIN********************* */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='login' AND type='p')
-	DROP PROCEDURE [pero_compila].login
-GO
 go	
 CREATE PROCEDURE [pero_compila].[login](@user VARCHAR(100), @pass varchar(100), @ret smallint output)
 AS 
@@ -383,9 +470,6 @@ END
 
 /**********************ABM ROL**********************/
 
-IF EXISTS (SELECT name FROM sysobjects WHERE name='[pero_compila].[sp_alta_solo_rol]')
-	DROP PROCEDURE [pero_compila].[sp_alta_solo_rol]
-GO
 go
 create procedure [pero_compila].[sp_alta_solo_rol] 
 (@nombre varchar(255), @habilitado  bit)
@@ -404,9 +488,6 @@ end
 /*
 *********************Obtiene todos los roles que se encuentran habilitados*********************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='pero_compila.sp_get_roles')
-	DROP PROCEDURE pero_compila.sp_get_roles
-GO
 go
 create procedure pero_compila.sp_get_roles
 
@@ -414,13 +495,10 @@ as
 begin
 	select * from pero_compila.Rol where rol_estado=1
 end
-GO
 /*
 *********************Realiza el update de los roles de acuerdo a un identificador(id)*********************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_update_rol')
-	DROP PROCEDURE pero_compila.sp_update_rol
-GO											
+
 go
 create procedure pero_compila.sp_update_rol
  (@id numeric(10,0), @nombre varchar(255), @habilitado bit)	
@@ -432,14 +510,11 @@ set rol_nombre = @nombre, rol_estado = @habilitado
 where rol_ID = @id
 
 end
-GO
 
 /*
 ********************* alta los roles de acuerdo a un identificador(id)*********************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_rol')
-	DROP PROCEDURE pero_compila.sp_alta_rol
-GO
+
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -455,9 +530,6 @@ end
 /*
 *********************Obtiene todos los clientes que se encuentran habilitados*********************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_get_clientes')
-	DROP PROCEDURE pero_compila.sp_get_clientes
-GO
 GO
 create procedure [pero_compila].[sp_get_clientes]
 
@@ -468,9 +540,6 @@ end
 /*
 *********************Obtiene todas las empresas que se encuentran habilitados*********************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_get_empresas')
-	DROP PROCEDURE pero_compila.sp_get_empresas
-GO
 GO
 
 create procedure [pero_compila].[sp_get_empresas]
@@ -482,9 +551,7 @@ end
 /*
 *********************Obtiene todos los items *********************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_get_items')
-	DROP PROCEDURE pero_compila.sp_get_items
-GO
+
 GO
 create procedure [pero_compila].[sp_get_items]
 
@@ -496,9 +563,7 @@ end
 /*
 *********************Obtiene todas las facturas*********************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_get_facturas')
-	DROP PROCEDURE pero_compila.sp_get_facturas
-GO
+
 GO
 create procedure [pero_compila].sp_get_facturas
 as
@@ -510,9 +575,7 @@ end
 /*
 *********************Alta del usuario con sucursales*********************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_usuarioXSucursal')
-	DROP PROCEDURE pero_compila.sp_alta_usuarioXSucursal
-GO											
+
 go
 create procedure pero_compila.sp_alta_usuarioXSucursal
 (@idUsuario int, @idSucursal  int)
@@ -527,9 +590,7 @@ go
 /*
 *********************Realiza el alta de una funcionalidad*********************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_funcionalidades')
-	DROP PROCEDURE pero_compila.sp_alta_funcionalidades
-GO											
+
 go
 create procedure pero_compila.sp_alta_funcionalidades
 (@idRol int, @idFuncionalidad  int)
@@ -545,9 +606,7 @@ go
 /*
 *********************Realiza el alta de un item*********************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_item')
-	DROP PROCEDURE pero_compila.sp_alta_item
-GO
+
 create procedure [pero_compila].[sp_alta_item] (@descripcion nvarchar(255), @precio numeric(18,2),@cantidad int,@idFactura int)
 as
 begin
@@ -561,9 +620,7 @@ end
 /*
 *************************ALTA DE FACTURA *******************************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_factura')
-	DROP PROCEDURE pero_compila.sp_alta_factura
-GO
+
 GO
 create procedure [pero_compila].[sp_alta_factura] 
 (@cliente_dni numeric(18,0),@cliente_mail nvarchar(255),
@@ -581,9 +638,7 @@ end
 /*
 *********************PASA UNA FACTURA A ESTADO PAGA*********************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_pasar_a_pagada')
-	DROP PROCEDURE pero_compila.sp_pasar_a_pagada
-GO
+
 go
 create procedure [PERO_COMPILA].sp_pasar_a_pagada(@cliente_dni numeric(18,0),
 @cliente_mail nvarchar(255),@cod_factura nvarchar(255))
@@ -599,9 +654,7 @@ END
  /*
 *********************FILTRA UNA FACTURA POR UNO O TODOS LOS CAMPOS*********************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='filtrarFacturas')
-	DROP PROCEDURE pero_compila.filtrarFacturas
-GO	
+
 GO
 create PROCEDURE [pero_compila].[filtrarFacturas]
 	(@fechaAlta datetime,
@@ -624,9 +677,7 @@ END
  /*
 ********************ELIMINA FACTURA(PASA A ESTADO 0)*********************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_eliminar_factura')
-	DROP PROCEDURE pero_compila.sp_eliminar_factura
-GO
+
 GO
 CREATE PROCEDURE [pero_compila].[sp_eliminar_factura]
 	(@codFactura int,
@@ -641,9 +692,7 @@ END
  /*
 ********************UPDATE DE FACTURA*********************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_update_factura')
-	DROP PROCEDURE pero_compila.sp_update_factura
-GO
+
 GO
 CREATE PROCEDURE [pero_compila].[sp_update_factura]
 	(@facturaId int,
@@ -677,9 +726,7 @@ END
  /*
 *********************DA DE ALTA EN UN PAGO_FACTURA*********************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_Pago_Factura')
-	DROP PROCEDURE pero_compila.sp_alta_Pago_Factura
-GO
+
 go
 create procedure [PERO_COMPILA].sp_alta_Pago_Factura(@facturaId int,
         @sucursalId int,
@@ -704,9 +751,7 @@ END
 /*
 *********************dar de alta en un cheque*********************
 */
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_cheque')
-	DROP PROCEDURE pero_compila.sp_alta_cheque
-GO
+
 go
 create procedure [PERO_COMPILA].sp_alta_cheque(@nroCheque INT, @dniTitular NUMERIC(18,0),
 @destino NVARCHAR(255),@monto NUMERIC(18,2))
@@ -720,15 +765,13 @@ end
 
 /*
 *********************dar de alta en una tarj de credito *********************
-*/	
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_tarjCredito')
-	DROP PROCEDURE pero_compila.sp_alta_tarjCredito
-GO
+*/
+
 GO
 create procedure [pero_compila].[sp_alta_tarjCredito](@nroTarjCredit int,@fechaVtoTarjeta datetime,@codVerificacionTarjeta int, @dniTitular numeric(18,0),@monto numeric(18,2) )
 as
 begin
-insert into pero_compila.MedioPago(medioPago_nroTarjCredit,medioPago_fechaVtoTarjeta,medioPago_codVerificacionTarjeta,medioPago_dniTitular,medioPago_monto,medioPago_descripcion)
+insert into pero_compila.MedioPago(medioPago_nroTarjCredito,medioPago_fechaVtoTarjeta,medioPago_codVerificacionTarjeta,medioPago_dniTitular,medioPago_monto,medioPago_descripcion)
 values(@nroTarjCredit,@fechaVtoTarjeta ,@codVerificacionTarjeta, @dniTitular ,@monto,'Tarjeta de Crédito' )
 end
 
@@ -745,24 +788,20 @@ end
 
 /*
 ********************** dar de alta en una tarj de debito*********************
-*/	
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_tarjDebito')
-	DROP PROCEDURE pero_compila.sp_alta_tarjDebito
-GO
+*/
+
 GO
 create procedure [pero_compila].[sp_alta_tarjDebito](@nroTarjDebito int,@fechaVtoTarjeta datetime,@codVerificacionTarjeta int, @dniTitular numeric(18,0),@monto numeric(18,2) )
 as
 begin
-insert into pero_compila.MedioPago(medioPago_nroTarjCredit,medioPago_fechaVtoTarjeta,medioPago_codVerificacionTarjeta,medioPago_dniTitular,medioPago_monto,medioPago_descripcion)
+insert into pero_compila.MedioPago(medioPago_nroTarjDebito,medioPago_fechaVtoTarjeta,medioPago_codVerificacionTarjeta,medioPago_dniTitular,medioPago_monto,medioPago_descripcion)
 values(@nroTarjDebito,@fechaVtoTarjeta ,@codVerificacionTarjeta, @dniTitular ,@monto,'Tarjeta de Débito' )
 end
 
 /*
 ********************** dar de alta una rendicion en una fecha*********************
-*/	
-IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_rendicion')
-	DROP PROCEDURE pero_compila.sp_alta_rendicion
-GO
+*/
+go
 create procedure [PERO_COMPILA].sp_alta_rendicion(@rendicion_fecha datetime,
              @cantidad int,
              @empresa nvarchar(255),
@@ -801,11 +840,13 @@ END
 
 --Existen dos tipos de roles Administradores y Cobradores
 					/*Rol*/
+go
 insert into [pero_compila].Rol (rol_nombre) values
 ('Administrativo'), 
 ('Cobrador');
 
 					/*Funcionalidad*/
+go
 insert into pero_compila.Funcionalidad (funcionalidad_descripcion) values
 ('ABM de Rol'),
 ('Registro de usuarios'),
@@ -820,7 +861,7 @@ insert into pero_compila.Funcionalidad (funcionalidad_descripcion) values
 
 					/*RolXFuncionalidad*/
 
-
+go
 insert into [pero_compila].FuncionalidadXRol (funcionalidadXRol_rol, funcionalidadXRol_funcionalidad) values
 (1,1), (1,2), (1,3), (1,4),(1,5),(1,6),(1,7),(2,7),(2,8),(1,10),(2,9),(2,10);
 
@@ -828,10 +869,12 @@ insert into [pero_compila].FuncionalidadXRol (funcionalidadXRol_rol, funcionalid
 
 
 /*Usuario pedido*/
+go
 insert into pero_compila.Usuario (usuario_username, usuario_password) values
 ('admin',HASHBYTES('SHA2_256','w23e'))
 
 /*usuarios creados por el grupo*/ 
+go
 insert into pero_compila.Usuario (usuario_username, usuario_password) values 
 	('cobrador',HASHBYTES('SHA2_256','cobrador'))
 insert into pero_compila.Usuario (usuario_username,usuario_password) values
@@ -839,7 +882,7 @@ insert into pero_compila.Usuario (usuario_username,usuario_password) values
 
 
 					/*Localidad*/
-
+go
 insert into pero_compila.Localidad (localidad_nombre,localidad_provincia,localidad_pais)
 values ('Capital Federal','Buenos Aires','Argentina')
 
@@ -851,6 +894,7 @@ insert into pero_compila.RolXUsuario (rolXUsuario_usuario, rolXUsuario_rol) valu
 
 
                     /*Sucursal*/
+go       
 insert into pero_compila.Sucursal(sucursal_CP,sucursal_direccion,sucursal_nombre,sucursal_localidad)
 select distinct Sucursal_Codigo_Postal,Sucursal_Dirección,Sucursal_Nombre,localidad_Id
 from gd_esquema.Maestra m, pero_compila.Localidad l
@@ -880,7 +924,18 @@ select distinct ItemFactura_Monto
 from gd_esquema.Maestra m
 /*falta la descripcion*/
 
+					/*Cliente*/
+INSERT INTO [pero_compila].[Cliente]([cliente_nombre],[cliente_apellido],
+[cliente_dni],[cliente_email]
+,[cliente_direccion],[cliente_CP],[cliente_localidad]
+,[cliente_fecha_nacimiento],[cliente_estado])
+select distinct m.[Cliente-Nombre],m.[Cliente-Apellido],m.[Cliente-Dni],
+m.[Cliente_Mail],m.[Cliente_Direccion],m.[Cliente_Codigo_Postal],l.localidad_id,m.[Cliente-Fecha_Nac],1
+from gd_esquema.Maestra m , pero_compila.Localidad l
+GO
+
 					/*Factura*/
+go
 insert into pero_compila.Factura(factura_cliente_dni,factura_cliente_mail,factura_empresa, factura_cod_factura,factura_fecha_alta, factura_fecha_vencimiento,factura_total)
 select distinct m.[Cliente-Dni],m.[Cliente_Mail], empresa_Id, m.Nro_Factura, m.Factura_Fecha, m.Factura_Fecha_Vencimiento, m.Factura_Total
 from gd_esquema.Maestra m,pero_compila.Cliente c, pero_compila.Empresa e
@@ -899,6 +954,7 @@ WHERE f.factura_Id IS NOT NULL
 
 
 					/*Rendicion_Facturas*/
+GO
 SET IDENTITY_INSERT pero_compila.Rendicion_Facturas ON
 GO
 
@@ -918,16 +974,6 @@ SET IDENTITY_INSERT pero_compila.Rendicion_Facturas OFF
 GO
 
 
-
-					/*Cliente*/
-INSERT INTO [pero_compila].[Cliente]([cliente_nombre],[cliente_apellido],
-[cliente_dni],[cliente_email]
-,[cliente_direccion],[cliente_CP],[cliente_localidad]
-,[cliente_fecha_nacimiento],[cliente_estado])
-select distinct m.[Cliente-Nombre],m.[Cliente-Apellido],m.[Cliente-Dni],
-m.[Cliente_Mail],m.[Cliente_Direccion],m.[Cliente_Codigo_Postal],l.localidad_id,m.[Cliente-Fecha_Nac],1
-from gd_esquema.Maestra m , pero_compila.Localidad l
-GO
 
 				/*Medio de Pago*/
 insert into pero_compila.MedioPago (medioPago_descripcion)
