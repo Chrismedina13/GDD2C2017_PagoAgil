@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace PagoAgilFrba.AbmFactura
 {
@@ -193,7 +194,41 @@ namespace PagoAgilFrba.AbmFactura
             catch (Exception ex) { return false; }
         }
 
+        public static List<Factura> BuscarTotales()
+        {
+            List<Factura> fs = new List<Factura>();
 
+            using (SqlConnection Conexion = BDComun.ObtenerConexion())
+            {
+
+                SqlCommand comando = new SqlCommand("pero_compila.sp_get_facturas", Conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                //se limpian los parámetros
+                //comando.Parameters.Clear();
+
+                //executamos la consulta SqlDataReader reader = Comando.ExecuteReader();
+                SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    Factura f = new Factura();
+                    f.facturaId= reader.GetInt32(0);
+                    f.total =reader.GetDecimal(7);
+                    fs.Add(f);
+
+                }
+                Conexion.Close();
+            }
+            return fs;
+        }
+        public static AutoCompleteStringCollection LoadAutoComplete()
+        {
+            AutoCompleteStringCollection stringCol = new AutoCompleteStringCollection();
+            foreach (Factura f in FacturaDal.BuscarTotales())
+            {
+                stringCol.Add(Convert.ToString(f.total));
+            }
+            return stringCol;
+        }
 
 
     }

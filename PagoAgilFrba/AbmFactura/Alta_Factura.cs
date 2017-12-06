@@ -34,9 +34,9 @@ namespace PagoAgilFrba.AbmFactura
             // cargo la lista de items para el autocomplete
             //
             Usuario u = new Usuario();
-            //textImporte.AutoCompleteCustomSource = ItemDal.LoadAutoComplete();
-            //textImporte.AutoCompleteMode = AutoCompleteMode.Suggest;
-            //textImporte.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            textImporte.AutoCompleteCustomSource = FacturaDal.LoadAutoComplete();
+            textImporte.AutoCompleteMode = AutoCompleteMode.Suggest;
+            textImporte.AutoCompleteSource = AutoCompleteSource.CustomSource;
         
             labelSucursal.Text = u.getSucursal(user);
             labelFechaAct.Text = fechaSist;
@@ -156,17 +156,24 @@ namespace PagoAgilFrba.AbmFactura
                     }
                     else
                     {
-                        facturasElegidas = f.getFacturasPorDatosDeFactura(sinNulos());
-                        if (facturasElegidas.Count() > 0)
+                        if(Convert.ToDecimal(textImporte.Text)<0)
                         {
-
-                            listar_factura lstFact = new listar_factura(facturasElegidas, labelSucursal.Text, Convert.ToDecimal(textCliente.Text.ToString()));
-                            lstFact.ShowDialog();
-
+                            MessageBox.Show("Error. Importe a cobrar Negativo");
                         }
                         else
                         {
-                            MessageBox.Show("Filtre por otros campos.");
+
+                            facturasElegidas = f.getFacturasPorDatosDeFactura(sinNulos());
+                            if (facturasElegidas.Count() > 0)
+                            {
+
+                                listar_factura lstFact = new listar_factura(facturasElegidas, labelSucursal.Text, Convert.ToDecimal(textCliente.Text.ToString()));
+                                lstFact.ShowDialog();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Filtre por otros campos.");
+                         }
                         }
                     }
 
@@ -194,7 +201,7 @@ namespace PagoAgilFrba.AbmFactura
 
             //if ( textTotal.Text != "")
             //{
-            //    fsn.total = Convert.ToDecimal(textTotal.Text);
+                fsn.total = Convert.ToDecimal(textImporte.Text);
             //}
            
                 fsn.cli_dni = Convert.ToDecimal(textCliente.Text);

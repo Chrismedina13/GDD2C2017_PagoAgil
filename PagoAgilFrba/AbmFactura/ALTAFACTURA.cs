@@ -153,19 +153,40 @@ namespace PagoAgilFrba.AbmFactura
                 totalItems.Text = totalSumaItems.ToString();
                 factura.total = Convert.ToDecimal(totalItems.Text);
                 FacturaDal fdal = new FacturaDal();
-
-                if (fdal.buscarIdFactura(Convert.ToInt32(textBox1.Text)) > 0)
+                if (comboBoxCliente.SelectedValue == "" || textBox1.Text == "" || comboBoxEmpresa.SelectedValue == "")
                 {
-                    MessageBox.Show("Error. Ya existe ese código de Factura");
+                    MessageBox.Show("Error. Todos los campos deben estar completos");
                 }
-                else{
-                    if (FacturaDal.registrar(factura.cli_dni,factura.cli_mail,factura.empresa_id,factura.codFactura,factura.fechaAlta,factura.fechaVenc,factura.total))
+                else
+                {
+                    if ((fdal.buscarIdFactura(Convert.ToInt32(textBox1.Text)) > 0))
                     {
-                        MessageBox.Show("Factura registrada Correctamente!");
+                        MessageBox.Show("Error. Ya existe ese código de Factura");
                     }
                     else
                     {
-                        MessageBox.Show("No se pudo registrar la factura :(");
+                        if ((totalSumaItems < 0))
+                        {
+                            MessageBox.Show("Error. Factura con importe negativo.");
+                        }
+                        else
+                        {
+                            if (comboBoxCliente.SelectedValue == "" || textBox1.Text == "" || comboBoxEmpresa.SelectedValue == "")
+                            {
+                                MessageBox.Show("Error. Todos los campos deben estar completos");
+                            }
+                            else
+                            {
+                                if (FacturaDal.registrar(factura.cli_dni, factura.cli_mail, factura.empresa_id, factura.codFactura, factura.fechaAlta, factura.fechaVenc, factura.total))
+                                {
+                                    MessageBox.Show("Factura registrada Correctamente!");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("No se pudo registrar la factura :(");
+                                }
+                            }
+                        }
                     }
                 }
 

@@ -44,6 +44,8 @@
             this.textCliente = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textImporte = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -156,6 +158,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textImporte);
+            this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.textCliente);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.button1);
@@ -199,6 +203,22 @@
             this.button1.Text = "Buscar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(10, 189);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(42, 13);
+            this.label10.TabIndex = 20;
+            this.label10.Text = "Importe";
+            // 
+            // textImporte
+            // 
+            this.textImporte.Location = new System.Drawing.Point(58, 186);
+            this.textImporte.Name = "textImporte";
+            this.textImporte.Size = new System.Drawing.Size(100, 20);
+            this.textImporte.TabIndex = 21;
             // 
             // Alta_Factura
             // 
@@ -250,5 +270,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textCliente;
+        private System.Windows.Forms.TextBox textImporte;
+        private System.Windows.Forms.Label label10;
     }
 }

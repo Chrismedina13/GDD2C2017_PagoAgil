@@ -919,8 +919,8 @@ from gd_esquema.Maestra m , pero_compila.Rubro r
 					
 					
 					/*Item*/
-insert into pero_compila.Item( item_precio)
-select distinct ItemFactura_Monto
+insert into pero_compila.Item( item_precio,item_descripcion)
+select distinct ItemFactura_Monto,cast(ItemFactura_Monto as nvarchar(255))
 from gd_esquema.Maestra m
 /*falta la descripcion*/
 

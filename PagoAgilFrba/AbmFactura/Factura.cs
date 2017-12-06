@@ -42,6 +42,7 @@ namespace PagoAgilFrba.AbmFactura
                         comando.Parameters.AddWithValue("@nroFactura", f.codFactura);
                         comando.Parameters.AddWithValue("@cliDni", f.cli_dni);
                         comando.Parameters.AddWithValue("@empresaId", f.empresa_id);
+                        comando.Parameters.AddWithValue("@total", f.total);
                        
                      
                         SqlDataReader reader = comando.ExecuteReader();
