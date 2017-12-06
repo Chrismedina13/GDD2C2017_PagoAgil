@@ -52,11 +52,11 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.
     DROP TABLE pero_compila.DevolucionesXFactura
 
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Usuario'))
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.ItemPago'))
     DROP TABLE pero_compila.ItemPago
 
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Rendicion_Facturas'))
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.ItemRendicion'))
     DROP TABLE pero_compila.ItemRendicion
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Usuario'))
