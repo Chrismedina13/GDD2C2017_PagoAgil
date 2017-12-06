@@ -478,13 +478,13 @@ namespace PagoAgilFrba.Support
 
         internal static void cargarGriddEmpresasConMayorMontoRendido(DataGridView dataGridView1, Trimestre trimestre, decimal p)
         {
-            SqlCommand command = new SqlCommand("SELECT TOP 5 empresa_nombre as 'nombre', empresa_cuit as 'cuit' FROM pero_compila.Empresa JOIN pero_compila.Rendicion_Facturas ON (pagoFactura_cliente = cliente_Id) WHERE rendicion_facturas_fecha > @inicioFecha AND rendicion_facturas_fecha < @finFecha GROUP BY  empresa_nombre,empresa_cuit ORDER BY sum(rendicion_facturas_importeRecaudado) DESC");
+            SqlCommand command = new SqlCommand("SELECT TOP 5 empresa_nombre as 'nombre', empresa_cuit as 'cuit' FROM pero_compila.Empresa JOIN pero_compila.Rendicion_Facturas ON (rendicion_facturas_empresa = empresa_nombre) WHERE rendicion_facturas_fecha > @inicioFecha AND rendicion_facturas_fecha < @finFecha GROUP BY  empresa_nombre,empresa_cuit ORDER BY sum(rendicion_facturas_importeRecaudado) DESC");
             obtenerEstadistica(dataGridView1, trimestre, p, command);
         }
 
         internal static void cargarGriddClienteConMayorPorcentajeFacturasPagas(DataGridView dataGridView1, Trimestre trimestre, decimal año)
         {
-            SqlCommand command = new SqlCommand("SELECT TOP 5 cliente_nombre as 'nombre', ((count(pagoFactura_Id)*100)/count(cliente_Id)) as 'Porcentaje' FROM pero_compila.Cliente JOIN pero_compila.PagoFactura ON (empresa_nombre = rendicion_facturas_empresa) WHERE pagoFactura_fecha_cobro > @inicioFecha AND pagoFactura_fecha_cobro < @finFecha GROUP BY cliente_nombre ORDER BY ((count(pagoFactura_Id)*100)/count(cliente_Id)) DESC");
+            SqlCommand command = new SqlCommand("SELECT TOP 5 cliente_nombre as 'nombre', ((count(pagoFactura_Id)*100)/count(cliente_dni)) as 'Porcentaje' FROM pero_compila.Cliente JOIN pero_compila.PagoFactura ON (pagoFactura_cliente_dni = cliente_dni and pagoFactura_cliente_mail = cliente_email) WHERE pagoFactura_estado = 1 and pagoFactura_fecha_cobro > @inicioFecha AND pagoFactura_fecha_cobro < @finFecha GROUP BY cliente_nombre ORDER BY ((count(pagoFactura_Id)*100)/count(cliente_dni)) DESC");
             obtenerEstadistica(dataGridView1, trimestre, año, command);
         }
 
