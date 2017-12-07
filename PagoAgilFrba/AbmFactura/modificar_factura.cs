@@ -105,15 +105,22 @@ namespace PagoAgilFrba.AbmFactura
                     }
                     else
                     {
-                        factuModif.total = Convert.ToDecimal(total.Text);
-                        if (FacturaDal.ModificarFactura(factuModif))
+                        if (dateTimePicker2.Value < facturaSinModif.fechaVenc)
                         {
-
-                            MessageBox.Show("Se modifico correctamente la factura!");
+                            MessageBox.Show("No se puede Modificar, error en la fecha.");
                         }
-                        else
-                        {
-                            MessageBox.Show("Error. No se pudo modificar la factura");
+                        else{
+
+                            factuModif.total = Convert.ToDecimal(total.Text);
+                            if (FacturaDal.ModificarFactura(factuModif))
+                            {
+
+                                MessageBox.Show("Se modifico correctamente la factura!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error. No se pudo modificar la factura");
+                            }
                         }
                      }
           }
