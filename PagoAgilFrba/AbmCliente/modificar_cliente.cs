@@ -49,10 +49,24 @@ namespace PagoAgilFrba.AbmCliente
             String nombre = textNombre.Text;
             String apellido = textApellido.Text;
             String dni = textDni.Text;
+            if (Database.existeClienteAModificar(nombre, apellido, dni)){
+
+                MessageBox.Show("Cliente no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            
+            }
+            
             if (textNombre.Text.Trim() == "" | textApellido.Text.Trim() == "" | textDni.Text.Trim() == "")
             {
                 MessageBox.Show("Faltan completar campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+            if (Database.existeClienteAModificar(nombre, apellido, dni))
+            {
+
+                MessageBox.Show("Cliente no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
             }
             else
             {

@@ -59,6 +59,12 @@ namespace PagoAgilFrba.AbmSucursal
                 MessageBox.Show("Faltan completar campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if(Database.existeSucursal(nombre,codigoPostal)){
+
+                MessageBox.Show("No existe la sucursal a modificar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
              var respuesta = MessageBox.Show("¿Estas seguro?", "Confirme modificar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (respuesta == DialogResult.Yes)
                 {

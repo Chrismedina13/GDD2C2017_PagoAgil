@@ -66,7 +66,7 @@ namespace PagoAgilFrba.AbmEmpresa
             }
             else if (!Database.cuitHabilitado(cuit))
             {
-                MessageBox.Show("La empresa ingresada ya esta dado de baja. Para darlo de alta ingrese en Modificar automivil.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("La empresa ingresada ya esta dado de baja o no existe. Para darlo de alta ingrese en Modificar empresa.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else

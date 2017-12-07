@@ -60,6 +60,12 @@ namespace PagoAgilFrba.AbmEmpresa
                 return;
             } */
 
+            if (Database.cuitExistente(txtCuit.Text))
+            {
+                MessageBox.Show("El cuil ingresada ya esta en uso.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             String Rubro = lblRubro.Text;
             String nombre = lblNombre.Text;
             String direccion = lblDireccion.Text;
