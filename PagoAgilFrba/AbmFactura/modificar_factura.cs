@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -25,12 +26,13 @@ namespace PagoAgilFrba.AbmFactura
             CargarComboEmpresas();
             dateTimePicker1.Text = f.fechaAlta.ToString() ;
             dateTimePicker2.Text = f.fechaVenc.ToString();
-            textTotal.Text = f.total.ToString();
+           
             textNroFactura.Text = f.codFactura.ToString();
             textCliente.Text = f.cli_dni.ToString();
             comboBoxEmpresa.SelectedItem = f.empresa_id.ToString();
             facturaSinModif = f;
             dataGridView1.DataSource = ItemDal.BuscarItemsDeFactura(f);
+            dataGridView1.Columns[0].Visible = false;
         }
         private void CargarComboEmpresas()
         {
@@ -58,27 +60,35 @@ namespace PagoAgilFrba.AbmFactura
         {
 
         }
-
+        public bool IsNumber(string numero)
+        {
+            return Regex.IsMatch(numero, @"^\d+$");
+        } 
         private void button1_Click(object sender, EventArgs e)
         {
             Factura factuModif = new Factura();
             decimal totalPorItem;
             decimal total1=0;
+            if (!IsNumber(textCliente.Text) || !IsNumber(textNroFactura.Text) )
+            {
+                MessageBox.Show("Error. Verifique que los campos coincidan con lo pedido");
+            }
+            else{
+
                 factuModif.fechaAlta = dateTimePicker1.Value;
                 factuModif.fechaVenc = dateTimePicker2.Value;
-                factuModif.total = Convert.ToDecimal(textTotal.Text);
+               // factuModif.total = Convert.ToDecimal(textTotal.Text);
                 factuModif.codFactura=Convert.ToInt32(textNroFactura.Text);
                 factuModif.cli_dni=Convert.ToDecimal(textCliente.Text);
                 
                     factuModif.empresa_id = comboBoxEmpresa.SelectedIndex;
                     factuModif.facturaId = facturaSinModif.facturaId;
 
-                    for (int fila = 0; fila < dataGridView1.Rows.Count - 1; fila++)
+                    for (int fila = 0; fila < dataGridView1.Rows.Count; fila++)
                     {
-                        for (int col = 0; col < dataGridView1.Rows[fila].Cells.Count; col++)
-                        {
+                      
                             Item i = new Item();
-                            string valor = dataGridView1.Rows[fila].Cells[col].Value.ToString();
+                            //string valor = dataGridView1.Rows[fila].Cells[0].Value.ToString();
                             totalPorItem = Convert.ToInt32(dataGridView1.Rows[fila].Cells["precio"].Value) * Convert.ToInt32(dataGridView1.Rows[fila].Cells["cantidad"].Value);
                             i.item_Id=Convert.ToInt32(dataGridView1.Rows[fila].Cells["item_id"].Value);
                             i.cantidad=Convert.ToInt32(dataGridView1.Rows[fila].Cells["cantidad"].Value);
@@ -86,20 +96,27 @@ namespace PagoAgilFrba.AbmFactura
                             i.precio=Convert.ToDecimal(dataGridView1.Rows[fila].Cells["precio"].Value);
                             ItemDal.update(factuModif.facturaId,i);
                             total1+= totalPorItem;
-                        }
+                        
                         total.Text=total1.ToString();
                     }
-
-                    factuModif.total = Convert.ToDecimal(total.Text);
-                    if (FacturaDal.ModificarFactura(factuModif))
+                    if (Convert.ToDecimal(total.Text) < 0)
                     {
-                        
-                        MessageBox.Show("Se modifico correctamente la factura!");
+                        MessageBox.Show("No se puede Modificar, el importe da negativo.");
                     }
                     else
                     {
-                        MessageBox.Show("Error. No se pudo modificar la factura");
-                    }
+                        factuModif.total = Convert.ToDecimal(total.Text);
+                        if (FacturaDal.ModificarFactura(factuModif))
+                        {
+
+                            MessageBox.Show("Se modifico correctamente la factura!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error. No se pudo modificar la factura");
+                        }
+                     }
+          }
                 //}
                 //else
                 //{

@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textTotal = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.textNroFactura = new System.Windows.Forms.TextBox();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -42,8 +44,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.comboBoxEmpresa = new System.Windows.Forms.ComboBox();
             this.textCliente = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textTotal = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -64,6 +64,22 @@
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de la Factura";
+            // 
+            // textTotal
+            // 
+            this.textTotal.Location = new System.Drawing.Point(62, 78);
+            this.textTotal.Name = "textTotal";
+            this.textTotal.Size = new System.Drawing.Size(79, 20);
+            this.textTotal.TabIndex = 11;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(15, 81);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 13);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "importe";
             // 
             // textNroFactura
             // 
@@ -151,9 +167,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(345, 12);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 13);
+            this.label2.Size = new System.Drawing.Size(61, 13);
             this.label2.TabIndex = 11;
-            this.label2.Text = "Cliente";
+            this.label2.Text = "DNI Cliente";
             // 
             // button2
             // 
@@ -174,26 +190,10 @@
             // 
             // textCliente
             // 
-            this.textCliente.Location = new System.Drawing.Point(387, 11);
+            this.textCliente.Location = new System.Drawing.Point(425, 12);
             this.textCliente.Name = "textCliente";
             this.textCliente.Size = new System.Drawing.Size(95, 20);
             this.textCliente.TabIndex = 21;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 81);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 13);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "importe";
-            // 
-            // textTotal
-            // 
-            this.textTotal.Location = new System.Drawing.Point(62, 78);
-            this.textTotal.Name = "textTotal";
-            this.textTotal.Size = new System.Drawing.Size(79, 20);
-            this.textTotal.TabIndex = 11;
             // 
             // listar_modif_elim
             // 

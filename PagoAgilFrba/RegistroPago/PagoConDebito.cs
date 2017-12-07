@@ -23,7 +23,7 @@ namespace PagoAgilFrba.RegistroPago
             InitializeComponent();
             lblMonto.Text = montoTot;
             dniCliente = dni;
-            label3.Text = dni.ToString();
+            label6.Text = dni.ToString();
         }
         public PagoConDebito()
         {

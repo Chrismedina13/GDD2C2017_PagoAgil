@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,5 +17,28 @@ namespace PagoAgilFrba.AbmCliente
         public string direccion { get; set; }
         public string CP { get; set; }
         public bool estado { get; set; }
+
+
+     
+
+        public static string obtenerMailPorDNI(string dni)
+        {
+
+            string mail = "";
+
+            using (SqlConnection Conexion = BDComun.ObtenerConexion())
+            {
+                SqlCommand Comando = new SqlCommand(String.Format("select cliente_email from pero_compila.Cliente where cliente_dni like '{0}' ", Convert.ToDecimal(dni)), Conexion);
+                SqlDataReader reader = Comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    mail = reader.GetString(0);
+
+                }
+                Conexion.Close();
+            }
+            return mail;
+        }
     }
 }

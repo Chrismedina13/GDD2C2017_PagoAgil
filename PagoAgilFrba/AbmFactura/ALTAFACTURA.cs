@@ -17,34 +17,38 @@ namespace PagoAgilFrba.AbmFactura
     public partial class ALTAFACTURA : Form
     {
         int totalSumaItems;
+        List<Decimal> totalASumar = new List<decimal>();
         public ALTAFACTURA()
         {
             InitializeComponent();
-            CargarComboClientes();
+           // CargarComboClientes();
             CargarComboEmpresas();
+            textCliente.AutoCompleteCustomSource = ClienteDal.LoadAutoComplete();
+            textCliente.AutoCompleteMode = AutoCompleteMode.Suggest;
+            textCliente.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
-        private void CargarComboClientes()
-        {
-            //Vaciar comboBox
-            comboBoxCliente.DataSource = null;
-            try
-            {
-                //Indicar qué propiedad se verá en la lista
-                this.comboBoxCliente.DisplayMember = "Nombre";
-                //Indicar qué valor tendrá cada ítem
-                this.comboBoxCliente.ValueMember = "Id";
-                //Asignar la propiedad DataSource
-                List<Cliente> listita = new List<Cliente>();
+        //private void CargarComboClientes()
+        //{
+        //    //Vaciar comboBox
+        //    comboBoxCliente.DataSource = null;
+        //    try
+        //    {
+        //        //Indicar qué propiedad se verá en la lista
+        //        this.comboBoxCliente.DisplayMember = "Nombre";
+        //        //Indicar qué valor tendrá cada ítem
+        //        this.comboBoxCliente.ValueMember = "Id";
+        //        //Asignar la propiedad DataSource
+        //        List<Cliente> listita = new List<Cliente>();
 
-                listita = ClienteDal.BuscarClientes();
-                //this.comboBox1.Items.Insert(0, "Seleccione un rol");
-                //listita.Add(new Cliente(0, "Seleccione un Cliente"));
-                this.comboBoxCliente.DataSource = listita;
-                //this.comboBox1.Items.Add(new KeyValuePair<string, string>("0", "Mujer"));
-            }
-            catch (Exception e)
-            { MessageBox.Show("Error al intentar cargar los Clientes -" + e.Message); }
-        }
+        //        listita = ClienteDal.BuscarClientes();
+        //        //this.comboBox1.Items.Insert(0, "Seleccione un rol");
+        //        //listita.Add(new Cliente(0, "Seleccione un Cliente"));
+        //        this.comboBoxCliente.DataSource = listita;
+        //        //this.comboBox1.Items.Add(new KeyValuePair<string, string>("0", "Mujer"));
+        //    }
+        //    catch (Exception e)
+        //    { MessageBox.Show("Error al intentar cargar los Clientes -" + e.Message); }
+        //}
 
 
         private void CargarComboEmpresas()
@@ -101,7 +105,7 @@ namespace PagoAgilFrba.AbmFactura
             List<Item> items = new List<Item>();
             Factura factura = new Factura();
             ClienteDal clientedal = new ClienteDal();
-            Cliente cliente = new Cliente();
+          //  Cliente cliente = new Cliente();
             EmpresaDal empresadal = new EmpresaDal();
            //funcion para buscar el id dni-mail del cliente dado el nombre
             //validar que solo ingrese nros en el nro de factura
@@ -114,9 +118,18 @@ namespace PagoAgilFrba.AbmFactura
                 }
                 else
                 {
-                    cliente = clientedal.BuscarClientePorNombreYApellido(comboBoxCliente.Text);
-                    factura.cli_dni = cliente.dni;
-                    factura.cli_mail = cliente.mail;
+                   // cliente = clientedal.BuscarClientePorNombreYApellido(comboBoxCliente.Text);
+                    if (textCliente.Text == "")
+                    {
+                        MessageBox.Show("Error. Debe ingresar un DNI");
+                    }
+                    else
+                    {
+                        factura.cli_dni = Convert.ToDecimal(textCliente.Text);
+                        factura.cli_mail = Cliente.obtenerMailPorDNI(textCliente.Text);
+                    }
+                    
+                    
                     factura.codFactura = Convert.ToInt32(textBox1.Text);
                     factura.empresa_id = empresadal.buscarIdPorNombre(comboBoxEmpresa.Text);
                 }
@@ -137,23 +150,12 @@ namespace PagoAgilFrba.AbmFactura
                 {
                     factura.fechaVenc = dateTimePicker2.Value;
                 }
-                for (int fila = 0; fila < dataGridView1.Rows.Count - 1; fila++)
-                {
-                    for (int col = 0; col < dataGridView1.Rows[fila].Cells.Count; col++)
-                    {
-                        string valor = dataGridView1.Rows[fila].Cells[col].Value.ToString();
-                        dataGridView1.Rows[fila].Cells["Total"].Value = Convert.ToInt32(dataGridView1.Rows[fila].Cells["Precio"].Value) * Convert.ToInt32(dataGridView1.Rows[fila].Cells["Cantidad"].Value);
-                        //falta ver como obtener el id de la factura porque todavia esa fact no se creo..
-                        //ItemDal.registrar(dataGridView1.Rows[fila].Cells["Nombre"].Value.ToString(), Convert.ToDecimal(dataGridView1.Rows[fila].Cells["Precio"].Value), Convert.ToInt32(dataGridView1.Rows[fila].Cells["Cantidad"].Value), );                  
-                        //MessageBox.Show(valor);
-                    }
-                    totalSumaItems += Convert.ToInt32(dataGridView1.Rows[fila].Cells["Total"].Value);
-                }
+                
 
-                totalItems.Text = totalSumaItems.ToString();
-                factura.total = Convert.ToDecimal(totalItems.Text);
+              
+               
                 FacturaDal fdal = new FacturaDal();
-                if (comboBoxCliente.SelectedValue == "" || textBox1.Text == "" || comboBoxEmpresa.SelectedValue == "")
+                if (textCliente.Text == "" || textBox1.Text == "" || comboBoxEmpresa.SelectedValue == "")
                 {
                     MessageBox.Show("Error. Todos los campos deben estar completos");
                 }
@@ -171,15 +173,46 @@ namespace PagoAgilFrba.AbmFactura
                         }
                         else
                         {
-                            if (comboBoxCliente.SelectedValue == "" || textBox1.Text == "" || comboBoxEmpresa.SelectedValue == "")
+                            if (textCliente.Text== "" || textBox1.Text == "" || comboBoxEmpresa.SelectedValue == "")
                             {
                                 MessageBox.Show("Error. Todos los campos deben estar completos");
                             }
                             else
                             {
-                                if (FacturaDal.registrar(factura.cli_dni, factura.cli_mail, factura.empresa_id, factura.codFactura, factura.fechaAlta, factura.fechaVenc, factura.total))
-                                {
-                                    MessageBox.Show("Factura registrada Correctamente!");
+                                int idFactura=FacturaDal.registrar(factura.cli_dni, factura.cli_mail, factura.empresa_id, factura.codFactura, factura.fechaAlta, factura.fechaVenc, factura.total);
+                                if (idFactura>0)
+                                {   
+                                    factura.total = 0;
+                                    totalItems.Text = "";
+                                    for (int fila = 0; fila < dataGridView1.Rows.Count - 1; fila++)
+                                    {
+                                        //for (int col = 0; col < dataGridView1.Rows[fila].Cells.Count; col++)
+                                        //{
+                                            string valor = dataGridView1.Rows[fila].Cells[0].Value.ToString();
+                                            dataGridView1.Rows[fila].Cells["Total"].Value = Convert.ToInt32(dataGridView1.Rows[fila].Cells["Precio"].Value) * Convert.ToInt32(dataGridView1.Rows[fila].Cells["Cantidad"].Value);
+                                            //falta ver como obtener el id de la factura porque todavia esa fact no se creo..
+                                            ItemDal.registrar(dataGridView1.Rows[fila].Cells["Nombre"].Value.ToString(), Convert.ToDecimal(dataGridView1.Rows[fila].Cells["Precio"].Value), Convert.ToInt32(dataGridView1.Rows[fila].Cells["Cantidad"].Value),idFactura );                  
+                                            //MessageBox.Show(valor);
+                                        //}
+                                       totalASumar.Add( Convert.ToInt32(dataGridView1.Rows[fila].Cells["Total"].Value));
+                                    }
+                                    
+                                    totalItems.Text = totalASumar.Sum().ToString() ;
+                                    if (Convert.ToDecimal(totalItems.Text) < 0)
+                                    {
+                                        //Delete de factura
+                                        FacturaDal.delete(idFactura);
+                                        MessageBox.Show("Error. No se puede dar de alta a una factura con importe negativo");
+                                    }
+                                    else
+                                    {
+                                        //update de factura
+                                        FacturaDal.update(idFactura, Convert.ToDecimal(totalItems.Text));
+                                        factura.total = Convert.ToDecimal(totalASumar.Sum().ToString());
+                                        MessageBox.Show("Factura registrada Correctamente!");
+                                    }
+
+                                    
                                 }
                                 else
                                 {

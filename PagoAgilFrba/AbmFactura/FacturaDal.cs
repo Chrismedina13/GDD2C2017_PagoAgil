@@ -8,7 +8,7 @@ namespace PagoAgilFrba.AbmFactura
 {
     public class FacturaDal
     {
-        public static bool registrar(
+        public static int registrar(
             Decimal factura_cliente_dni,
             string factura_cliente_mail,
             int factura_empresa,
@@ -30,9 +30,20 @@ namespace PagoAgilFrba.AbmFactura
             command.Parameters.AddWithValue("@fecha_alta", factura_fecha_inicio);
             command.Parameters.AddWithValue("@fecha_vencimiento", factura_fecha_fin);
 
-            return command.ExecuteNonQuery()> 0 ? true : false;
+            int id = Convert.ToInt32(command.ExecuteScalar());
+            if (id > 0)
+            {
+                //comando.CommandText = "Select Max(rol_Id) from [pero_compila].[Rol]";
+                //id= Convert.ToInt32(comando.ExecuteScalar());
+                //Conexion.Close();
+                return id;
             }
-            catch (Exception e){return false;} 
+            else
+            {
+                
+                return id;
+            }
+            }            catch (Exception e){return 0;} 
         }
 
         public static bool registrarPago(
@@ -230,6 +241,74 @@ namespace PagoAgilFrba.AbmFactura
             return stringCol;
         }
 
+
+        public static int update(int idFactura, decimal total)
+        {
+            SqlConnection Conexion = BDComun.ObtenerConexion();
+            try
+            {
+
+
+                SqlCommand comando = new SqlCommand("pero_compila.sp_update_factura_total", Conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                //se limpian los parámetros
+                comando.Parameters.Clear();
+                //comenzamos a mandar cada uno de los parámetros, deben de enviarse en el
+                //tipo de datos que coincida en sql server por ejemplo c# es string en sql server es varchar()
+                comando.Parameters.AddWithValue("@idFactura", idFactura);
+                comando.Parameters.AddWithValue("@total", total);
+                if (comando.ExecuteNonQuery() > 0)
+                {
+                    Conexion.Close();
+                    return 1;
+                }
+                else
+                {
+                    Conexion.Close();
+                    return 0;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Conexion.Close();
+                return 0;
+            }
+        }
+
+
+        public static int delete(int idFactura)
+        {
+            SqlConnection Conexion = BDComun.ObtenerConexion();
+            try
+            {
+
+
+                SqlCommand comando = new SqlCommand("pero_compila.sp_delete_factura", Conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                //se limpian los parámetros
+                comando.Parameters.Clear();
+                //comenzamos a mandar cada uno de los parámetros, deben de enviarse en el
+                //tipo de datos que coincida en sql server por ejemplo c# es string en sql server es varchar()
+                comando.Parameters.AddWithValue("@idFactura", idFactura);
+                if (comando.ExecuteNonQuery() > 0)
+                {
+                    Conexion.Close();
+                    return 1;
+                }
+                else
+                {
+                    Conexion.Close();
+                    return 0;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Conexion.Close();
+                return 0;
+            }
+        }
 
     }
 }

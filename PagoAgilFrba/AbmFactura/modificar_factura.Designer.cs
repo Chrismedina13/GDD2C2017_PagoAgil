@@ -32,10 +32,8 @@
             this.comboBoxEmpresa = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textNroFactura = new System.Windows.Forms.TextBox();
-            this.textTotal = new System.Windows.Forms.TextBox();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,7 +51,7 @@
             // 
             // textCliente
             // 
-            this.textCliente.Location = new System.Drawing.Point(392, 67);
+            this.textCliente.Location = new System.Drawing.Point(430, 65);
             this.textCliente.Name = "textCliente";
             this.textCliente.Size = new System.Drawing.Size(95, 20);
             this.textCliente.TabIndex = 26;
@@ -69,10 +67,8 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.textNroFactura);
-            this.groupBox1.Controls.Add(this.textTotal);
             this.groupBox1.Controls.Add(this.dateTimePicker2);
             this.groupBox1.Controls.Add(this.dateTimePicker1);
-            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label1);
@@ -90,13 +86,6 @@
             this.textNroFactura.Size = new System.Drawing.Size(87, 20);
             this.textNroFactura.TabIndex = 9;
             // 
-            // textTotal
-            // 
-            this.textTotal.Location = new System.Drawing.Point(51, 78);
-            this.textTotal.Name = "textTotal";
-            this.textTotal.Size = new System.Drawing.Size(90, 20);
-            this.textTotal.TabIndex = 8;
-            // 
             // dateTimePicker2
             // 
             this.dateTimePicker2.Location = new System.Drawing.Point(130, 51);
@@ -110,15 +99,6 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1.TabIndex = 6;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 81);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(31, 13);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Total";
             // 
             // label5
             // 
@@ -161,13 +141,13 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(350, 68);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 13);
+            this.label2.Size = new System.Drawing.Size(61, 13);
             this.label2.TabIndex = 22;
-            this.label2.Text = "Cliente";
+            this.label2.Text = "DNI Cliente";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(404, 413);
+            this.button1.Location = new System.Drawing.Point(395, 412);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(130, 29);
             this.button1.TabIndex = 27;
@@ -252,9 +232,7 @@
         private System.Windows.Forms.ComboBox comboBoxEmpresa;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textNroFactura;
-        private System.Windows.Forms.TextBox textTotal;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;

@@ -39,8 +39,6 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.FacturasXPago'))
     DROP TABLE pero_compila.FacturasXPago
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.ItemXFactura'))
-    DROP TABLE pero_compila.ItemXFactura
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Item'))
     DROP TABLE pero_compila.Item
@@ -137,6 +135,11 @@ IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_get_facturas')
 GO
 IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_usuarioXSucursal')
 	DROP PROCEDURE pero_compila.sp_alta_usuarioXSucursal
+
+GO
+IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_usuarioXRol')
+	DROP PROCEDURE pero_compila.sp_alta_usuarioXRol
+
 GO
 IF EXISTS (SELECT name FROM sysobjects WHERE name='sp_alta_funcionalidades')
 	DROP PROCEDURE pero_compila.sp_alta_funcionalidades
@@ -184,7 +187,6 @@ GO
 ----------------------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------------------------------
-								/** CREACION TABLAS **/
 ----------------------------------------------------------------------------------------------
 
 create table [pero_compila].Funcionalidad(
@@ -266,9 +268,10 @@ rubro_descripcion nvarchar(250) not null,
 create table [pero_compila].Item (
 item_Id int primary key identity,
 item_descripcion nvarchar(250),
+item_cantidad int ,
+item_factura int not null references [pero_compila].Factura,
 item_precio numeric(18,2)
 )
-
 
 create table [pero_compila].Cliente (
 cliente_nombre nvarchar(255),
@@ -360,12 +363,7 @@ facturasXPago_pago int not null references [pero_compila].PagoFactura,
 facturasXPago_factura int not null references [pero_compila].Factura
 )
 
-create table [pero_compila].ItemXFactura(
-itemXFactura_Id int primary key identity,
-itemXFactura_item int not null references [pero_compila].Item,
-itemXFactura_factura int not null references [pero_compila].Factura,
-itemXFactura_cantidad int
-)
+
 
 create table [pero_compila].Devolucion(
 devolucion_Id int primary key identity,
@@ -403,7 +401,7 @@ devolucionesXFactura_factura int not null references [pero_compila].Factura,
 
 GO
 --falta que se agreguen las sucursales
-create PROCEDURE [pero_compila].[registrarUsuario](@user varchar(100),@pass varchar(100),@rol int)
+create PROCEDURE [pero_compila].[registrarUsuario](@user varchar(100),@pass varchar(100))
 AS
 BEGIN
 
@@ -412,10 +410,10 @@ BEGIN
 	else
 		INSERT INTO pero_compila.Usuario (usuario_username,usuario_password,usuario_intentos) 
 				VALUES (@user,HASHBYTES('SHA2_256', @pass),0)
-		INSERT INTO pero_compila.RolXUsuario(rolXUsuario_rol,rolXUsuario_usuario)
-				VALUES(@rol,@@IDENTITY)
+		
 		Select Max(usuario_ID) from [pero_compila].[Usuario]	
 END
+
 
 
 
@@ -433,7 +431,7 @@ BEGIN
   
      BEGIN
 
-	    IF ( SELECT usuario_password FROM pero_compila.Usuario WHERE usuario_username = @user) = HASHBYTES('SHA2_256', @pass)
+	    IF ( SELECT usuario_password FROM pero_compila.Usuario WHERE usuario_username = @user and usuario_estado=1) = HASHBYTES('SHA2_256', @pass)
 		    BEGIN
 			  UPDATE pero_compila.Usuario
               SET usuario_intentos = 0
@@ -441,33 +439,60 @@ BEGIN
 				set @ret = 0 -- user + psw correctos
 			END
            
-		  ELSE
-		   BEGIN 
+		ELSE
+			IF((select usuario_intentos from pero_compila.Usuario where usuario_username=@user and usuario_estado=1) < 3)
+				BEGIN 
 
-            UPDATE pero_compila.Usuario
-            SET usuario_intentos =usuario_intentos + 1
-            WHERE usuario_username = @user
-    
-    
-	       UPDATE pero_compila.Usuario
-           --SET ACTIVO = 0
-			set usuario_intentos = 3
-           WHERE usuario_username = @user
-          -- AND usuario_intentos = 3
+					UPDATE pero_compila.Usuario
+					SET usuario_intentos =usuario_intentos + 1
+					WHERE usuario_username = @user
+					SET @ret = -3 -- suma intentos fallidos
+		       END
+		   ELSE
+			   BEGIN
+				   UPDATE pero_compila.Usuario
+				   --SET ACTIVO = 0
+					set usuario_intentos = 3
+				   WHERE usuario_username = @user
+				  -- AND usuario_intentos = 3
 		   
-		   SET @ret = -2 -- fallo en los intentos de login
+				   SET @ret = -2 -- fallo en los intentos de login
 		   
-		   END
+			   END
       END
 
    ELSE
 		SET @ret= -1 -- no esta activo y usuario incorrecto
+RETURN
 END
 
    
 /**********************FIN LOGIN **********************/
 
+/**********************modifica la funciondalidad dado un idRol**********************/
 
+go
+create procedure [pero_compila].[sp_update_funcionalidades]
+(@idRol int, @idFuncionalidad  int,@idFuncXRol int)
+as
+begin
+	update pero_compila.FuncionalidadXRol
+	set funcionalidadXRol_funcionalidad= @idFuncionalidad
+	where funcionalidadXRol_rol=@idRol and funcionalidadXRol_Id=@idFuncXRol
+	--select @@IDENTITY
+end
+
+/**************elimina una funcionalidad (cuando se saca el check en modif)****************/
+
+go
+create procedure [pero_compila].[sp_delete_funcionalidades]
+(@idRol int, @idFuncionalidad  int,@idFuncXRol int)
+as
+begin
+	delete from pero_compila.FuncionalidadXRol
+	where funcionalidadXRol_rol=@idRol and funcionalidadXRol_Id=@idFuncXRol and funcionalidadXRol_funcionalidad=@idFuncionalidad
+	--select @@IDENTITY
+end
 
 /**********************ABM ROL**********************/
 
@@ -486,11 +511,12 @@ end
 
 
 
+
 /*
 *********************Obtiene todos los roles que se encuentran habilitados*********************
 */
 go
-create procedure pero_compila.sp_get_roles
+create procedure [pero_compila].[sp_get_roles]
 
 as
 begin
@@ -501,7 +527,7 @@ end
 */
 
 go
-create procedure pero_compila.sp_update_rol
+create procedure [pero_compila].[sp_update_rol]
  (@id numeric(10,0), @nombre varchar(255), @habilitado bit)	
 as
 begin
@@ -519,7 +545,7 @@ end
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-create procedure [pero_compila].[sp_alta_rol] (@nombre varchar(255), @habilitado  bit,@funcionalidad varchar(255))
+createprocedure [pero_compila].[sp_alta_rol] (@nombre varchar(255), @habilitado  bit,@funcionalidad varchar(255))
 as
 begin
 	insert into pero_compila.Rol (rol_nombre, rol_estado)
@@ -566,19 +592,45 @@ end
 */
 
 GO
-create procedure [pero_compila].sp_get_facturas
+create procedure [pero_compila].[sp_get_facturas]
 as
 begin
 	select * from pero_compila.Factura where factura_enviadoAPago=0 and factura_estado=1
 end
+/*
+*********************modifica el total de una factura********************
+*/
+go
+create procedure [pero_compila].[sp_update_factura_total]
+(@idFactura int, @total numeric(18,2))
+as
+begin
+	update pero_compila.Factura
+	set factura_total= @total
+	where factura_Id=@idFactura
+	--select @@IDENTITY
+end
 
+
+/*
+*********************elimina una factura dado su id********************
+*/
+go
+create procedure [pero_compila].[sp_delete_factura]
+(@idFactura int)
+as
+begin
+	delete from pero_compila.Factura
+	where factura_Id=@idFactura
+	--select @@IDENTITY
+end
 
 /*
 *********************Alta del usuario con sucursales*********************
 */
 
 go
-create procedure pero_compila.sp_alta_usuarioXSucursal
+create procedure [pero_compila].[sp_alta_usuarioXSucursal]
 (@idUsuario int, @idSucursal  int)
 as
 begin
@@ -587,13 +639,27 @@ begin
 	values(@idUsuario, @idSucursal)
 	--select @@IDENTITY
 end
+/*
+*********************Realiza el alta de un usuario con roles*********************
+*/
+
 go
+create procedure [pero_compila].[sp_alta_usuarioXRol]
+(@idUsuario int, @idRol  int)
+as
+begin
+	insert into pero_compila.RolXUsuario
+	(rolXUsuario_usuario, rolXUsuario_rol)
+	values(@idUsuario, @idRol)
+	--select @@IDENTITY
+end
+
 /*
 *********************Realiza el alta de una funcionalidad*********************
 */
 
 go
-create procedure pero_compila.sp_alta_funcionalidades
+create procedure [pero_compila].[sp_alta_funcionalidades]
 (@idRol int, @idFuncionalidad  int)
 as
 begin
@@ -602,22 +668,18 @@ begin
 	values(@idRol, @idFuncionalidad)
 	--select @@IDENTITY
 end
-go
 
 /*
 *********************Realiza el alta de un item*********************
 */
-
+go
 create procedure [pero_compila].[sp_alta_item] (@descripcion nvarchar(255), @precio numeric(18,2),@cantidad int,@idFactura int)
 as
 begin
-	insert into pero_compila.Item (item_descripcion, item_precio)
-	values(@descripcion, @precio)
-	insert into pero_compila.ItemXFactura(itemXFactura_item,itemXFactura_cantidad,itemXFactura_factura)
-	values(@@IDENTITY,@cantidad,@idFactura)
+	insert into pero_compila.Item (item_descripcion, item_precio,item_cantidad,item_factura)
+	values(@descripcion, @precio,@cantidad,@idFactura)
+	
 end
-
-
 /*
 *************************ALTA DE FACTURA *******************************
 */
@@ -635,13 +697,14 @@ begin
 	[factura_fecha_alta],[factura_fecha_vencimiento],[factura_total])
 	values(@cliente_dni,@cliente_mail,@empresaId,@cod_factura,
 	@fecha_alta,@fecha_vencimiento,@total)
+	Select Max(factura_id) from [pero_compila].Factura
 end
 /*
 *********************PASA UNA FACTURA A ESTADO PAGA*********************
 */
 
 go
-create procedure [PERO_COMPILA].sp_pasar_a_pagada(@cliente_dni numeric(18,0),
+create procedure [pero_compila].[sp_pasar_a_pagada](@cliente_dni numeric(18,0),
 @cliente_mail nvarchar(255),@cod_factura nvarchar(255))
 AS 
 BEGIN
@@ -662,17 +725,19 @@ create PROCEDURE [pero_compila].[filtrarFacturas]
 	@fechaVencimiento datetime,
 	@nroFactura int,
 	@cliDni numeric(18,0),
-	@empresaId int
+	@empresaId int,
+	@total numeric(18,2)
 	)
 AS
 BEGIN
-	select * from pero_compila.Factura where factura_estado=1 and
-											factura_enviadoAPago=0 and(
+	select * from pero_compila.Factura where (factura_estado=1 and
+											factura_enviadoAPago=0) and(
 											 @fechaAlta is null or (factura_fecha_alta =@fechaAlta) or
 											 @fechaVencimiento is null or (factura_fecha_vencimiento =@fechaVencimiento) or
 											 @nroFactura is null or (factura_cod_factura =@nroFactura) or
 											 @cliDni is null or (factura_cliente_dni =@cliDni) or
-											 @empresaId is null or (factura_empresa =@empresaId))
+											 @empresaId is null or (factura_empresa =@empresaId) or
+											  @total is null or (factura_total =@total))
 END
 
  /*
@@ -689,6 +754,7 @@ AS
 BEGIN
 	update pero_compila.Factura Set factura_estado=0 where factura_cod_factura=@codFactura and factura_cliente_dni=@cli_dni and factura_Id=@facturaID
 END
+
 
  /*
 ********************UPDATE DE FACTURA*********************
@@ -722,14 +788,34 @@ BEGIN
 		 @empresaId is null or (factura_empresa =@empresaId)))
 END
 
-
+ /*
+*********************modifica un item *********************
+*/
+go
+create PROCEDURE [pero_compila].[sp_update_item]
+	(@facturaId int,
+	@itemId int,
+	@descripcion nvarchar(255),
+	@precio numeric(18,2),
+	@cantidad int)
+AS
+BEGIN
+	update pero_compila.Item set 
+					item_descripcion=@descripcion,
+					item_precio=@precio,
+					item_cantidad=@cantidad
+	
+	where item_Id =@itemId and item_factura=@facturaId
+	
+	
+END
 
  /*
 *********************DA DE ALTA EN UN PAGO_FACTURA*********************
 */
 
 go
-create procedure [PERO_COMPILA].sp_alta_Pago_Factura(@facturaId int,
+create procedure [pero_compila].[sp_alta_Pago_Factura](@facturaId int,
         @sucursalId int,
         @cliente_dni int,
         @cliente_mail nvarchar(255),
@@ -754,7 +840,7 @@ END
 */
 
 go
-create procedure [PERO_COMPILA].sp_alta_cheque(@nroCheque INT, @dniTitular NUMERIC(18,0),
+create procedure [pero_compila].[sp_alta_cheque](@nroCheque INT, @dniTitular NUMERIC(18,0),
 @destino NVARCHAR(255),@monto NUMERIC(18,2))
 AS 
 BEGIN
@@ -762,6 +848,7 @@ INSERT INTO pero_compila.MedioPago(medioPago_nroCheque,medioPago_dniTitular,medi
 values(@nroCheque , @dniTitular ,
 @destino ,@monto,'Cheque' )
 end
+
 
 
 /*
@@ -803,7 +890,7 @@ end
 ********************** dar de alta una rendicion en una fecha*********************
 */
 go
-create procedure [PERO_COMPILA].sp_alta_rendicion(@rendicion_fecha datetime,
+create  procedure [pero_compila].[sp_alta_rendicion](@rendicion_fecha datetime,
              @cantidad int,
              @empresa nvarchar(255),
              @porcentaje numeric(18,2),
@@ -920,10 +1007,14 @@ from gd_esquema.Maestra m , pero_compila.Rubro r
 					
 					
 					/*Item*/
-insert into pero_compila.Item( item_precio,item_descripcion)
-select distinct ItemFactura_Monto,cast(ItemFactura_Monto as nvarchar(255))
-from gd_esquema.Maestra m
+insert into pero_compila.Item( item_precio,item_descripcion,item_cantidad,item_factura)
+select distinct ItemFactura_Monto,cast(ItemFactura_Monto as nvarchar(255)),m.ItemFactura_Cantidad,f.factura_Id
+FROM pero_compila.Factura f
+JOIN GD2C2017.gd_esquema.Maestra m
+		ON f.factura_cod_factura = m.Nro_Factura
 /*falta la descripcion*/
+
+
 
 					/*Cliente*/
 INSERT INTO [pero_compila].[Cliente]([cliente_nombre],[cliente_apellido],
@@ -942,15 +1033,7 @@ select distinct m.[Cliente-Dni],m.[Cliente_Mail], empresa_Id, m.Nro_Factura, m.F
 from gd_esquema.Maestra m,pero_compila.Cliente c, pero_compila.Empresa e
 order by factura_fecha_vencimiento 
 
-						/*Item X Factura*/
 
-insert into pero_compila.ItemXFactura(itemXFactura_factura,itemXFactura_cantidad,itemXFactura_item)
-SELECT DISTINCT f.factura_Id,m.ItemFactura_Cantidad,i.item_Id
-FROM pero_compila.Factura f
-JOIN GD2C2017.gd_esquema.Maestra m
-		ON f.factura_cod_factura = m.Nro_Factura
-JOIN pero_compila.Item i ON (i.item_precio=m.ItemFactura_Monto)
-WHERE f.factura_Id IS NOT NULL
 
 
 

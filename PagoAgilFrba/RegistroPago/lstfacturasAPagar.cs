@@ -162,7 +162,7 @@ namespace PagoAgilFrba.RegistroPago
                 //cheque = pcheq.datosCargados();
                 chk.nroCheque=Convert.ToInt32(pcheq.chkPosta.nroCheque.ToString());
                 chk.dniTitular = Convert.ToDecimal(pcheq.chkPosta.dniTitular.ToString());
-                chk.destino = pcheq.chkPosta.destino.ToString();
+               
                 chk.monto=Convert.ToDecimal(pcheq.chkPosta.monto.ToString());
                 chk.altaCheque(chk);
             }

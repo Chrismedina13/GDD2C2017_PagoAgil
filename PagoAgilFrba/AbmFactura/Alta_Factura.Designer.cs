@@ -41,11 +41,11 @@
             this.labelFechaAct = new System.Windows.Forms.Label();
             this.Guardar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textImporte = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.textCliente = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.textImporte = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,9 +82,9 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(10, 45);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(46, 13);
+            this.label8.Size = new System.Drawing.Size(65, 13);
             this.label8.TabIndex = 4;
-            this.label8.Text = "Cliente *";
+            this.label8.Text = "DNI Cliente*";
             // 
             // label9
             // 
@@ -178,9 +178,25 @@
             this.groupBox2.Text = "Busqueda por Factura";
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
+            // textImporte
+            // 
+            this.textImporte.Location = new System.Drawing.Point(58, 186);
+            this.textImporte.Name = "textImporte";
+            this.textImporte.Size = new System.Drawing.Size(100, 20);
+            this.textImporte.TabIndex = 21;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(10, 189);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(42, 13);
+            this.label10.TabIndex = 20;
+            this.label10.Text = "Importe";
+            // 
             // textCliente
             // 
-            this.textCliente.Location = new System.Drawing.Point(66, 40);
+            this.textCliente.Location = new System.Drawing.Point(79, 42);
             this.textCliente.Name = "textCliente";
             this.textCliente.Size = new System.Drawing.Size(105, 20);
             this.textCliente.TabIndex = 19;
@@ -203,22 +219,6 @@
             this.button1.Text = "Buscar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(10, 189);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(42, 13);
-            this.label10.TabIndex = 20;
-            this.label10.Text = "Importe";
-            // 
-            // textImporte
-            // 
-            this.textImporte.Location = new System.Drawing.Point(58, 186);
-            this.textImporte.Name = "textImporte";
-            this.textImporte.Size = new System.Drawing.Size(100, 20);
-            this.textImporte.TabIndex = 21;
             // 
             // Alta_Factura
             // 

@@ -77,7 +77,7 @@ namespace PagoAgilFrba.AbmoItem
                try 
 	            {
 
-                    SqlCommand Comando = new SqlCommand(String.Format("select item_Id,item_descripcion,item_precio,itemXFactura_cantidad from pero_compila.Item i join pero_compila.ItemXFactura ixf on(i.item_Id=ixf.itemXFactura_item) join pero_compila.Factura f on(f.factura_Id=ixf.itemXFactura_factura) where f.factura_cod_factura='{0}'", f.codFactura), Conexion);
+                    SqlCommand Comando = new SqlCommand(String.Format("select item_Id,item_descripcion,item_precio,item_cantidad from pero_compila.Item i  join pero_compila.Factura f on(f.factura_Id=i.item_factura) where f.factura_cod_factura='{0}'", f.codFactura), Conexion);
                     SqlDataReader reader = Comando.ExecuteReader();
                     while (reader.Read())
                     {
@@ -118,7 +118,7 @@ namespace PagoAgilFrba.AbmoItem
                 comando.Parameters.AddWithValue("@itemId",i.item_Id );
                 comando.Parameters.AddWithValue("@descripcion", i.descripcion);
                 comando.Parameters.AddWithValue("@precio", i.precio);
-                comando.Parameters.AddWithValue("@cantidad",i.cantidad);
+                comando.Parameters.AddWithValue("@cantidad", i.cantidad);
                 return comando.ExecuteNonQuery() > 0 ? true : false;
             }
             catch (Exception ex) { return false; }
