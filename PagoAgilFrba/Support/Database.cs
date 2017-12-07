@@ -634,7 +634,66 @@ namespace PagoAgilFrba.Support
         }
 
 
-       
+
+
+        internal static bool existeClienteAModificar(string nombre, string apellido, string dni)
+        {
+            String cliente_nombre = null;
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
+            SqlCommand existeCliente = new SqlCommand("SELECT cliente_nombre FROM [GD2C2017].[pero_compila].[Cliente] WHERE cliente_nombre = @nombre and cliente_apellido = @apellido and cliente_dni = @dni");
+            existeCliente.Parameters.AddWithValue("nombre", nombre);
+            existeCliente.Parameters.AddWithValue("apellido", apellido);
+            existeCliente.Parameters.AddWithValue("dni", dni);
+
+            existeCliente.Connection = connection;
+            connection.Open();
+            SqlDataReader reader = existeCliente.ExecuteReader();
+            while (reader.Read())
+            {
+                cliente_nombre = reader["cliente_nombre"].ToString();
+            }
+            connection.Close();
+            return cliente_nombre == null;
+        }
+
+        internal static bool existeEmpresa(string cuit, string nombre)
+        {
+            String empresa_nombre = null;
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
+            SqlCommand existeempresa = new SqlCommand("SELECT empresa_nombre FROM [GD2C2017].[pero_compila].[Empresa] WHERE empresa_cuit = @cuit and empresa_nombre = @nombre");
+            existeempresa.Parameters.AddWithValue("nombre", nombre);
+            existeempresa.Parameters.AddWithValue("cuit", cuit);
+
+            existeempresa.Connection = connection;
+            connection.Open();
+            SqlDataReader reader = existeempresa.ExecuteReader();
+            while (reader.Read())
+            {
+                empresa_nombre = reader["cliente_nombre"].ToString();
+            }
+            connection.Close();
+            return empresa_nombre == null;
+        }
+
+        internal static bool existeSucursal(string nombre, string codigoPostal)
+        {
+
+            String sucursal_nombre = null;
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
+            SqlCommand existeempresa = new SqlCommand("SELECT sucursal_nombre FROM [GD2C2017].[pero_compila].[Sucursal] WHERE sucursal_CP = @codigoPostal and sucursal_nombre = @nombre");
+            existeempresa.Parameters.AddWithValue("nombre", nombre);
+            existeempresa.Parameters.AddWithValue("codigoPostal", codigoPostal);
+
+            existeempresa.Connection = connection;
+            connection.Open();
+            SqlDataReader reader = existeempresa.ExecuteReader();
+            while (reader.Read())
+            {
+                sucursal_nombre = reader["cliente_nombre"].ToString();
+            }
+            connection.Close();
+            return sucursal_nombre == null;
+        }
     }
     }
 

@@ -63,6 +63,11 @@ namespace PagoAgilFrba.AbmEmpresa
             {
                 MessageBox.Show("Faltan completar campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }if(Database.existeEmpresa(txtCuit.Text,txtNombre.Text)){
+
+                MessageBox.Show("La empresa a modificar no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            
             }
             else{
                 var respuesta = MessageBox.Show("¿Estas seguro?","Confirme modificado",MessageBoxButtons.YesNo, MessageBoxIcon.Question);
