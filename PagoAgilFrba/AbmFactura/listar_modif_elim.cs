@@ -33,9 +33,9 @@ namespace PagoAgilFrba.AbmFactura
             //CargarComboClientes();
             CargarComboEmpresas();
 
-            //textTotal.AutoCompleteCustomSource = ItemDal.LoadAutoComplete();
-            //textTotal.AutoCompleteMode = AutoCompleteMode.Suggest;
-            //textTotal.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            textTotal.AutoCompleteCustomSource = FacturaDal.LoadAutoComplete();
+            textTotal.AutoCompleteMode = AutoCompleteMode.Suggest;
+            textTotal.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
             textCliente.AutoCompleteCustomSource = ClienteDal.LoadAutoComplete();
             textCliente.AutoCompleteMode = AutoCompleteMode.Suggest;
@@ -68,17 +68,17 @@ namespace PagoAgilFrba.AbmFactura
             {
                 fsn.codFactura = Convert.ToInt32(textNroFactura.Text);
             }
-            //if ( textTotal.Text != "")
-            //{
-            //    fsn.total = Convert.ToDecimal(textTotal.Text);
-            //}
+            if (textTotal.Text != "")
+            {
+                fsn.total = Convert.ToDecimal(textTotal.Text);
+            }
             if (textCliente.Text != "")
             {
                 fsn.cli_dni = Convert.ToDecimal(textCliente.Text);
             }
             if (comboBoxEmpresa.SelectedValue.ToString()  != "")
             {
-                fsn.empresa_id = comboBoxEmpresa.SelectedIndex;
+                fsn.empresa_id = comboBoxEmpresa.SelectedIndex+1;
             }
             fsn.fechaAlta = dateTimePicker1.Value;
             fsn.fechaVenc = dateTimePicker2.Value;

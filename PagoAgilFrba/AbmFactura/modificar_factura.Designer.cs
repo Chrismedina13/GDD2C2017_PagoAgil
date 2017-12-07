@@ -43,7 +43,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.total = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // textCliente
@@ -162,7 +167,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(373, 220);
+            this.button1.Location = new System.Drawing.Point(404, 413);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(130, 29);
             this.button1.TabIndex = 27;
@@ -172,18 +177,57 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 222);
+            this.button2.Location = new System.Drawing.Point(21, 414);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(101, 27);
             this.button2.TabIndex = 28;
             this.button2.Text = "Volver";
             this.button2.UseVisualStyleBackColor = true;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(63, 155);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(445, 184);
+            this.dataGridView1.TabIndex = 30;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(18, 155);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(32, 13);
+            this.label7.TabIndex = 29;
+            this.label7.Text = "Items";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(401, 354);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(30, 13);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "total:";
+            // 
+            // total
+            // 
+            this.total.AutoSize = true;
+            this.total.Location = new System.Drawing.Point(437, 354);
+            this.total.Name = "total";
+            this.total.Size = new System.Drawing.Size(0, 13);
+            this.total.TabIndex = 32;
+            // 
             // modificar_factura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(539, 278);
+            this.ClientSize = new System.Drawing.Size(539, 453);
+            this.Controls.Add(this.total);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textCliente);
@@ -196,6 +240,7 @@
             this.Load += new System.EventHandler(this.modificar_factura_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,5 +263,9 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label total;
     }
 }

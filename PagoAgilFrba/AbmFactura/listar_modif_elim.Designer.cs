@@ -42,12 +42,16 @@
             this.button2 = new System.Windows.Forms.Button();
             this.comboBoxEmpresa = new System.Windows.Forms.ComboBox();
             this.textCliente = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textTotal = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textTotal);
+            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.textNroFactura);
             this.groupBox1.Controls.Add(this.dateTimePicker2);
             this.groupBox1.Controls.Add(this.dateTimePicker1);
@@ -175,6 +179,22 @@
             this.textCliente.Size = new System.Drawing.Size(95, 20);
             this.textCliente.TabIndex = 21;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(15, 81);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 13);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "importe";
+            // 
+            // textTotal
+            // 
+            this.textTotal.Location = new System.Drawing.Point(62, 78);
+            this.textTotal.Name = "textTotal";
+            this.textTotal.Size = new System.Drawing.Size(79, 20);
+            this.textTotal.TabIndex = 11;
+            // 
             // listar_modif_elim
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -215,5 +235,7 @@
         private System.Windows.Forms.ComboBox comboBoxEmpresa;
         private System.Windows.Forms.TextBox textNroFactura;
         private System.Windows.Forms.TextBox textCliente;
+        private System.Windows.Forms.TextBox textTotal;
+        private System.Windows.Forms.Label label6;
     }
 }
