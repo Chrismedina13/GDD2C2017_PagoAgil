@@ -31,6 +31,7 @@ namespace PagoAgilFrba.AbmFactura
             comboBoxEmpresa.SelectedItem = f.empresa_id.ToString();
             facturaSinModif = f;
             dataGridView1.DataSource = ItemDal.BuscarItemsDeFactura(f);
+            dataGridView1.Columns[0].Visible = false;
         }
         private void CargarComboEmpresas()
         {
@@ -73,12 +74,11 @@ namespace PagoAgilFrba.AbmFactura
                     factuModif.empresa_id = comboBoxEmpresa.SelectedIndex;
                     factuModif.facturaId = facturaSinModif.facturaId;
 
-                    for (int fila = 0; fila < dataGridView1.Rows.Count - 1; fila++)
+                    for (int fila = 0; fila < dataGridView1.Rows.Count; fila++)
                     {
-                        for (int col = 0; col < dataGridView1.Rows[fila].Cells.Count; col++)
-                        {
+                       
                             Item i = new Item();
-                            string valor = dataGridView1.Rows[fila].Cells[col].Value.ToString();
+                            //string valor = dataGridView1.Rows[fila].Cells[0].Value.ToString();
                             totalPorItem = Convert.ToInt32(dataGridView1.Rows[fila].Cells["precio"].Value) * Convert.ToInt32(dataGridView1.Rows[fila].Cells["cantidad"].Value);
                             i.item_Id=Convert.ToInt32(dataGridView1.Rows[fila].Cells["item_id"].Value);
                             i.cantidad=Convert.ToInt32(dataGridView1.Rows[fila].Cells["cantidad"].Value);
@@ -86,7 +86,7 @@ namespace PagoAgilFrba.AbmFactura
                             i.precio=Convert.ToDecimal(dataGridView1.Rows[fila].Cells["precio"].Value);
                             ItemDal.update(factuModif.facturaId,i);
                             total1+= totalPorItem;
-                        }
+                        
                         total.Text=total1.ToString();
                     }
 

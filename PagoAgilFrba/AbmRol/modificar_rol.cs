@@ -17,6 +17,8 @@ namespace PagoAgilFrba.AbmRol
             InitializeComponent();
             CargarComboRoles();
             CargarComboFuncionalidades();
+
+            dataGridView1.Columns[1].Visible = false;
         }
         private void CargarComboFuncionalidades()
         {
@@ -39,17 +41,29 @@ namespace PagoAgilFrba.AbmRol
         {
             List<int> ChkedRow = new List<int>();
             Funcionalidad f = new Funcionalidad();
+            Rol r = new Rol();
            
             int i = 0;
             try
             {
-                for (i = 0; i <= dataGridView1.RowCount - 1; i++)
+                List<Funcionalidad> fs = new List<Funcionalidad>();
+                for (i = 1; i <= dataGridView1.RowCount ; i++)
                 {
+                    
                     if (f.getIdFuncionalidadesPorRol(rol).Contains(i))
                     {
-                        //lo voy seleccionando al q cumpla
-                        dataGridView1.Rows[i].Cells["seleccion"].Value = true;
+                        dataGridView1.Rows[i-1].Cells["idRolXFunc"].Value = f.getIdFuncionalidadXRol(rol,i);
+                       int idRol= r.getidRolPorNombre(rol);
+                       if (r.estaHabilitado(idRol))
+                       {
+                           checkBox1.Checked = true;
+                       }
+                       //dataGridView1.Rows[i - 1].Cells["idRolXFunc"].Value = f.getFuncionalidadesPorRol(rol).ElementAt(i).IdRolXFunc;
+                       //lo voy seleccionando al q cumpla
+                        dataGridView1.Rows[i-1].Cells["seleccion"].Value = true;
                     }
+                    
+
                 }
               
               
@@ -98,26 +112,52 @@ namespace PagoAgilFrba.AbmRol
 
              BuscarFuncionalidadesPorRol(textBox1.Text);
         }
-         private int agregarFuncionalidades(int idRol)
+         private int agregarFuncionalidades(string rol)
          {
              int i = 0;
              List<int> ChkedRow = new List<int>();
+             Funcionalidad f = new Funcionalidad();
+             Rol r = new Rol();
              try
              {
-                 for (i = 0; i <= dataGridView1.RowCount - 1; i++)
-                 {
-                     if (Convert.ToBoolean(dataGridView1.Rows[i].Cells["seleccion"].Value) == true)
+                 for (i = 1; i <= dataGridView1.RowCount ; i++)
+                 {     
+                     //si esta sin check y esta entre los idsFunc hago un delete
+                   
+                     //si esta sin checj y no esta entre los idsFunc no hago nada
+                     if (Convert.ToBoolean(dataGridView1.Rows[i-1].Cells["seleccion"].Value) == false)
                      {
-                         ChkedRow.Add(i);
+                         //si esta sin check y esta entre los idsFunc hago un delete
+
+                         //si esta sin checj y no esta entre los idsFunc no hago nada
+                         if (f.getIdFuncionalidadXRol(rol, i) != 0)
+                         {
+                             Funcionalidad.delete(r.getidRolPorNombre(rol), i, f.getIdFuncionalidadXRol(rol, i));
+                         }
+                         MessageBox.Show("Se modificó el rol " + textBox1.Text);
                      }
+                     else
+                     {
+                         //si esta con check y esta entre los idsFunc no hago nada
+                         //si esta con check y no esta entre los idsFunc hago un insert
+                         if (f.getIdFuncionalidadXRol(rol, i) == 0)
+                         {
+                             Funcionalidad.insert(r.getidRolPorNombre(rol), i);
+                         }
+                         // ChkedRow.Add(i);
+
+                     }
+           
                  }
                  if (ChkedRow.Count == 0) { return 0; }
-                 foreach (int k in ChkedRow)
-                 {
-                     Funcionalidad.update(idRol, Int32.Parse(dataGridView1.Rows[k].Cells[1].Value.ToString()));
-                 }
-                 MessageBox.Show("Rol y funcionalidades registrados Correctamente!");
-                 Alta_Rol_Funcionalidad af = new Alta_Rol_Funcionalidad();
+                 //foreach (int k in ChkedRow)
+                 //{
+                 //    int idFunc=Int32.Parse(dataGridView1.Rows[k].Cells[1].Value.ToString());
+                 //    int idFuncXRol=Int32.Parse(dataGridView1.Rows[k].Cells[2].Value.ToString());
+                 //    Funcionalidad.update(idRol, idFunc,idFuncXRol);
+                 //}
+                 MessageBox.Show("Rol y funcionalidades actualizados Correctamente!");
+                 modificar_rol af = new modificar_rol();
                  af.Close();
              }
              catch (Exception e) { return 0; }
@@ -135,7 +175,8 @@ namespace PagoAgilFrba.AbmRol
                      rol.Nombre = textBox1.Text;
                      if (RolDAL.ModificarRol(roldal.RolId(textBox1.Text), rol.Nombre,Convert.ToInt32(checkBox1.Checked)))
                      {
-                         int resultado = agregarFuncionalidades(roldal.RolId(textBox1.Text));
+                     
+                         int resultado = agregarFuncionalidades(textBox1.Text);
                      }
                  
              }

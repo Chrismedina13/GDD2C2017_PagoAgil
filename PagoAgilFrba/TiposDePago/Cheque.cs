@@ -23,7 +23,7 @@ namespace PagoAgilFrba.TiposDePago
 
            command.Parameters.AddWithValue("@nroCheque", cheque.nroCheque);
            command.Parameters.AddWithValue("@dniTitular", cheque.dniTitular);
-           command.Parameters.AddWithValue("@destino", cheque.destino);
+           command.Parameters.AddWithValue("@destino", "");
            command.Parameters.AddWithValue("@monto", cheque.monto);
 
 

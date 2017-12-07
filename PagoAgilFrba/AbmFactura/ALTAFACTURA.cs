@@ -137,18 +137,7 @@ namespace PagoAgilFrba.AbmFactura
                 {
                     factura.fechaVenc = dateTimePicker2.Value;
                 }
-                for (int fila = 0; fila < dataGridView1.Rows.Count - 1; fila++)
-                {
-                    for (int col = 0; col < dataGridView1.Rows[fila].Cells.Count; col++)
-                    {
-                        string valor = dataGridView1.Rows[fila].Cells[col].Value.ToString();
-                        dataGridView1.Rows[fila].Cells["Total"].Value = Convert.ToInt32(dataGridView1.Rows[fila].Cells["Precio"].Value) * Convert.ToInt32(dataGridView1.Rows[fila].Cells["Cantidad"].Value);
-                        //falta ver como obtener el id de la factura porque todavia esa fact no se creo..
-                        //ItemDal.registrar(dataGridView1.Rows[fila].Cells["Nombre"].Value.ToString(), Convert.ToDecimal(dataGridView1.Rows[fila].Cells["Precio"].Value), Convert.ToInt32(dataGridView1.Rows[fila].Cells["Cantidad"].Value), );                  
-                        //MessageBox.Show(valor);
-                    }
-                    totalSumaItems += Convert.ToInt32(dataGridView1.Rows[fila].Cells["Total"].Value);
-                }
+                
 
                 totalItems.Text = totalSumaItems.ToString();
                 factura.total = Convert.ToDecimal(totalItems.Text);
@@ -177,8 +166,21 @@ namespace PagoAgilFrba.AbmFactura
                             }
                             else
                             {
-                                if (FacturaDal.registrar(factura.cli_dni, factura.cli_mail, factura.empresa_id, factura.codFactura, factura.fechaAlta, factura.fechaVenc, factura.total))
+                                int idFactura=FacturaDal.registrar(factura.cli_dni, factura.cli_mail, factura.empresa_id, factura.codFactura, factura.fechaAlta, factura.fechaVenc, factura.total);
+                                if (idFactura>0)
                                 {
+                                    for (int fila = 0; fila < dataGridView1.Rows.Count - 1; fila++)
+                                    {
+                                        //for (int col = 0; col < dataGridView1.Rows[fila].Cells.Count; col++)
+                                        //{
+                                            string valor = dataGridView1.Rows[fila].Cells[0].Value.ToString();
+                                            dataGridView1.Rows[fila].Cells["Total"].Value = Convert.ToInt32(dataGridView1.Rows[fila].Cells["Precio"].Value) * Convert.ToInt32(dataGridView1.Rows[fila].Cells["Cantidad"].Value);
+                                            //falta ver como obtener el id de la factura porque todavia esa fact no se creo..
+                                            ItemDal.registrar(dataGridView1.Rows[fila].Cells["Nombre"].Value.ToString(), Convert.ToDecimal(dataGridView1.Rows[fila].Cells["Precio"].Value), Convert.ToInt32(dataGridView1.Rows[fila].Cells["Cantidad"].Value),idFactura );                  
+                                            //MessageBox.Show(valor);
+                                        //}
+                                        totalSumaItems += Convert.ToInt32(dataGridView1.Rows[fila].Cells["Total"].Value);
+                                    }
                                     MessageBox.Show("Factura registrada Correctamente!");
                                 }
                                 else

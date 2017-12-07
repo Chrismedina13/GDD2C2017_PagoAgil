@@ -8,7 +8,7 @@ namespace PagoAgilFrba.AbmFactura
 {
     public class FacturaDal
     {
-        public static bool registrar(
+        public static int registrar(
             Decimal factura_cliente_dni,
             string factura_cliente_mail,
             int factura_empresa,
@@ -30,9 +30,20 @@ namespace PagoAgilFrba.AbmFactura
             command.Parameters.AddWithValue("@fecha_alta", factura_fecha_inicio);
             command.Parameters.AddWithValue("@fecha_vencimiento", factura_fecha_fin);
 
-            return command.ExecuteNonQuery()> 0 ? true : false;
+            int id = Convert.ToInt32(command.ExecuteScalar());
+            if (id > 0)
+            {
+                //comando.CommandText = "Select Max(rol_Id) from [pero_compila].[Rol]";
+                //id= Convert.ToInt32(comando.ExecuteScalar());
+                //Conexion.Close();
+                return id;
             }
-            catch (Exception e){return false;} 
+            else
+            {
+                
+                return id;
+            }
+            }            catch (Exception e){return 0;} 
         }
 
         public static bool registrarPago(

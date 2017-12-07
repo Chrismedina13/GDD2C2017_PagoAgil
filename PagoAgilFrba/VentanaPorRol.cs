@@ -27,7 +27,8 @@ namespace PagoAgilFrba
 
         }
         private void CargarComboRol()
-        {
+                
+            {
             //Vaciar comboBox
             comboBox1.DataSource = null;
             Rol rol = new Rol();

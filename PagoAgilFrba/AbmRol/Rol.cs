@@ -143,5 +143,31 @@ namespace PagoAgilFrba.AbmRol
                 return 0;
             }
         }
+
+        internal bool estaHabilitado(int idRol)
+        {
+            try
+            {
+
+                SqlConnection Conexion = BDComun.ObtenerConexion();
+                SqlCommand Comando = new SqlCommand(String.Format("SELECT rol_estado from pero_compila.Rol where rol_id='{0}'", idRol), Conexion);
+                //comando.Parameters.AddWithValue("@rol_funcionalidades", Func);
+                SqlDataReader reader = Comando.ExecuteReader();
+                bool estado=false;
+                while (reader.Read())
+                {
+                    estado = reader.GetBoolean(0);
+
+
+                }
+                Conexion.Close();
+                return estado;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+                
+        }
     }
 }
