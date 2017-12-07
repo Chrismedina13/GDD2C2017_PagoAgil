@@ -79,9 +79,9 @@ namespace PagoAgilFrba.Support
             deleteClienteCommand.Connection = connection;
             connection.Open();
 
-            int FilasAfectadasAutos = deleteClienteCommand.ExecuteNonQuery();
+            int FilasAfectadas = deleteClienteCommand.ExecuteNonQuery();
 
-            if (FilasAfectadasAutos > 0) MessageBox.Show("El cliente ha sido dado de baja exitosamente", "Estado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (FilasAfectadas > 0) MessageBox.Show("El cliente ha sido dado de baja exitosamente", "Estado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else MessageBox.Show("El registro que quiso eliminar no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         }
@@ -296,9 +296,9 @@ namespace PagoAgilFrba.Support
             deleteEmpresaCommand.Parameters.AddWithValue("cuit", cuit);
             deleteEmpresaCommand.Connection = connection;
             connection.Open();
-            int FilasAfectadasAutos = deleteEmpresaCommand.ExecuteNonQuery();
+            int FilasAfectadas = deleteEmpresaCommand.ExecuteNonQuery();
 
-            if (FilasAfectadasAutos > 0)
+            if (FilasAfectadas > 0)
             {
                 MessageBox.Show("La empresa ha sido dado de baja exitosamente", "La base de datos ha sido modificada", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -366,9 +366,9 @@ namespace PagoAgilFrba.Support
             deleteSucursalCommand.Parameters.AddWithValue("codigoPostal", codigoPostal);
             deleteSucursalCommand.Connection = connection;
             connection.Open();
-            int FilasAfectadasAutos = deleteSucursalCommand.ExecuteNonQuery();
+            int FilasAfectadas = deleteSucursalCommand.ExecuteNonQuery();
 
-            if (FilasAfectadasAutos > 0)
+            if (FilasAfectadas > 0)
             {
                 MessageBox.Show("La sucursal ha sido dado de baja exitosamente", "La base de datos ha sido modificada", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

@@ -123,9 +123,9 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(12, 220);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(202, 16);
+            this.label5.Size = new System.Drawing.Size(234, 16);
             this.label5.TabIndex = 11;
-            this.label5.Text = "Registros de autos actuales";
+            this.label5.Text = "Registros de Empresas actuales";
             // 
             // cmbRubro
             // 

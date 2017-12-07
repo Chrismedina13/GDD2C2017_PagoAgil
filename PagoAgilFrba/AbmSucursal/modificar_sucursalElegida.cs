@@ -36,6 +36,11 @@ namespace PagoAgilFrba.AbmSucursal
                 MessageBox.Show("Ingrese 1 o 0 para la habilitación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (Database.CPExistente(textCodigoPostal.Text))
+            {
+                MessageBox.Show("El Codigo Postal ingresada ya esta en uso.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             String[] datosSucursalElegido = new String[4];
             datosSucursalElegido = Database.getDatosSucursal(nombreViejo, codigoPostalViejo, direccionViejo);
