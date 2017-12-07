@@ -33,7 +33,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.comboBoxCliente = new System.Windows.Forms.ComboBox();
             this.comboBoxEmpresa = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -48,6 +47,7 @@
             this.guardar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.textCliente = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,15 +96,6 @@
             this.label6.TabIndex = 5;
             this.label6.Text = "Items";
             this.label6.Click += new System.EventHandler(this.label6_Click);
-            // 
-            // comboBoxCliente
-            // 
-            this.comboBoxCliente.FormattingEnabled = true;
-            this.comboBoxCliente.Location = new System.Drawing.Point(67, 34);
-            this.comboBoxCliente.Name = "comboBoxCliente";
-            this.comboBoxCliente.Size = new System.Drawing.Size(209, 21);
-            this.comboBoxCliente.TabIndex = 7;
-            this.comboBoxCliente.SelectedIndexChanged += new System.EventHandler(this.comboBoxCliente_SelectedIndexChanged);
             // 
             // comboBoxEmpresa
             // 
@@ -215,15 +206,23 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(22, 34);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(39, 13);
+            this.label1.Size = new System.Drawing.Size(61, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Cliente";
+            this.label1.Text = "DNI Cliente";
+            // 
+            // textCliente
+            // 
+            this.textCliente.Location = new System.Drawing.Point(92, 31);
+            this.textCliente.Name = "textCliente";
+            this.textCliente.Size = new System.Drawing.Size(105, 20);
+            this.textCliente.TabIndex = 20;
             // 
             // ALTAFACTURA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(556, 457);
+            this.Controls.Add(this.textCliente);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.guardar);
@@ -234,7 +233,6 @@
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.comboBoxEmpresa);
-            this.Controls.Add(this.comboBoxCliente);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -256,7 +254,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBoxCliente;
         private System.Windows.Forms.ComboBox comboBoxEmpresa;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
@@ -271,5 +268,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Total;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textCliente;
     }
 }
