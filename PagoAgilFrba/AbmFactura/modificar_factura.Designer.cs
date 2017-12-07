@@ -53,7 +53,7 @@
             // 
             // textCliente
             // 
-            this.textCliente.Location = new System.Drawing.Point(392, 67);
+            this.textCliente.Location = new System.Drawing.Point(430, 65);
             this.textCliente.Name = "textCliente";
             this.textCliente.Size = new System.Drawing.Size(95, 20);
             this.textCliente.TabIndex = 26;
@@ -161,9 +161,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(350, 68);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 13);
+            this.label2.Size = new System.Drawing.Size(61, 13);
             this.label2.TabIndex = 22;
-            this.label2.Text = "Cliente";
+            this.label2.Text = "DNI Cliente";
             // 
             // button1
             // 

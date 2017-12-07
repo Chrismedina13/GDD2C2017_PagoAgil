@@ -30,7 +30,6 @@
         {
             this.txtCodVerif = new System.Windows.Forms.TextBox();
             this.tctNroTarjeta = new System.Windows.Forms.TextBox();
-            this.tctTitular = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -39,6 +38,7 @@
             this.lblMonto = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtCodVerif
@@ -54,13 +54,6 @@
             this.tctNroTarjeta.Name = "tctNroTarjeta";
             this.tctNroTarjeta.Size = new System.Drawing.Size(173, 20);
             this.tctNroTarjeta.TabIndex = 20;
-            // 
-            // tctTitular
-            // 
-            this.tctTitular.Location = new System.Drawing.Point(111, 19);
-            this.tctTitular.Name = "tctTitular";
-            this.tctTitular.Size = new System.Drawing.Size(100, 20);
-            this.tctTitular.TabIndex = 19;
             // 
             // button1
             // 
@@ -132,17 +125,25 @@
             this.label5.TabIndex = 23;
             this.label5.Text = "Fecha de Vencimiento de la Tarjeta";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(93, 22);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(0, 13);
+            this.label6.TabIndex = 25;
+            // 
             // PagoConDebito
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(369, 218);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lblMonto);
             this.Controls.Add(this.txtCodVerif);
             this.Controls.Add(this.tctNroTarjeta);
-            this.Controls.Add(this.tctTitular);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -160,7 +161,6 @@
 
         private System.Windows.Forms.TextBox txtCodVerif;
         private System.Windows.Forms.TextBox tctNroTarjeta;
-        private System.Windows.Forms.TextBox tctTitular;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
@@ -169,6 +169,7 @@
         private System.Windows.Forms.Label lblMonto;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
 
     }
 }

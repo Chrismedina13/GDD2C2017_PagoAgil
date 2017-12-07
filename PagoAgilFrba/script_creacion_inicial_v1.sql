@@ -39,8 +39,6 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.FacturasXPago'))
     DROP TABLE pero_compila.FacturasXPago
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.ItemXFactura'))
-    DROP TABLE pero_compila.ItemXFactura
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pero_compila.Item'))
     DROP TABLE pero_compila.Item
@@ -270,9 +268,10 @@ rubro_descripcion nvarchar(250) not null,
 create table [pero_compila].Item (
 item_Id int primary key identity,
 item_descripcion nvarchar(250),
+item_cantidad int ,
+item_factura int not null references [pero_compila].Factura,
 item_precio numeric(18,2)
 )
-
 
 create table [pero_compila].Cliente (
 cliente_nombre nvarchar(255),
@@ -364,12 +363,7 @@ facturasXPago_pago int not null references [pero_compila].PagoFactura,
 facturasXPago_factura int not null references [pero_compila].Factura
 )
 
-create table [pero_compila].ItemXFactura(
-itemXFactura_Id int primary key identity,
-itemXFactura_item int not null references [pero_compila].Item,
-itemXFactura_factura int not null references [pero_compila].Factura,
-itemXFactura_cantidad int
-)
+
 
 create table [pero_compila].Devolucion(
 devolucion_Id int primary key identity,
@@ -603,7 +597,33 @@ as
 begin
 	select * from pero_compila.Factura where factura_enviadoAPago=0 and factura_estado=1
 end
+/*
+*********************modifica el total de una factura********************
+*/
+go
+create procedure [pero_compila].[sp_update_factura_total]
+(@idFactura int, @total numeric(18,2))
+as
+begin
+	update pero_compila.Factura
+	set factura_total= @total
+	where factura_Id=@idFactura
+	--select @@IDENTITY
+end
 
+
+/*
+*********************elimina una factura dado su id********************
+*/
+go
+create procedure [pero_compila].[sp_delete_factura]
+(@idFactura int)
+as
+begin
+	delete from pero_compila.Factura
+	where factura_Id=@idFactura
+	--select @@IDENTITY
+end
 
 /*
 *********************Alta del usuario con sucursales*********************
@@ -987,10 +1007,14 @@ from gd_esquema.Maestra m , pero_compila.Rubro r
 					
 					
 					/*Item*/
-insert into pero_compila.Item( item_precio,item_descripcion)
-select distinct ItemFactura_Monto,cast(ItemFactura_Monto as nvarchar(255))
-from gd_esquema.Maestra m
+insert into pero_compila.Item( item_precio,item_descripcion,item_cantidad,item_factura)
+select distinct ItemFactura_Monto,cast(ItemFactura_Monto as nvarchar(255)),m.ItemFactura_Cantidad,f.factura_Id
+FROM pero_compila.Factura f
+JOIN GD2C2017.gd_esquema.Maestra m
+		ON f.factura_cod_factura = m.Nro_Factura
 /*falta la descripcion*/
+
+
 
 					/*Cliente*/
 INSERT INTO [pero_compila].[Cliente]([cliente_nombre],[cliente_apellido],
@@ -1009,15 +1033,7 @@ select distinct m.[Cliente-Dni],m.[Cliente_Mail], empresa_Id, m.Nro_Factura, m.F
 from gd_esquema.Maestra m,pero_compila.Cliente c, pero_compila.Empresa e
 order by factura_fecha_vencimiento 
 
-						/*Item X Factura*/
 
-insert into pero_compila.ItemXFactura(itemXFactura_factura,itemXFactura_cantidad,itemXFactura_item)
-SELECT DISTINCT f.factura_Id,m.ItemFactura_Cantidad,i.item_Id
-FROM pero_compila.Factura f
-JOIN GD2C2017.gd_esquema.Maestra m
-		ON f.factura_cod_factura = m.Nro_Factura
-JOIN pero_compila.Item i ON (i.item_precio=m.ItemFactura_Monto)
-WHERE f.factura_Id IS NOT NULL
 
 
 

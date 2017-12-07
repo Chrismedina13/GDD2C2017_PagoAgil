@@ -17,6 +17,7 @@ namespace PagoAgilFrba.AbmFactura
     public partial class ALTAFACTURA : Form
     {
         int totalSumaItems;
+        List<Decimal> totalASumar = new List<decimal>();
         public ALTAFACTURA()
         {
             InitializeComponent();
@@ -151,8 +152,8 @@ namespace PagoAgilFrba.AbmFactura
                 }
                 
 
-                totalItems.Text = totalSumaItems.ToString();
-                factura.total = Convert.ToDecimal(totalItems.Text);
+              
+               
                 FacturaDal fdal = new FacturaDal();
                 if (textCliente.Text == "" || textBox1.Text == "" || comboBoxEmpresa.SelectedValue == "")
                 {
@@ -180,7 +181,9 @@ namespace PagoAgilFrba.AbmFactura
                             {
                                 int idFactura=FacturaDal.registrar(factura.cli_dni, factura.cli_mail, factura.empresa_id, factura.codFactura, factura.fechaAlta, factura.fechaVenc, factura.total);
                                 if (idFactura>0)
-                                {
+                                {   
+                                    factura.total = 0;
+                                    totalItems.Text = "";
                                     for (int fila = 0; fila < dataGridView1.Rows.Count - 1; fila++)
                                     {
                                         //for (int col = 0; col < dataGridView1.Rows[fila].Cells.Count; col++)
@@ -191,9 +194,25 @@ namespace PagoAgilFrba.AbmFactura
                                             ItemDal.registrar(dataGridView1.Rows[fila].Cells["Nombre"].Value.ToString(), Convert.ToDecimal(dataGridView1.Rows[fila].Cells["Precio"].Value), Convert.ToInt32(dataGridView1.Rows[fila].Cells["Cantidad"].Value),idFactura );                  
                                             //MessageBox.Show(valor);
                                         //}
-                                        totalSumaItems += Convert.ToInt32(dataGridView1.Rows[fila].Cells["Total"].Value);
+                                       totalASumar.Add( Convert.ToInt32(dataGridView1.Rows[fila].Cells["Total"].Value));
                                     }
-                                    MessageBox.Show("Factura registrada Correctamente!");
+                                    
+                                    totalItems.Text = totalASumar.Sum().ToString() ;
+                                    if (Convert.ToDecimal(totalItems.Text) < 0)
+                                    {
+                                        //Delete de factura
+                                        FacturaDal.delete(idFactura);
+                                        MessageBox.Show("Error. No se puede dar de alta a una factura con importe negativo");
+                                    }
+                                    else
+                                    {
+                                        //update de factura
+                                        FacturaDal.update(idFactura, Convert.ToDecimal(totalItems.Text));
+                                        factura.total = Convert.ToDecimal(totalASumar.Sum().ToString());
+                                        MessageBox.Show("Factura registrada Correctamente!");
+                                    }
+
+                                    
                                 }
                                 else
                                 {
