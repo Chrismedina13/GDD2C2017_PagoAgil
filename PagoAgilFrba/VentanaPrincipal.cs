@@ -15,6 +15,8 @@ using PagoAgilFrba.ListadoEstadistico;
 using PagoAgilFrba.AbmFactura;
 using PagoAgilFrba.Rendicion;
 using PagoAgilFrba.Devoluciones;
+using PagoAgilFrba.Support;
+
 namespace PagoAgilFrba
 {
     public partial class VentanaPrincipal : Form
@@ -60,6 +62,13 @@ namespace PagoAgilFrba
             {
                 MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
             }
+            int idRol = Database.IdDelRol(rol);
+            if (Database.TieneAsignadaFuncionalidad(idRol, 3))
+            {
+
+                MessageBox.Show("EL ROL QUE USTED TIENE NO PERMITE ESTA FUNCIONALIDAD");
+                return;
+            }
             else
             {
                 abm_cliente form3 = new abm_cliente();
@@ -71,6 +80,13 @@ namespace PagoAgilFrba
             if (fechaSistema == null)
             {
                 MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
+            }
+            int idRol = Database.IdDelRol(rol);
+            if (Database.TieneAsignadaFuncionalidad(idRol,4))
+            {
+
+                MessageBox.Show("EL ROL QUE USTED TIENE NO PERMITE ESTA FUNCIONALIDAD");
+                return;
             }
             else
             {
@@ -84,6 +100,13 @@ namespace PagoAgilFrba
             if (fechaSistema == null)
             {
                 MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
+            }
+            int idRol = Database.IdDelRol(rol);
+            if (Database.TieneAsignadaFuncionalidad(idRol, 5))
+            {
+
+                MessageBox.Show("EL ROL QUE USTED TIENE NO PERMITE ESTA FUNCIONALIDAD");
+                return;
             }
             else
             {
@@ -99,6 +122,13 @@ namespace PagoAgilFrba
             {
                 MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
             }
+            int idRol = Database.IdDelRol(rol);
+            if (Database.TieneAsignadaFuncionalidad(idRol, 10))
+            {
+
+                MessageBox.Show("EL ROL QUE USTED TIENE NO PERMITE ESTA FUNCIONALIDAD");
+                return;
+            }
             else
             {
                 estadistica form10 = new estadistica();
@@ -111,6 +141,13 @@ namespace PagoAgilFrba
             if (fechaSistema == null)
             {
                 MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
+            }
+            int idRol = Database.IdDelRol(rol);
+            if (Database.TieneAsignadaFuncionalidad(idRol, 7))
+            {
+
+                MessageBox.Show("EL ROL QUE USTED TIENE NO PERMITE ESTA FUNCIONALIDAD");
+                return;
             }
             else
             {
@@ -125,6 +162,13 @@ namespace PagoAgilFrba
             {
                 MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
             }
+            int idRol = Database.IdDelRol(rol);
+            if (Database.TieneAsignadaFuncionalidad(idRol, 1))
+            {
+
+                MessageBox.Show("EL ROL QUE USTED TIENE NO PERMITE ESTA FUNCIONALIDAD");
+                return;
+            }
             else
             {
                 ABM_Rol objRol = new ABM_Rol();
@@ -137,6 +181,13 @@ namespace PagoAgilFrba
             if (fechaSistema == null)
             {
                 MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
+            }
+            int idRol = Database.IdDelRol(rol);
+            if (Database.TieneAsignadaFuncionalidad(idRol, 6))
+            {
+
+                MessageBox.Show("EL ROL QUE USTED TIENE NO PERMITE ESTA FUNCIONALIDAD");
+                return;
             }
             else
             {
@@ -151,6 +202,14 @@ namespace PagoAgilFrba
             {
                 MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
             }
+
+            int idRol = Database.IdDelRol(rol);
+            if (Database.TieneAsignadaFuncionalidad(idRol, 8))
+             {
+
+                    MessageBox.Show("EL ROL QUE USTED TIENE NO PERMITE ESTA FUNCIONALIDAD");
+                    return;
+            }
             else
             {
                 RendirFactura frend = new RendirFactura(user);
@@ -163,6 +222,13 @@ namespace PagoAgilFrba
             if (fechaSistema == null)
             {
                 MessageBox.Show("Error. Debe elegir una fecha para que inicie el sistema.");
+            }
+            int idRol = Database.IdDelRol(rol);
+
+            if(Database.TieneAsignadaFuncionalidad(idRol,9)){
+
+                MessageBox.Show("EL ROL QUE USTED TIENE NO PERMITE ESTA FUNCIONALIDAD");
+                return;
             }
             else
             {
