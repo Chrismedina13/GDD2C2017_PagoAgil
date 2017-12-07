@@ -58,17 +58,24 @@ namespace PagoAgilFrba
 
         private void button1_Click(object sender, EventArgs e)
         {
-                    if (rolUser == "Administrativo")
+            if (rolUser == "Administrativo")
             {
                 VentanaPrincipal nuevaVentanta = new VentanaPrincipal(nombreUser,rolUser);
                 nuevaVentanta.ShowDialog();
                 this.Hide();
             }
-            else
+            else if (rolUser == "Cobrador")
             {
-                VentanaCobrador vcob = new VentanaCobrador(nombreUser,rolUser);
+                VentanaCobrador vcob = new VentanaCobrador(nombreUser, rolUser);
                 vcob.Show();
                 this.Hide();
+            }
+            else {
+
+                VentanaPrincipal nuevaVentanta = new VentanaPrincipal(nombreUser, rolUser);
+                nuevaVentanta.ShowDialog();
+                this.Hide();
+            
             }
         }
 

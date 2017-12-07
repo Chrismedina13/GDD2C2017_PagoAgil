@@ -694,8 +694,53 @@ namespace PagoAgilFrba.Support
             connection.Close();
             return sucursal_nombre == null;
         }
+
+        internal static int IdDelRol(string rol)
+        {
+            Int32 Id;
+
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
+            SqlCommand getIDRol = new SqlCommand("Select rol_Id  From [GD2C2017].[pero_compila].[Rol] Where rol_nombre = @rol");
+            getIDRol.Parameters.AddWithValue("rol", rol);
+
+            getIDRol.Connection = connection;
+            connection.Open();
+            SqlDataReader reader = getIDRol.ExecuteReader();
+
+            reader.Read();
+
+            Id = reader.GetInt32(0);
+
+
+            reader.Close();
+            connection.Close();
+
+            return Id;
+           
+        }
+
+        internal static bool TieneAsignadaFuncionalidad(int idRol, int p)
+        {
+
+            string sucursfuncionalidadXRol_Id = null;
+            SqlConnection connection = new SqlConnection(@"Data source=.\SQLSERVER2012; Initial Catalog=GD2C2017; User id=gd; Password= gd2017");
+            SqlCommand tieneFuncionalidadAsignada = new SqlCommand("SELECT funcionalidadXRol_Id FROM [GD2C2017].[pero_compila].[FuncionalidadXRol] WHERE funcionalidadXRol_rol = @idRol and funcionalidadXRol_funcionalidad = @p");
+            tieneFuncionalidadAsignada.Parameters.AddWithValue("idRol", idRol);
+            tieneFuncionalidadAsignada.Parameters.AddWithValue("p", p);
+
+            tieneFuncionalidadAsignada.Connection = connection;
+            connection.Open();
+            SqlDataReader reader = tieneFuncionalidadAsignada.ExecuteReader();
+            while (reader.Read())
+            {
+                sucursfuncionalidadXRol_Id = reader["funcionalidadXRol_Id"].ToString();
+            }
+            connection.Close();
+            return sucursfuncionalidadXRol_Id == null;
+
+        }
     }
-    }
+}
 
 
 
